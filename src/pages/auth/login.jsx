@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 
 // Components
-import { EyeIcon, EyeSlashIcon } from "../../components/icons";
+import {
+    EyeIcon,
+    EyeSlashIcon,
+    GithubIcon,
+    GoogleIcon,
+    LinkedinIcon,
+    MicrosoftIcon,
+} from "../../components/icons";
 
 // Hooks
 import { useValidateform } from "../../hooks/useValidateForm";
@@ -38,11 +45,14 @@ export default function Login() {
                         </h1>
                         <p>Crea una cuenta para poder iniciar sesión</p>
                     </div>
-                    <Link to="/register" className="btn btn-primary btn-sm px-8">
+                    <Link
+                        to="/register"
+                        className="btn btn-primary btn-sm px-8"
+                    >
                         Registrarse
                     </Link>
                 </div>
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
                     <form onSubmit={handleFormSubmit} className="card-body">
                         <div className="text-center">
                             <Link
@@ -117,6 +127,22 @@ export default function Login() {
                                 Iniciar sesión
                             </button>
                         </div>
+
+                        <div className="divider">O continua con</div>
+                        <Link
+                            to={`${import.meta.env.VITE_API_URL}/auth/google`}
+                            className="btn btn-sm w-full"
+                        >
+                            <GoogleIcon />
+                            Continua con Google
+                        </Link>
+                        <Link
+                            to={`${import.meta.env.VITE_API_URL}/auth/github`}
+                            className="btn btn-sm btn-neutral w-full"
+                        >
+                            <GithubIcon />
+                            Continua con Github
+                        </Link>
                     </form>
                 </div>
             </div>

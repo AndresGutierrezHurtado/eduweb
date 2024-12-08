@@ -1,12 +1,14 @@
 import express from "express";
 import cors from "cors";
 import session from "express-session";
+import passport from "passport";
 import sequelizeStore from "connect-session-sequelize";
 import sequelize from "./config/database.js";
 import * as models from "./models/index.js";
 
 // routes
 import userRoutes from "./routes/user.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const SequelizeStore = new sequelizeStore(session.Store);
 
@@ -40,6 +42,8 @@ app.use(
         },
     })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(async (req, res, next) => {
     if (req.session.user_id) {
         req.session.user = await models.User.findByPk(req.session.user_id, {
@@ -51,5 +55,6 @@ app.use(async (req, res, next) => {
 });
 
 app.use("/", userRoutes);
+app.use("/", authRoutes);
 
 app.listen(process.env.PORT, () => console.log("Server is running"));
