@@ -1,4 +1,5 @@
 import * as models from "../models/index.js";
+import bcrypt from "bcrypt";
 
 export default class UserController {
     static async createUser(req, res) {

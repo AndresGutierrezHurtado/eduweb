@@ -5,7 +5,8 @@ const User = sequelize.define(
     "users",
     {
         user_id: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         user_name: {
@@ -27,6 +28,7 @@ const User = sequelize.define(
         },
         role_id: {
             type: DataTypes.INTEGER,
+            defaultValue: 1,
             allowNull: false,
         },
     },
@@ -40,11 +42,12 @@ const Recovery = sequelize.define(
     "recoveries",
     {
         recovery_id: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         user_id: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.UUID,
             allowNull: false,
         },
         recovery_date: {
@@ -63,7 +66,8 @@ const Session = sequelize.define(
     "sessions",
     {
         sid: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         expires: {
@@ -110,7 +114,8 @@ const Course = sequelize.define(
     "courses",
     {
         course_id: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         course_name: {
@@ -125,7 +130,7 @@ const Course = sequelize.define(
             type: DataTypes.TEXT,
         },
         user_id: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.UUID,
             allowNull: false,
         },
     },
@@ -148,7 +153,7 @@ const Block = sequelize.define(
             allowNull: false,
         },
         course_id: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.UUID,
             allowNull: false,
         },
         block_info: {

@@ -30,7 +30,7 @@ CREATE TABLE `users` (
     `user_lastname` VARCHAR(100) NOT NULL,
     `user_email` VARCHAR(255) NOT NULL UNIQUE,
     `user_password` TEXT NOT NULL,
-    `role_id` INT NOT NULL
+    `role_id` INT NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ------------------------------------------------------------------
