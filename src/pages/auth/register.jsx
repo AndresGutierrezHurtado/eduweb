@@ -28,7 +28,7 @@ export default function Register() {
     };
 
     return (
-        <div className="hero bg-base-200 min-h-screen bg-[url('https://static.platzi.com/media/blog/semana29-blog_marketing-gastronomico-cover-5f658307-8440-4334-9823-03e9d27dc28b.png')]">
+        <div className="hero bg-base-200 min-h-screen bg-[url('/background.jpg')]">
             <div className="hero-overlay bg-opacity-60 backdrop-blur-sm bg-black/70"></div>
             <div className="hero-content flex-col lg:flex-row gap-10">
                 <div className="text-center lg:text-right space-y-4 text-white">

@@ -30,7 +30,7 @@ export default function Reset() {
     };
 
     return (
-        <div className="hero bg-base-200 min-h-screen bg-[url('https://static.platzi.com/media/blog/semana29-blog_marketing-gastronomico-cover-5f658307-8440-4334-9823-03e9d27dc28b.png')]">
+        <div className="hero bg-base-200 min-h-screen bg-[url('/background.jpg')]">
             <div className="hero-overlay bg-opacity-60 backdrop-blur-sm bg-black/70"></div>
             <div className="hero-content flex-col lg:flex-row-reverse gap-10 w-full max-w-lg">
                 <div className="card bg-base-100 shrink-0 shadow-2xl">

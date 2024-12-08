@@ -5,7 +5,13 @@ import { Link } from "react-router";
 import { useAuthContext } from "../contexts/authContext";
 
 // Components
-import { TrashIcon } from "../components/icons";
+import {
+    LoginIcon,
+    LogoutIcon,
+    TrashIcon,
+    UserIcon,
+    UserPlusIcon,
+} from "../components/icons";
 
 export default function Header() {
     const { userSession, handleLogout } = useAuthContext();
@@ -71,17 +77,17 @@ export default function Header() {
                             {userSession ? (
                                 <>
                                     <li>
-                                        <a className="justify-between">
+                                        <Link to="/profile">
+                                            <UserIcon />
                                             Perfil
-                                            <span className="badge">Nuevo</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
                                         <a
                                             onClick={handleLogout}
                                             className="text-red-500 font-semibold"
                                         >
-                                            <TrashIcon />
+                                            <LogoutIcon />
                                             Cerrar sesión
                                         </a>
                                     </li>
@@ -89,10 +95,16 @@ export default function Header() {
                             ) : (
                                 <>
                                     <li>
-                                        <Link to="/login">Iniciar sesión</Link>
+                                        <Link to="/login">
+                                            <LoginIcon />
+                                            Iniciar sesión
+                                        </Link>
                                     </li>
                                     <li>
-                                        <Link to="/register">Registrarse</Link>
+                                        <Link to="/register">
+                                            <UserPlusIcon />
+                                            Registrarse
+                                        </Link>
                                     </li>
                                 </>
                             )}
