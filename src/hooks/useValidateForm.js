@@ -73,6 +73,35 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
                     ),
                 });
                 break;
+            case "recovery-form":
+                schema = object({
+                    user_email: pipe(
+                        nonEmpty("Debes ingresar un email"),
+                        string("El email debe ser una cadena de texto"),
+                        email("El email no es valido")
+                    ),
+                });
+                break;
+            case "reset-password-form":
+                schema = object({
+                    user_password: pipe(
+                        nonEmpty("Debes ingresar una contraseña"),
+                        string("La contraseña debe ser una cadena de texto"),
+                        minLength(
+                            6,
+                            "La contraseña debe tener al menos 6 caracteres"
+                        )
+                    ),
+                    user_password_confirm: pipe(
+                        nonEmpty("Debes confirmar la contraseña"),
+                        string("La contraseña debe ser una cadena de texto"),
+                        minLength(
+                            6,
+                            "La contraseña debe tener al menos 6 caracteres"
+                        )
+                    ),
+                });
+                break;
             default:
                 return {
                     success: false,
@@ -99,20 +128,18 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
         const finalData = parse(schema, data);
         if (
             form === "reset-password-form" &&
-            data.usuario_contra !== data.usuario_contra_confirm
+            data.user_password !== data.user_password_confirm
         ) {
-            if (data.usuario_contra !== data.usuario_contra_confirm) {
-                throw new ValiError([
-                    {
-                        path: [{ key: "usuario_contra" }],
-                        message: "Las contraseñas no coinciden",
-                    },
-                    {
-                        path: [{ key: "usuario_contra_confirm" }],
-                        message: "Las contraseñas no coinciden",
-                    },
-                ]);
-            }
+            throw new ValiError([
+                {
+                    path: [{ key: "user_password" }],
+                    message: "Las contraseñas no coinciden",
+                },
+                {
+                    path: [{ key: "user_password_confirm" }],
+                    message: "Las contraseñas no coinciden",
+                },
+            ]);
         }
 
         return { success: true, message: "Formulario valido", data: finalData };

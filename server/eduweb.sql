@@ -31,7 +31,7 @@ CREATE TABLE `users` (
     `user_email` VARCHAR(255) NOT NULL UNIQUE,
     `user_password` TEXT NOT NULL,
     `role_id` INT NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------------
 --
@@ -39,7 +39,7 @@ CREATE TABLE `users` (
 CREATE TABLE `roles` (
     `role_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `role_name` VARCHAR(255) NOT NULL UNIQUE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `roles` VALUES
 (1, 'estudiante'),
@@ -55,7 +55,7 @@ CREATE TABLE `courses` (
     `course_description` TEXT,
     `course_image_url` TEXT,
     `user_id` VARCHAR(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------------
 --
@@ -65,7 +65,7 @@ CREATE TABLE `blocks` (
     `block_order` INT NOT NULL,
     `course_id` VARCHAR(60) NOT NULL,
     `block_info` TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------------
 --

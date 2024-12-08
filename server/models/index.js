@@ -172,10 +172,22 @@ Role.hasMany(User, {
     as: "users",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
-})
+});
 User.belongsTo(Role, {
     foreignKey: "role_id",
     as: "role",
+});
+
+// Relation one-to-many
+User.hasMany(Recovery, {
+    foreignKey: "user_id",
+    as: "recoveries",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+Recovery.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "user",
 });
 
 // Relation one-to-many
@@ -191,6 +203,12 @@ Course.belongsTo(User, {
 });
 
 // Relation one-to-many
+Course.hasMany(Block, {
+    foreignKey: "course_id",
+    as: "blocks",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
 Block.belongsTo(Course, {
     foreignKey: "course_id",
     as: "course",
