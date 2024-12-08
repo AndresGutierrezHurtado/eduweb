@@ -1,4 +1,3 @@
-import Swal from "sweetalert2";
 import {
     email,
     length,
@@ -37,6 +36,42 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
                 });
                 break;
             case "register-form":
+                schema = object({
+                    user_name: pipe(
+                        nonEmpty("Debes ingresar un nombre"),
+                        string("El nombre debe ser una cadena de texto"),
+                        minLength(
+                            3,
+                            "El nombre debe tener al menos 3 caracteres"
+                        )
+                    ),
+                    user_lastname: pipe(
+                        nonEmpty("Debes ingresar un apellido"),
+                        string("El apellido debe ser una cadena de texto"),
+                        minLength(
+                            3,
+                            "El apellido debe tener al menos 3 caracteres"
+                        )
+                    ),
+                    user_email: pipe(
+                        nonEmpty("Debes ingresar un email"),
+                        string("El email debe ser seleccionado"),
+                        email("El email no es valido")
+                    ),
+                    user_password: pipe(
+                        nonEmpty("Debes ingresar una contraseña"),
+                        string("La contraseña debe ser una cadena de texto"),
+                        minLength(
+                            6,
+                            "La contraseña debe tener al menos 6 caracteres"
+                        )
+                    ),
+                    role_id: pipe(
+                        nonEmpty("Debes seleccionar un rol"),
+                        string("El rol debe ser una cadena de texto"),
+                        nonEmpty("Debes seleccionar un rol")
+                    ),
+                });
                 break;
             default:
                 return {

@@ -12,13 +12,13 @@ export default class UserController {
             const user = await models.User.create(req.body.user);
 
             res.status(200).json({
-                sucess: true,
+                success: true,
                 message: "Usuario creado con exito",
                 data: user,
             });
         } catch (error) {
             res.status(500).json({
-                sucess: true,
+                success: true,
                 message: error.message,
                 data: error,
             });
@@ -32,13 +32,13 @@ export default class UserController {
             });
 
             res.status(200).json({
-                sucess: true,
+                success: true,
                 message: "Usuarios encontrados",
                 data: users,
             });
         } catch (error) {
             res.status(500).json({
-                sucess: true,
+                success: true,
                 message: error.message,
                 data: error,
             });
@@ -52,13 +52,13 @@ export default class UserController {
             });
 
             res.status(200).json({
-                sucess: true,
+                success: true,
                 message: "Usuario encontrado",
                 data: {},
             });
         } catch (error) {
             res.status(500).json({
-                sucess: true,
+                success: true,
                 message: error.message,
                 data: error,
             });
@@ -89,13 +89,13 @@ export default class UserController {
             req.session.user_id = user.user_id;
 
             res.status(200).json({
-                sucess: true,
+                success: true,
                 message: "Autenticacion exitosa",
                 data: user,
             });
         } catch (error) {
             res.status(500).json({
-                sucess: true,
+                success: true,
                 message: error.message,
                 data: error,
             });
@@ -109,15 +109,15 @@ export default class UserController {
             }
 
             res.status(200).json({
-                sucess: true,
+                success: true,
                 message: "Sesion verificada con exito",
                 data: req.session.user,
             });
         } catch (error) {
-            res.status(500).json({
-                sucess: true,
+            res.status(200).json({
+                success: true,
                 message: error.message,
-                data: error,
+                data: null,
             });
         }
     }
@@ -127,13 +127,13 @@ export default class UserController {
             req.session.destroy();
 
             res.status(200).json({
-                sucess: true,
+                success: true,
                 message: "Sesion cerrada con exito",
                 data: null,
             });
         } catch (error) {
             res.status(500).json({
-                sucess: true,
+                success: true,
                 message: error.message,
                 data: error,
             });
