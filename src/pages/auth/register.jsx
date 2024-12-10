@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Components
-import { EyeIcon, EyeSlashIcon } from "../../components/icons";
+import { EyeIcon, EyeSlashIcon, LoginIcon, UploadIcon } from "../../components/icons";
 
 // Hooks
 import { useValidateform } from "../../hooks/useValidateForm";
@@ -42,10 +42,11 @@ export default function Register() {
                         </p>
                     </div>
                     <Link to="/login" className="btn btn-primary btn-sm px-8">
+                        <LoginIcon />
                         Iniciar sesión
                     </Link>
                 </div>
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl">
                     <form onSubmit={handleFormSubmit} className="card-body">
                         <div className="text-center">
                             <Link
@@ -151,6 +152,7 @@ export default function Register() {
                         </div>
                         <div className="form-control mt-4">
                             <button className="btn btn-primary btn-sm">
+                                <UploadIcon size={20} />
                                 Registrarte
                             </button>
                         </div>

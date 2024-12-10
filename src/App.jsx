@@ -7,6 +7,8 @@ import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import Recovery from "./pages/auth/recovery";
 import Reset from "./pages/auth/reset";
+import Courses from "./pages/courses";
+import UserProfile from "./pages/profile/user";
 
 // Layouts
 import AppLayout from "./layouts/appLayout";
@@ -23,14 +25,14 @@ export default function App() {
                     {/* Rutas con autenticacion requerida */}
                     <Route element={<ProtectedRoutes mustBeAuth />}>
                         <Route element={<AppLayout />}>
-                            <Route path="/profile" element={<h2>Perfil</h2>} />
+                            <Route path="/profile" element={<UserProfile />} />
                         </Route>
                     </Route>
 
                     {/* Rutas publicas */}
                     <Route element={<AppLayout />}>
                         <Route path="/" element={<Home />} />
-                        <Route path="/courses" element={<h2>Cursos</h2>} />
+                        <Route path="/courses" element={<Courses />} />
                     </Route>
 
                     {/* Rutas sin autenticacion requerida */}

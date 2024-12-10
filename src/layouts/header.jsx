@@ -16,9 +16,18 @@ import {
 export default function Header() {
     const { userSession, handleLogout } = useAuthContext();
 
+    window.onscroll = () => {
+        const header = document.querySelector("header .navbar");
+        if (window.scrollY > 50) {
+            header.classList.add("bg-black/10", "px-3");
+        } else {
+            header.classList.remove("bg-black/10", "px-3");
+        }
+    };
+
     return (
         <header className="w-full sticky top-0 z-50 px-3 pt-2">
-            <div className="navbar backdrop-blur w-full max-w-[1200px] mx-auto rounded-full backdrop-blur px-0">
+            <div className="navbar backdrop-blur w-full max-w-[1200px] mx-auto rounded-full backdrop-blur px-0 duration-300">
                 <Link to="/" className="flex-1">
                     <figure className="size-[50px]">
                         <img
@@ -32,10 +41,10 @@ export default function Header() {
                 <div className="flex-none gap-2">
                     <ul className="menu menu-horizontal px-1 text-[18px]">
                         <li>
-                            <a>Inicio</a>
+                            <Link to="/">Inicio</Link>
                         </li>
                         <li>
-                            <a>Cursos</a>
+                            <Link to="/courses">Cursos</Link>
                         </li>
                     </ul>
                     <div className="dropdown dropdown-end">

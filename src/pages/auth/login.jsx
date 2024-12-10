@@ -6,8 +6,8 @@ import {
     EyeSlashIcon,
     GithubIcon,
     GoogleIcon,
-    LinkedinIcon,
-    MicrosoftIcon,
+    UploadIcon,
+    UserPlusIcon,
 } from "../../components/icons";
 
 // Hooks
@@ -49,6 +49,7 @@ export default function Login() {
                         to="/register"
                         className="btn btn-primary btn-sm px-8"
                     >
+                        <UserPlusIcon />
                         Registrarse
                     </Link>
                 </div>
@@ -124,6 +125,7 @@ export default function Login() {
                         </span>
                         <div className="form-control mt-2">
                             <button className="btn btn-primary btn-sm">
+                                <UploadIcon size={20} />
                                 Iniciar sesión
                             </button>
                         </div>
