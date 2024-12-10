@@ -29,6 +29,8 @@ CREATE TABLE `users` (
     `user_name` VARCHAR(100) NOT NULL,
     `user_lastname` VARCHAR(100) NOT NULL,
     `user_email` VARCHAR(255) NOT NULL UNIQUE,
+    `user_phone` DECIMAL(10, 0) DEFAULT NULL,
+    `user_address` VARCHAR(255) DEFAULT NULL,
     `user_password` TEXT NOT NULL,
     `role_id` INT NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
