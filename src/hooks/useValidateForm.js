@@ -45,7 +45,7 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
                             "El nombre debe tener al menos 3 caracteres"
                         ),
                         regex(
-                            /^[a-zA-Z ]+$/,
+                            /^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$/,
                             "El nombre debe tener solo letras y espacios"
                         )
                     ),
@@ -57,7 +57,7 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
                             "El apellido debe tener al menos 3 caracteres"
                         ),
                         regex(
-                            /^[a-zA-Z ]+$/,
+                            /^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$/,
                             "El apellido debe tener solo letras y espacios"
                         )
                     ),
@@ -107,6 +107,45 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
                             6,
                             "La contraseña debe tener al menos 6 caracteres"
                         )
+                    ),
+                });
+                break;
+            case "update-user-form":
+                schema = object({
+                    user_name: pipe(
+                        nonEmpty("Debes ingresar un nombre"),
+                        string("El nombre debe ser una cadena de texto"),
+                        minLength(
+                            3,
+                            "El nombre debe tener al menos 3 caracteres"
+                        ),
+                        regex(
+                            /^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$/,
+                            "El nombre debe tener solo letras y espacios"
+                        )
+                    ),
+                    user_lastname: pipe(
+                        nonEmpty("Debes ingresar un apellido"),
+                        string("El apellido debe ser una cadena de texto"),
+                        minLength(
+                            3,
+                            "El apellido debe tener al menos 3 caracteres"
+                        ),
+                        regex(
+                            /^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$/,
+                            "El apellido debe tener solo letras y espacios"
+                        )
+                    ),
+                    user_phone: pipe(
+                        nonEmpty("El teléfono no puede estar vacío"),
+                        string("El teléfono debe ser una cadena de texto"),
+                        regex(
+                            /^(?:\d{10}|)$/,
+                            "El teléfono debe tener exactamente 10 dígitos o estar vacío"
+                        )
+                    ),
+                    user_address: pipe(
+                        string("La direccion debe ser una cadena de texto")
                     ),
                 });
                 break;

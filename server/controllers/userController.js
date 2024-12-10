@@ -123,6 +123,10 @@ export default class UserController {
                 },
             });
 
+            if (user[0] === 0) {
+                throw new Error("Cambios no realizados");
+            }
+
             res.status(200).json({
                 success: true,
                 message: "Usuario actualizado con exito",
