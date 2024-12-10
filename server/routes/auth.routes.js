@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
+import bcrypt from "bcrypt";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import * as models from "../models/index.js";
@@ -35,7 +36,7 @@ passport.use(
                     user_name: info.given_name,
                     user_lastname: info.family_name,
                     user_email: info.email,
-                    user_password: info.sub,
+                    user_password: bcrypt.hashSync(info.sub, 10),
                 },
             });
 
@@ -62,7 +63,7 @@ passport.use(
                     user_name: info.name.split(" ")[0],
                     user_lastname: info.name.split(" ")[1],
                     user_email: info.email,
-                    user_password: info.id,
+                    user_password: bcrypt.hashSync(info.id, 10),
                 },
             });
 

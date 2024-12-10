@@ -43,6 +43,10 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
                         minLength(
                             3,
                             "El nombre debe tener al menos 3 caracteres"
+                        ),
+                        regex(
+                            /^[a-zA-Z ]+$/,
+                            "El nombre debe tener solo letras y espacios"
                         )
                     ),
                     user_lastname: pipe(
@@ -51,6 +55,10 @@ export const useValidateform = (data = {}, form = "", extra = null) => {
                         minLength(
                             3,
                             "El apellido debe tener al menos 3 caracteres"
+                        ),
+                        regex(
+                            /^[a-zA-Z ]+$/,
+                            "El apellido debe tener solo letras y espacios"
                         )
                     ),
                     user_email: pipe(
