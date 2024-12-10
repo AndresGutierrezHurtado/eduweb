@@ -148,28 +148,146 @@ const Course = sequelize.define(
     }
 );
 
-const Block = sequelize.define(
-    "blocks",
+const Lesson = sequelize.define(
+    "lessons",
     {
-        block_id: {
+        lesson_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        block_order: {
+        lesson_title: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        lesson_content: {
+            type: DataTypes.TEXT,
+        },
+        video_url: {
+            type: DataTypes.TEXT,
+        },
+        course_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        },
+    },
+    {
+        tableName: "lessons",
+        timestamps: false,
+    }
+);
+
+const Certificate = sequelize.define(
+    "certificates",
+    {
+        certificate_id: {
             type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        user_id: {
+            type: DataTypes.UUID,
             allowNull: false,
         },
         course_id: {
             type: DataTypes.UUID,
             allowNull: false,
         },
-        block_info: {
+        issue_date: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+        },
+        certificate_url: {
             type: DataTypes.TEXT,
         },
     },
     {
-        tableName: "blocks",
+        tableName: "certificates",
+        timestamps: false,
+    }
+);
+const Assessment = sequelize.define(
+    "assessments",
+    {
+        assessment_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        course_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        },
+        question: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        correct_answer: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        options: {
+            type: DataTypes.TEXT,
+        },
+    },
+    {
+        tableName: "assessments",
+        timestamps: false,
+    }
+);
+
+const Enrollment = sequelize.define(
+    "enrollments",
+    {
+        enrollment_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        user_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        },
+        course_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        },
+        enrolled_at: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+        },
+    },
+    {
+        tableName: "enrollments",
+        timestamps: false,
+    }
+);
+
+const Progress = sequelize.define(
+    "progress",
+    {
+        progress_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        user_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        },
+        course_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        },
+        lesson_id: {
+            type: DataTypes.INTEGER,
+        },
+        completed_at: {
+            type: DataTypes.DATE,
+        },
+    },
+    {
+        tableName: "progress",
         timestamps: false,
     }
 );
@@ -211,17 +329,98 @@ Course.belongsTo(User, {
 });
 
 // Relation one-to-many
-Course.hasMany(Block, {
+Course.hasMany(Lesson, {
     foreignKey: "course_id",
-    as: "blocks",
+    as: "lessons",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
-Block.belongsTo(Course, {
+Lesson.belongsTo(Course, {
     foreignKey: "course_id",
     as: "course",
+});
+
+// Relation one-to-many
+User.hasMany(Certificate, {
+    foreignKey: "user_id",
+    as: "certificates",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
+Certificate.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "user",
+});
 
-export { User, Role, Course, Block, Session, Recovery };
+// Relation one-to-many
+Course.hasMany(Assessment, {
+    foreignKey: "course_id",
+    as: "assessments",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+Assessment.belongsTo(Course, {
+    foreignKey: "course_id",
+    as: "course",
+});
+
+// Relation one-to-many
+User.hasMany(Enrollment, {
+    foreignKey: "user_id",
+    as: "enrollments",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+Enrollment.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "user",
+});
+
+// Relation one-to-many
+Course.hasMany(Enrollment, {
+    foreignKey: "course_id",
+    as: "enrollments",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+Enrollment.belongsTo(Course, {
+    foreignKey: "course_id",
+    as: "course",
+});
+
+// Relation one-to-many
+User.hasMany(Progress, {
+    foreignKey: "user_id",
+    as: "progresses",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+Progress.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "user",
+});
+
+// Relation one-to-many
+Course.hasMany(Progress, {
+    foreignKey: "course_id",
+    as: "progresses",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+Progress.belongsTo(Course, {
+    foreignKey: "course_id",
+    as: "course",
+});
+
+// Relation one-to-many
+Lesson.hasMany(Progress, {
+    foreignKey: "lesson_id",
+    as: "progresses",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+Progress.belongsTo(Lesson, {
+    foreignKey: "lesson_id",
+    as: "lesson",
+});
+export { User, Role, Course, Session, Recovery };
