@@ -14,7 +14,7 @@ import { UploadIcon } from "../../components/icons";
 
 export default function UserProfile() {
     const { id } = useParams();
-    const { userSession } = useAuthContext();
+    const { userSession, reloadUserSession } = useAuthContext();
     if (!userSession) return null;
 
     const {
@@ -29,6 +29,8 @@ export default function UserProfile() {
         const data = Object.fromEntries(new FormData(e.target));
         const validation = useValidateform(data, "update-user-form");
 
+        if (data.user_phone == "") data.user_phone = null;
+
         if (validation.success) {
             const response = await usePutData(
                 `/users/${id ? id : userSession.user_id}`,
@@ -36,6 +38,7 @@ export default function UserProfile() {
             );
 
             if (response.success) {
+                reloadUserSession();
                 reloadUser();
             }
         }
@@ -57,7 +60,7 @@ export default function UserProfile() {
                                 perfil
                             </p>
                         </div>
-                        <div className="collapse collapse-open collapse-arrow bg-base-200">
+                        <div className="collapse collapse-arrow bg-base-200">
                             <input type="checkbox" />
                             <div className="collapse-title text-xl font-medium">
                                 Hazme clic para ver/ocultar la información
@@ -137,6 +140,35 @@ export default function UserProfile() {
                                             defaultValue={user.user_address}
                                         />
                                     </div>
+                                    {userSession.role_id == 3 &&
+                                        user.user_id !==
+                                            userSession.user_id && (
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text font-semibold after:content-['*'] after:ml-1 after:text-red-500 ">
+                                                        Rol:
+                                                    </span>
+                                                </label>
+                                                <select
+                                                    className="select select-bordered select-sm focus:outline-0 focus:select-primary"
+                                                    name="role_id"
+                                                    defaultValue={user.role_id}
+                                                >
+                                                    <option disabled>
+                                                        Selecciona un rol
+                                                    </option>
+                                                    <option value="1">
+                                                        Estudiante
+                                                    </option>
+                                                    <option value="2">
+                                                        Profesor
+                                                    </option>
+                                                    <option value="3">
+                                                        Administrador
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        )}
 
                                     <div className="form-control pt-5">
                                         <button className="btn btn-sm w-full btn-primary text-white">

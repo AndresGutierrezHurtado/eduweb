@@ -56,7 +56,7 @@ export default function Header() {
                                 className="btn btn-ghost btn-circle avatar placeholder"
                             >
                                 <div className="bg-neutral text-neutral-content w-10 rounded-full">
-                                    <span className="text-xs">
+                                    <span className="text-xs uppercase">
                                         {userSession.user_name
                                             .split(" ")[0]
                                             .charAt(0) +

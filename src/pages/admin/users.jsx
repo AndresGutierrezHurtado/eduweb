@@ -64,7 +64,7 @@ export default function UsersDashboard() {
                         </label>
                     </div>
 
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto pt-8">
                         <table className="table border">
                             <thead className="bg-gray-200">
                                 <tr className="[&>*]:cursor-pointer [&>*]:table-cell [&>*]:text-start">
