@@ -8,6 +8,7 @@ import { useAuthContext } from "../contexts/authContext";
 import {
     LoginIcon,
     LogoutIcon,
+    SettingsIcon,
     TrashIcon,
     UserIcon,
     UserPlusIcon,
@@ -39,11 +40,11 @@ export default function Header() {
                     <h2 className="text-2xl font-extrabold ml-2">Eduweb</h2>
                 </Link>
                 <div className="flex-none gap-2">
-                    <ul className="menu menu-horizontal px-1 text-[18px]">
-                        <li>
+                    <ul className="flex gap-5 px-5 px-1 text-[18px]">
+                        <li className="hover:scale-[1.15] hover:text-sky-500 duration-300">
                             <Link to="/">Inicio</Link>
                         </li>
-                        <li>
+                        <li className="hover:scale-[1.15] hover:text-sky-500 duration-300">
                             <Link to="/courses">Cursos</Link>
                         </li>
                     </ul>
@@ -91,6 +92,14 @@ export default function Header() {
                                             Perfil
                                         </Link>
                                     </li>
+                                    {userSession.role_id == 3 && (
+                                        <li>
+                                            <Link to="/admin/users">
+                                                <SettingsIcon />
+                                                Administrar usuarios
+                                            </Link>
+                                        </li>
+                                    )}
                                     <li>
                                         <a
                                             onClick={handleLogout}

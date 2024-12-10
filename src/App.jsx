@@ -9,12 +9,16 @@ import Recovery from "./pages/auth/recovery";
 import Reset from "./pages/auth/reset";
 import Courses from "./pages/courses";
 import UserProfile from "./pages/profile/user";
+import UsersDashboard from "./pages/admin/users";
 
 // Layouts
 import AppLayout from "./layouts/appLayout";
+import AdminLayout from "./layouts/adminLayout";
 
 // Contexts
 import { AuthContextProvider } from "./contexts/authContext";
+
+// Middlewares
 import ProtectedRoutes from "./middlewares/protectedRoutes";
 
 export default function App() {
@@ -22,10 +26,17 @@ export default function App() {
         <BrowserRouter>
             <AuthContextProvider>
                 <Routes>
+                    {/* Rutas protegidas */}
+                    <Route element={<ProtectedRoutes mustBeAdmin />}>
+                        <Route element={<AdminLayout />}>
+                            <Route path="/admin/users" element={<UsersDashboard />} />
+                        </Route>
+                    </Route>
+
                     {/* Rutas con autenticacion requerida */}
                     <Route element={<ProtectedRoutes mustBeAuth />}>
                         <Route element={<AppLayout />}>
-                            <Route path="/profile" element={<UserProfile />} />
+                            <Route path="/profile/:id?" element={<UserProfile />} />
                         </Route>
                     </Route>
 
