@@ -5,6 +5,7 @@ import {
     passwordChangedTemplate,
     resetPasswordTemplate,
 } from "../templates/emailTemplate.js";
+import { Op } from "sequelize";
 
 export default class UserController {
     static async createUser(req, res) {
@@ -32,16 +33,53 @@ export default class UserController {
 
     static async getUsers(req, res) {
         try {
-            const users = await models.User.findAll({
+            let whereClause = {};
+            if (req.query.search) {
+                whereClause = {
+                    [Op.or]: [
+                        {
+                            user_name: {
+                                [Op.like]: `%${req.query.search}%`,
+                            },
+                        },
+                        {
+                            user_lastname: {
+                                [Op.like]: `%${req.query.search}%`,
+                            },
+                        },
+                        {
+                            user_email: {
+                                [Op.like]: `%${req.query.search}%`,
+                            },
+                        },
+                    ],
+                };
+            }
+
+            const users = await models.User.findAndCountAll({
                 include: ["role"],
+                where: whereClause,
+                order: [
+                    [
+                        req.query.sort.split(":")[0],
+                        req.query.sort.split(":")[1],
+                    ],
+                ],
+                limit: req.query.limit || 10,
+                offset: ((req.query.page || 1) - 1) * (req.query.limit || 10),
             });
 
             res.status(200).json({
                 success: true,
                 message: "Usuarios encontrados",
-                data: users,
+                data: {
+                    ...users,
+                    limit: req.query.limit || 10,
+                    page: req.query.page || 1,
+                },
             });
         } catch (error) {
+            console.log(error);
             res.status(500).json({
                 success: false,
                 message: error.message,
@@ -59,7 +97,7 @@ export default class UserController {
             res.status(200).json({
                 success: true,
                 message: "Usuario encontrado",
-                data: {},
+                data: user,
             });
         } catch (error) {
             res.status(500).json({
@@ -273,5 +311,26 @@ export default class UserController {
             });
         }
     }
-}
 
+    static async deleteUser(req, res) {
+        try {
+            await models.User.destroy({
+                where: {
+                    user_id: req.params.id,
+                },
+            });
+
+            res.status(200).json({
+                success: true,
+                message: "Usuario eliminado con exito",
+                data: null,
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message,
+                data: error,
+            });
+        }
+    }
+}

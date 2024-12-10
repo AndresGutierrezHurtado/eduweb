@@ -14,6 +14,7 @@ import { TfiMicrosoftAlt } from "react-icons/tfi";
 import { MdFileUpload } from "react-icons/md";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { HiMiniUsers } from "react-icons/hi2";
+import { IoSearch, IoPencilSharp } from "react-icons/io5";
 
 export {
     FaEye as EyeIcon,
@@ -31,4 +32,6 @@ export {
     FaGear as SettingsIcon,
     FaHome as HomeIcon,
     HiMiniUsers as UsersIcon,
+    IoSearch as SearchIcon,
+    IoPencilSharp as EditIcon,
 };

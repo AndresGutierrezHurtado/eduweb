@@ -7,6 +7,7 @@ const userRoutes = Router();
 userRoutes.get("/users", UserController.getUsers);
 userRoutes.get("/users/:id", UserController.getUser);
 userRoutes.put("/users/:id", UserController.updateUser);
+userRoutes.delete("/users/:id", UserController.deleteUser);
 
 userRoutes.post("/auth/login", UserController.authUser);
 userRoutes.post("/auth/register", UserController.createUser);
