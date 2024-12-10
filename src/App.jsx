@@ -10,6 +10,9 @@ import Reset from "./pages/auth/reset";
 import Courses from "./pages/courses";
 import UserProfile from "./pages/profile/user";
 import UsersDashboard from "./pages/admin/users";
+import Activities from "./pages/Activities";
+import Results from "./pages/Results";
+import StudentCourses from "./pages/StudentCourses";
 
 // Layouts
 import AppLayout from "./layouts/appLayout";
@@ -37,6 +40,9 @@ export default function App() {
                     <Route element={<ProtectedRoutes mustBeAuth />}>
                         <Route element={<AppLayout />}>
                             <Route path="/profile/:id?" element={<UserProfile />} />
+                            <Route path="/activities" element={<Activities />} />
+                            <Route path="/results" element={<Results />} />
+                            <Route path="/student/courses" element={<StudentCourses />} />
                         </Route>
                     </Route>
 

@@ -1,13 +1,17 @@
 import { useContext, createContext } from "react";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
+
 import { useGetData, usePostData } from "../hooks/useFetchApi.js";
 import LoadingContent from "../components/loadingContent.jsx";
-import Swal from "sweetalert2";
 
 const AuthContext = createContext();
 
 export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }) => {
+    const navigate = useNavigate();
+
     const {
         data: userSession,
         loading: loadingUserSession,
@@ -28,6 +32,7 @@ export const AuthContextProvider = ({ children }) => {
             if (result.isConfirmed) {
                 const response = await usePostData("/auth/logout");
                 if (response.success) {
+                    navigate("/");
                     reloadUserSession();
                 }
             }
