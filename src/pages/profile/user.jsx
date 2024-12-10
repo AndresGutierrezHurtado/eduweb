@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 // Contexts
 import { useAuthContext } from "../../contexts/authContext";
@@ -61,7 +61,7 @@ export default function UserProfile() {
                             </p>
                         </div>
                         <div className="collapse collapse-arrow bg-base-200">
-                            <input type="checkbox" />
+                            <input type="checkbox" defaultChecked />
                             <div className="collapse-title text-xl font-medium">
                                 Hazme clic para ver/ocultar la información
                             </div>
@@ -182,23 +182,74 @@ export default function UserProfile() {
                     </div>
                 </div>
             </section>
-            <section className="w-full px-3">
-                <div className="w-full max-w-[1200px] mx-auto py-10">
-                    <div className="space-y-6">
-                        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
-                            Certificados:
-                        </h2>
-                        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
-                            {new Array(5).fill(0).map((item, i) => (
-                                <div
-                                    key={i}
-                                    className="w-[300px] aspect-video skeleton"
-                                ></div>
-                            ))}
+            {/* Estudiante */}
+            {user.role_id == 1 && (
+                <>
+                    <section className="w-full px-3">
+                        <div className="w-full max-w-[1200px] mx-auto py-10">
+                            <div className="space-y-6">
+                                <h2 className="text-4xl font-extrabold tracking-tight text-gray-900">
+                                    Cursos:
+                                </h2>
+                                <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-10">
+                                    {new Array(5).fill(0).map((course, i) => (
+                                        <div
+                                            key={i}
+                                            className="w-full card border shadow-lg"
+                                        >
+                                            <div className="card-body p-5 space-y-2">
+                                                <h3 className="text-2xl font-extrabold">
+                                                    Nombre del curso
+                                                </h3>
+                                                <p className="text-sm text-gray-600 line-clamp-3">
+                                                    Lorem ipsum dolor sit amet
+                                                    consectetur, adipisicing
+                                                    elit. Reprehenderit ullam
+                                                    est iste repellendus dolore
+                                                    dolorem natus neque animi
+                                                    quod perferendis!
+                                                </p>
+                                                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                                    <div className="bg-blue-600 h-2.5 rounded-full w-1/2"></div>
+                                                </div>
+                                                <Link
+                                                    to="/activities"
+                                                    className="btn btn-primary btn-sm mt-2"
+                                                >
+                                                    Ver Actividades
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Link
+                                    to="/results"
+                                    className="btn btn-primary w-full text-white"
+                                >
+                                    Ver mis resultados
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </section>
+                    <section className="w-full px-3">
+                        <div className="w-full max-w-[1200px] mx-auto py-10">
+                            <div className="space-y-6">
+                                <h2 className="text-4xl font-extrabold tracking-tight text-gray-900">
+                                    Certificados:
+                                </h2>
+                                <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
+                                    {new Array(5).fill(0).map((item, i) => (
+                                        <div
+                                            key={i}
+                                            className="w-[300px] aspect-video skeleton"
+                                        ></div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </>
+            )}
         </>
     );
 }

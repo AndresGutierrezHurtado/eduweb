@@ -12,7 +12,8 @@ import UserProfile from "./pages/profile/user";
 import UsersDashboard from "./pages/admin/users";
 import Activities from "./pages/Activities";
 import Results from "./pages/Results";
-import StudentCourses from "./pages/StudentCourses";
+import Course from "./pages/course";
+import TeacherCourses from "./pages/profile/courses";
 
 // Layouts
 import AppLayout from "./layouts/appLayout";
@@ -40,9 +41,9 @@ export default function App() {
                     <Route element={<ProtectedRoutes mustBeAuth />}>
                         <Route element={<AppLayout />}>
                             <Route path="/profile/:id?" element={<UserProfile />} />
+                            <Route path="/profile/courses" element={<TeacherCourses />} />
                             <Route path="/activities" element={<Activities />} />
                             <Route path="/results" element={<Results />} />
-                            <Route path="/student/courses" element={<StudentCourses />} />
                         </Route>
                     </Route>
 
@@ -50,6 +51,7 @@ export default function App() {
                     <Route element={<AppLayout />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/courses" element={<Courses />} />
+                        <Route path="/courses/:id" element={<Course />} />
                     </Route>
 
                     {/* Rutas sin autenticacion requerida */}

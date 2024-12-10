@@ -6,6 +6,7 @@ import { useAuthContext } from "../contexts/authContext";
 
 // Components
 import {
+    ClassIcon,
     LoginIcon,
     LogoutIcon,
     SettingsIcon,
@@ -29,6 +30,7 @@ export default function Header() {
     return (
         <header className="w-full sticky top-0 z-50 px-3 pt-2">
             <div className="navbar backdrop-blur w-full max-w-[1200px] mx-auto rounded-full backdrop-blur px-0 duration-300">
+                {/* Logo */}
                 <Link to="/" className="flex-1">
                     <figure className="size-[50px]">
                         <img
@@ -39,6 +41,8 @@ export default function Header() {
                     </figure>
                     <h2 className="text-2xl font-extrabold ml-2">Eduweb</h2>
                 </Link>
+
+                {/* Menu */}
                 <div className="flex-none gap-2">
                     <ul className="flex gap-5 px-5 px-1 text-[18px]">
                         <li className="hover:scale-[1.15] hover:text-sky-500 duration-300">
@@ -47,7 +51,12 @@ export default function Header() {
                         <li className="hover:scale-[1.15] hover:text-sky-500 duration-300">
                             <Link to="/courses">Cursos</Link>
                         </li>
+                        <li className="hover:scale-[1.15] hover:text-sky-500 duration-300">
+                            <a href="/#contact">Contacto</a>
+                        </li>
                     </ul>
+
+                    {/* Submenu */}
                     <div className="dropdown dropdown-end">
                         {userSession ? (
                             <div
@@ -92,6 +101,36 @@ export default function Header() {
                                             Perfil
                                         </Link>
                                     </li>
+                                    {userSession.role_id == 2 && (
+                                        <li>
+                                            <details open>
+                                                <summary>
+                                                    <Link
+                                                        className="flex items-center gap-2"
+                                                        to="/profile/courses"
+                                                    >
+                                                        <ClassIcon />
+                                                        Mis cursos
+                                                    </Link>
+                                                </summary>
+                                                <ul>
+                                                    <li>
+                                                        <Link>
+                                                            Calificar cursos
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link>Crear curso</Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link>
+                                                            Subir lecciones
+                                                        </Link>
+                                                    </li>
+                                                </ul>
+                                            </details>
+                                        </li>
+                                    )}
                                     {userSession.role_id == 3 && (
                                         <li>
                                             <Link to="/admin/users">

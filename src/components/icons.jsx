@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { TfiMicrosoftAlt } from "react-icons/tfi";
-import { MdFileUpload } from "react-icons/md";
+import { MdFileUpload, MdOutlineClass } from "react-icons/md";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { HiMiniUsers } from "react-icons/hi2";
 import { IoSearch, IoPencilSharp } from "react-icons/io5";
@@ -34,4 +34,5 @@ export {
     HiMiniUsers as UsersIcon,
     IoSearch as SearchIcon,
     IoPencilSharp as EditIcon,
+    MdOutlineClass as ClassIcon,
 };
