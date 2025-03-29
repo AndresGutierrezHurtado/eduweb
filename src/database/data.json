@@ -1,0 +1,173 @@
+{
+    "users": [
+        {
+            "user_id": "8739ff15-ab50-40a3-93c5-70cf038fa42c",
+            "user_name": "Andrés",
+            "user_lastname": "Gutiérrez Hurtado",
+            "user_email": "andres52885241@gmail.com",
+            "user_phone": 3209202177,
+            "user_password": "$2a$10$vcxUAUF9IqVd/fM9QHy0FOpVDDZ0CM3kHmdFwmAXlQP/8TgpOR/4.",
+            "user_image": "https://avatars.githubusercontent.com/u/152313655?v=4",
+            "user_role": 3
+        },
+        {
+            "user_id": "66853387-e365-4d22-89b6-c51708efb1ad",
+            "user_name": "Juan",
+            "user_lastname": "Bernal",
+            "user_email": "andres52885241@gmail.com",
+            "user_phone": 3228361323,
+            "user_password": "$2a$10$hzNqel6gl67xgcKvksG5X..jxZyMvlv2.w8058A6jdiewM3r6gI5m",
+            "user_image": "https://avatars.githubusercontent.com/u/88812365?v=4",
+            "user_role": 2
+        },
+        {
+            "user_id": "e159d848-3457-4a87-9ece-1a225e6ee236",
+            "user_name": "Samuel",
+            "user_lastname": "Useche Chaparro",
+            "user_email": "samuuseche01@gmail.com",
+            "user_phone": 3107838443,
+            "user_password": "$2a$10$MTtEbwn0iQ0LVuviooY15.jk5xQEz782EjWIGqNKNChQjgaISlurS",
+            "user_image": "https://avatars.githubusercontent.com/u/173304719?v=4",
+            "user_role": 1
+        }
+    ],
+    "roles": [
+        {
+            "role_id": 1,
+            "role_name": "estudiante"
+        },
+        {
+            "role_id": 2,
+            "role_name": "docente"
+        },
+        {
+            "role_id": 3,
+            "role_name": "administrador"
+        }
+    ],
+    "courses": [
+        {
+            "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
+            "course_name": "Programación Web",
+            "course_description": "Curso de programación web",
+            "course_image": "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+            "teacher_id": "66853387-e365-4d22-89b6-c51708efb1ad",
+            "category_id": 1
+        }
+    ],
+    "categories": [
+        {
+            "category_id": 1,
+            "category_name": "Programación Web"
+        },
+        {
+            "category_id": 2,
+            "category_name": "Marketing"
+        },
+        {
+            "category_id": 3,
+            "category_name": "Diseño Gráfico"
+        }
+    ],
+    "blocks": [
+        {
+            "block_id": "ddf26f57-ea54-4b25-b382-36925326f00b",
+            "block_title": "Introducción",
+            "block_description": "Introducción a la programación web",
+            "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
+            "block_order": 1
+        }
+    ],
+    "lessons": [
+        {
+            "lesson_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "block_id": "ddf26f57-ea54-4b25-b382-36925326f00b",
+            "lesson_title": "Curso HTML y CSS desde cero (completo)",
+            "lesson_video": "https://www.youtube.com/watch?v=ELSm-G201Ls&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=1",
+            "lesson_description": "En este curso, aprenderás a crear p ginas web utilizando HTML y CSS. Primero, se aprender  a crear una p gina web con HTML y luego se aprender  a darle estilo con CSS. Se cubrir n los conceptos b sicos de cada tecnolog a y se ver n ejemplos pr cticos de c mo se pueden aplicar. Al final del curso, podr s crear tus propias p ginas web utilizando HTML y CSS.",
+            "lesson_order": 1
+        },
+        {
+            "lesson_id": "fc206644-f05a-4ee8-ae69-cdfa6e35b650",
+            "block_id": "ddf26f57-ea54-4b25-b382-36925326f00b",
+            "lesson_title": "Curso de JAVASCRIPT desde CERO (Completo)",
+            "lesson_video": "https://www.youtube.com/watch?v=z95mZVUcJ-E&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=2",
+            "lesson_description": "En este curso de JavaScript desde cero, aprenderás a programar en JavaScript desde los conceptos m s b sicos hasta los m s avanzados. Se ver n conceptos como variables, tipos de datos, operadores, estructuras de control, funciones, objetos, arrays, entre otros. Tambi n se ver n las diferentes formas de interactuar con el DOM y los eventos en JavaScript, as como la creaci n de aplicaciones web con JavaScript.",
+            "lesson_order": 2
+        }
+    ],
+    "exams": [
+        {
+            "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
+            "exam_title": "Examen Introducción a la programación web",
+            "exam_description": "Examen Introducción a la programación web"
+        }
+    ],
+    "questions": [
+        {
+            "question_id": "e3488447-9878-4c3b-a2f1-9ca1312d33ae",
+            "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "question_text": "¿Cuál es la diferencia entre HTML y CSS?"
+        },
+        {
+            "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
+            "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "question_text": "¿Cuál es el propósito principal de JavaScript en el desarrollo web?"
+        }
+    ],
+    "answers": [
+        {
+            "answer_id": "105f0c7f-3414-477d-b6dc-860c6778c7ac",
+            "question_id": "e3488447-9878-4c3b-a2f1-9ca1312d33ae",
+            "answer_text": "HTML es un lenguaje de marcado y CSS es un lenguaje de hojas de estilo",
+            "is_correct": true
+        },
+        {
+            "answer_id": "105f0c7f-3414-477d-b6dc-860c6778c7ad",
+            "question_id": "e3488447-9878-4c3b-a2f1-9ca1312d33ae",
+            "answer_text": "HTML es un lenguaje de hojas de estilo y CSS es un lenguaje de marcado",
+            "is_correct": false
+        },
+        {
+            "answer_id": "848f270c-3774-415f-b68a-5e7ebcee9461",
+            "question_id": "e3488447-9878-4c3b-a2f1-9ca1312d33ae",
+            "answer_text": "HTML es un lenguaje de scripting y CSS es un lenguaje de marcado",
+            "is_correct": false
+        },
+        {
+            "answer_id": "c9b7cae4-7b26-48e7-9522-adccc975b626",
+            "question_id": "e3488447-9878-4c3b-a2f1-9ca1312d33ae",
+            "answer_text": "HTML es un lenguaje de marcado y CSS es un lenguaje de scripting",
+            "is_correct": false
+        },
+        {
+            "answer_id": "acb57080-738d-427e-9f1e-fe6c467df88a",
+            "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es agregar funcionalidad dinámica a las p ginas web",
+            "is_correct": true
+        },
+        {
+            "answer_id": "d494d7e4-f5ac-4dab-9d16-bced59f13c18",
+            "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear estilos para las p ginas web",
+            "is_correct": false
+        },
+        {
+            "answer_id": "c1f2b3fb-9e4f-4c7b-8f1e-2d4f1f7d21a1",
+            "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear bases de datos para las p ginas web",
+            "is_correct": false
+        },
+        {
+            "answer_id": "0f8a1f7c-0c8f-4f19-8c8c-7e2c9a8a1dab",
+            "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear p ginas web est ticas",
+            "is_correct": false
+        }
+    ],
+    "usersExams": [],
+    "usersAnswers": [],
+    "usersCourses": [],
+    "usersLessons": []
+}
