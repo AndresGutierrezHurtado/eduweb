@@ -8,22 +8,6 @@ module.exports = {
                 defaultValue: Sequelize.UUIDV4,
                 primaryKey: true,
             },
-            user_id: {
-                type: Sequelize.UUID,
-                allowNull: false,
-            },
-            exam_id: {
-                type: Sequelize.UUID,
-                allowNull: false,
-            },
-            score: {
-                type: Sequelize.DECIMAL,
-                allowNull: false,
-            },
-            exam_date: {
-                type: Sequelize.DATE,
-                allowNull: false,
-            },
             createdAt: {
                 type: Sequelize.DATE,
                 defaultValue: Sequelize.NOW,

@@ -3,6 +3,11 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable("UserCourses", {
+            user_course_id: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true,
+            },
             user_id: {
                 type: Sequelize.UUID,
                 allowNull: false,
@@ -12,12 +17,12 @@ module.exports = {
                 allowNull: false,
             },
             course_state: {
-                type: Sequelize.ENUM("IN_PROGRESS", "LOST", "COMPLETED"),
+                type: Sequelize.ENUM("progress", "lost", "completed"),
                 allowNull: false,
             },
-            completion_date: {
+            course_completion: {
                 type: Sequelize.DATE,
-                allowNull: false,
+                allowNull: true,
             },
             createdAt: {
                 type: Sequelize.DATE,

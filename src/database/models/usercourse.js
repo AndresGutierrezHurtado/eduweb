@@ -5,6 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     class UserCourse extends Model {}
     UserCourse.init(
         {
+            user_course_id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true,
+            },
             user_id: {
                 type: DataTypes.UUID,
                 allowNull: false,
@@ -19,12 +24,13 @@ module.exports = (sequelize, DataTypes) => {
             },
             course_completion: {
                 type: DataTypes.DATE,
-                allowNull: false,
+                allowNull: true,
             },
         },
         {
             sequelize,
             modelName: "UserCourse",
+            timestamps: true,
         }
     );
     return UserCourse;

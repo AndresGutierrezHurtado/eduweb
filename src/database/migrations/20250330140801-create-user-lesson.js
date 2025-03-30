@@ -3,7 +3,7 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable("UserLessons", {
-            user_id: {
+            user_course_id: {
                 type: Sequelize.UUID,
                 allowNull: false,
             },

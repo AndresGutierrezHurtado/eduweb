@@ -3,17 +3,13 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable("UserAnswers", {
-            user_id: {
-                type: Sequelize.UUID,
-            },
             user_exam_id: {
                 type: Sequelize.UUID,
-            },
-            question_id: {
-                type: Sequelize.UUID,
+                allowNull: false,
             },
             answer_id: {
                 type: Sequelize.UUID,
+                allowNull: false,
             },
         });
     },

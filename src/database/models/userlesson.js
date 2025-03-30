@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     class UserLesson extends Model {}
     UserLesson.init(
         {
-            user_id: {
+            user_course_id: {
                 type: DataTypes.UUID,
                 allowNull: false,
             },
