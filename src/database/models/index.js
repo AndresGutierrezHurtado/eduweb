@@ -47,8 +47,8 @@ const UserExam = UserExamModel(sequelize, DataTypes);
 const UserLesson = UserLessonModel(sequelize, DataTypes);
 const UserAnswer = UserAnswerModel(sequelize, DataTypes);
 
-Role.hasMany(User, { as: "users", foreignKey: "user_role" });
-User.belongsTo(Role, { as: "role", foreignKey: "user_role" });
+Role.hasMany(User, { as: "users", foreignKey: "role_id" });
+User.belongsTo(Role, { as: "role", foreignKey: "role_id" });
 
 User.hasMany(Course, { as: "teachercourses", foreignKey: "teacher_id" });
 Course.belongsTo(User, { as: "teacher", foreignKey: "teacher_id" });

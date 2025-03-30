@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            user_role: {
+            role_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },

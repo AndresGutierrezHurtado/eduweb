@@ -6,15 +6,22 @@
         "dev": "next dev --turbopack",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "db:reset": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+        "db:migrate": "npx sequelize-cli db:migrate",
+        "db:migrate:undo": "npx sequelize-cli db:migrate:undo:all",
+        "db:seed": "npx sequelize-cli db:seed:all",
+        "db:seed:undo": "npx sequelize-cli db:seed:undo:all"
     },
     "dependencies": {
+        "@auth/sequelize-adapter": "^2.8.0",
         "bcrypt": "^5.1.1",
         "mysql2": "^3.14.0",
         "next": "15.2.4",
+        "next-auth": "4.24.11",
         "pg-hstore": "^2.3.4",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
         "sequelize": "^6.37.7"
     },
     "devDependencies": {

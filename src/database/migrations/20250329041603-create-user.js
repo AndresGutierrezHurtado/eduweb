@@ -19,10 +19,12 @@ module.exports = {
             user_email: {
                 type: Sequelize.STRING,
                 allowNull: false,
+                unique: true,
             },
             user_phone: {
                 type: Sequelize.DECIMAL,
                 allowNull: false,
+                unique: true,
             },
             user_password: {
                 type: Sequelize.STRING,
@@ -32,7 +34,7 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            user_role: {
+            role_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
