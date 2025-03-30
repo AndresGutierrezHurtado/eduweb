@@ -12,13 +12,16 @@ const UserModel = require("./user");
 const UserCourseModel = require("./usercourse");
 const UserExamModel = require("./userexam");
 const UserLessonModel = require("./userlesson");
+const UserAnswerModel = require("./useranswer");
 
-const config = require("../config.json");
+const { [process.env.NODE_ENV]: config } = require("../config.json");
 
-const sequelize = new Sequelize({
-    ...config[process.env.NODE_ENV],
-    logging: false,
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
+    dialect: config.dialect,
     dialectModule: require("mysql2"),
+    port: config.port,
+    logging: false,
 });
 
 (async () => {
@@ -42,12 +45,16 @@ const User = UserModel(sequelize, DataTypes);
 const UserCourse = UserCourseModel(sequelize, DataTypes);
 const UserExam = UserExamModel(sequelize, DataTypes);
 const UserLesson = UserLessonModel(sequelize, DataTypes);
+const UserAnswer = UserAnswerModel(sequelize, DataTypes);
 
 Role.hasMany(User, { as: "users", foreignKey: "user_role" });
 User.belongsTo(Role, { as: "role", foreignKey: "user_role" });
 
-User.hasMany(Course, { as: "courses", foreignKey: "teacher_id" });
+User.hasMany(Course, { as: "teachercourses", foreignKey: "teacher_id" });
 Course.belongsTo(User, { as: "teacher", foreignKey: "teacher_id" });
+
+Category.hasMany(Course, { as: "courses", foreignKey: "category_id" });
+Course.belongsTo(Category, { as: "category", foreignKey: "category_id" });
 
 Course.hasMany(Block, { as: "blocks", foreignKey: "course_id" });
 Block.belongsTo(Course, { as: "course", foreignKey: "course_id" });
@@ -64,14 +71,20 @@ Question.belongsTo(Exam, { as: "exam", foreignKey: "exam_id" });
 Question.hasMany(Answer, { as: "answers", foreignKey: "question_id" });
 Answer.belongsTo(Question, { as: "question", foreignKey: "question_id" });
 
-User.belongsToMany(Course, { through: UserCourse, as: "courses" });
-Course.belongsToMany(User, { through: UserCourse, as: "users" });
+User.hasMany(UserCourse, { as: "userCourses", foreignKey: "user_id" });
+UserCourse.belongsTo(User, { as: "user", foreignKey: "user_id" });
 
-User.belongsToMany(Exam, { through: UserExam, as: "exams" });
-Exam.belongsToMany(User, { through: UserExam, as: "users" });
+Course.hasMany(UserCourse, { as: "userCourse", foreignKey: "course_id" });
+UserCourse.belongsTo(Course, { as: "course", foreignKey: "course_id" });
 
-User.belongsToMany(Lesson, { through: UserLesson, as: "lessons" });
-Lesson.belongsToMany(User, { through: UserLesson, as: "users" });
+UserCourse.hasMany(UserLesson, { as: "lessonsTaken", foreignKey: "user_course_id" });
+UserLesson.belongsTo(UserCourse, { as: "userCourse", foreignKey: "user_course_id" });
+
+UserCourse.hasMany(UserExam, { as: "examsTaken", foreignKey: "user_course_id" });
+UserExam.belongsTo(UserCourse, { as: "userCourse", foreignKey: "user_course_id" });
+
+UserExam.hasMany(UserAnswer, { as: "userAnswers", foreignKey: "user_exam_id" });
+UserAnswer.belongsTo(UserExam, { as: "userExam", foreignKey: "user_exam_id" });
 
 module.exports = {
     Answer,
@@ -84,5 +97,7 @@ module.exports = {
     User,
     UserCourse,
     UserExam,
+    UserLesson,
+    UserAnswer,
     connection: sequelize,
 };

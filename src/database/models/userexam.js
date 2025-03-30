@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
                 defaultValue: DataTypes.UUIDV4,
                 primaryKey: true,
             },
+            user_course_id: {
+                type: DataTypes.UUID,
+                allowNull: false,
+            },
         },
         {
             sequelize,

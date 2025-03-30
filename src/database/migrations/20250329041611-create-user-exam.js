@@ -8,6 +8,10 @@ module.exports = {
                 defaultValue: Sequelize.UUIDV4,
                 primaryKey: true,
             },
+            user_course_id: {
+                type: Sequelize.UUID,
+                allowNull: false,
+            },
             createdAt: {
                 type: Sequelize.DATE,
                 defaultValue: Sequelize.NOW,
