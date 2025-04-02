@@ -148,33 +148,60 @@ export default async function Home() {
                             Mira lo que están haciendo nuestros estudiantes
                         </h2>
                         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-10">
-                            <div className="bg-base-content/20 p-8 rounded-lg flex flex-col gap-5">
-                                <QuotesIcon size={40} />
-                                <p className="text-sm italic">
-                                    Udemy marcó un antes y un después en mi vida
-                                    y me fue de gran ayuda a la hora de hacer
-                                    realidad la idea de Dimensional.
-                                </p>
-                                <div className="flex gap-3 ">
-                                    <div className="avatar">
-                                        <div className="w-15 aspect-square rounded-full">
-                                            <img
-                                                src="https://cms-images.udemycdn.com/96883mtakkm8/1Djz6c0gZLaCG5SQS3PgUY/54b6fb8c85d8da01da95cbb94fa6335f/Alvin_Lim.jpeg"
-                                                alt="Imagen testimonio"
-                                            />
+                            {[
+                                {
+                                    id: 1,
+                                    name: "Alvin Lim",
+                                    role: "Cofundador técnico y director de tecnología en Dimensional",
+                                    img: "https://cms-images.udemycdn.com/96883mtakkm8/1Djz6c0gZLaCG5SQS3PgUY/54b6fb8c85d8da01da95cbb94fa6335f/Alvin_Lim.jpeg",
+                                    testimonial:
+                                        "EduWeb marcó un antes y un despues en mi vida y me fue de gran ayuda a la hora de hacer realidad la idea de Dimensional.",
+                                },
+                                {
+                                    id: 2,
+                                    name: "William A. Wachlin",
+                                    role: "Gestor de cuentas de socios en Amazon Web Services",
+                                    img: "https://cms-images.udemycdn.com/96883mtakkm8/6dT7xusLHYoOUizXeVqgUk/4317f63fe25b2e07ad8c70cda641014b/William_A_Wachlin.jpeg",
+                                    testimonial:
+                                        "EduWeb te da la posibilidad de ser constante. Aprendí exactamente lo que necesitaba saber en el mundo real. Me ayudó a venderme mejor para conseguir un nuevo puesto.",
+                                },
+                                {
+                                    id: 3,
+                                    name: "Ian Stevens",
+                                    role: "Head of Capability Development, North America at Publicis Sapient",
+                                    img: "https://cms-images.udemycdn.com/96883mtakkm8/4w9dYD4F64ibQwsaAB01Z4/c4610e9b1ac65589d8b1374ad10714e2/Ian_Stevens.png",
+                                    testimonial:
+                                        "Con EduWeb, los empleados pudieron adquirir tanto conocimientos tecnológicos como capacidades sociales de consultores... para que les ayudasen a avanzar en sus carreras profesionales.",
+                                },
+                            ].map((tes) => (
+                                <div
+                                    key={tes.id}
+                                    className="bg-base-content/20 p-8 rounded-lg flex flex-col gap-5"
+                                >
+                                    <QuotesIcon size={40} />
+                                    <p className="text-sm italic grow">
+                                        {tes.testimonial}
+                                    </p>
+                                    <div className="flex gap-3 ">
+                                        <div className="avatar">
+                                            <div className="w-15 aspect-square rounded-full">
+                                                <img
+                                                    src={tes.img}
+                                                    alt="Imagen testimonio"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col gap-1 text-sm">
+                                            <p className="font-semibold">
+                                                {tes.name}
+                                            </p>
+                                            <p className="text-base-content/70">
+                                                {tes.role}
+                                            </p>
                                         </div>
                                     </div>
-                                    <div className="flex flex-col gap-1 text-sm">
-                                        <p className="font-semibold">
-                                            Alvin Lim
-                                        </p>
-                                        <p className="text-base-content/70">
-                                            Cofundador técnico y director de
-                                            tecnología en Dimensional
-                                        </p>
-                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>
