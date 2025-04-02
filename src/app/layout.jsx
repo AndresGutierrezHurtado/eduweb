@@ -2,12 +2,17 @@
 
 import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
+import { Alegreya_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 
 // Components
 import Header from "@/layouts/header.jsx";
 import Footer from "@/layouts/footer.jsx";
 
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
+const alegreya = Alegreya_Sans({ subsets: ["latin"], weight: "700" });
 
 export default function RootLayout({ children }) {
     useEffect(() => {
@@ -16,7 +21,7 @@ export default function RootLayout({ children }) {
 
     return (
         <html lang="es">
-            <body className="antialiased">
+            <body className="antialiased font-inter">
                 <SessionProvider>
                     <div id="root" className="flex flex-col min-h-screen">
                         <Header />
@@ -24,6 +29,10 @@ export default function RootLayout({ children }) {
                         <Footer />
                     </div>
                 </SessionProvider>
+                <div>
+                    <div className="bg-primary left-10 right-10 h-[600px] rounded-[50%] blur-[200px] fixed top-[-45%] transform -translate-y-1/2 z-[-2]"></div>
+                    <div className="bg-black left-[-400px] right-[-400px] h-[150px] blur-[200px] fixed bottom-[-100px] z-[-1]"></div>
+                </div>
             </body>
         </html>
     );
