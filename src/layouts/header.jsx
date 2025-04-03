@@ -9,7 +9,6 @@ export default function Header() {
     const { data, status } = useSession();
     const userSession = data?.user;
 
-    console.log(userSession);
     return (
         <header className="w-full px-3">
             <div className="w-full max-w-[1200px] mx-auto py-2">

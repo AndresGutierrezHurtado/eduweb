@@ -6,6 +6,8 @@ import {
     FaCalendar as CalendarIcon,
     FaCertificate as CertificateIcon,
     FaQuoteLeft as QuotesIcon,
+    FaCode as CodeIcon,
+    FaPaintBrush as PaintBrushIcon,
 } from "react-icons/fa";
 
 export {
@@ -16,4 +18,6 @@ export {
     CalendarIcon,
     CertificateIcon,
     QuotesIcon,
+    CodeIcon,
+    PaintBrushIcon,
 };
