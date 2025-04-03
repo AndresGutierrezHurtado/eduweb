@@ -15,10 +15,10 @@ export default async function Page({ params }) {
                                 <h2 className="text-4xl font-semibold leading-tight">
                                     {course.course_name}
                                 </h2>
-                                <p>
+                                <p className="text-sm text-base-content/80">
                                     Publicado el {new Date(course.createdAt).toDateString("es-CO")}
                                 </p>
-                                <p>{course.course_description}</p>
+                                <p className="text-base-content/80">{course.course_description}</p>
                             </article>
                             <ul className="timeline timeline-vertical">
                                 {course.blocks.map((block) => (
@@ -61,7 +61,27 @@ export default async function Page({ params }) {
                                                                 }
                                                             />
                                                             <div className="flex flex-col text-sm">
-                                                                {lesson.lesson_title}
+                                                                <p className="grow">
+                                                                    {lesson.lesson_title}
+                                                                </p>
+                                                                <p className="text-base-content/70">
+                                                                    {parseInt(
+                                                                        lesson.lesson_duration.split(
+                                                                            ":"
+                                                                        )[0]
+                                                                    ) > 0 && (
+                                                                        <span className="mr-2">
+                                                                            {lesson.lesson_duration.split(
+                                                                                ":"
+                                                                            )[0] + " horas"}
+                                                                        </span>
+                                                                    )}
+                                                                    <span>
+                                                                        {lesson.lesson_duration.split(
+                                                                            ":"
+                                                                        )[1] + " minutos"}
+                                                                    </span>
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -89,7 +109,10 @@ export default async function Page({ params }) {
                                             {course.course_name}
                                         </h3>
                                         <p className="text-base-content/70">
-                                            Por {course.teacher.user_name + " " + course.teacher.user_lastname}
+                                            Por{" "}
+                                            {course.teacher.user_name +
+                                                " " +
+                                                course.teacher.user_lastname}
                                         </p>
                                     </div>
                                     <button className="btn btn-primary shadow-none rounded-lg">

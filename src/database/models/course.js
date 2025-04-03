@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            course_difficulty: {
+                type: DataTypes.ENUM("básico", "intermedio", "avanzado"),
+                defaultValue: "básico",
+                allowNull: false,
+            },
             category_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -34,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "Course",
-            timestamps: false,
+            timestamps: true,
         }
     );
     return Course;

@@ -54,11 +54,14 @@
     "courses": [
         {
             "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
-            "course_name": "Programación Web",
-            "course_description": "Curso de programación web",
-            "course_image": "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
             "teacher_id": "66853387-e365-4d22-89b6-c51708efb1ad",
-            "category_id": 1
+            "course_name": "Curso de Programación Básica",
+            "course_description": "Programa desde cero, domina Javascript, entiende HTML y aprende de algoritmos. Sí, desde cero. Entenderás la lógica del código, cómo piensan las programadoras expertas y cómo programar un sitio web de principio a fin. Aprender a programar no es fácil, pero eduweb lo hace efectivo.",
+            "course_image": "https://i.ytimg.com/vi/7TKY-jksHRQ/maxresdefault.jpg",
+            "course_difficulty": "básico",
+            "category_id": 1,
+            "createdAt": "2025-03-29T11:47:42.000Z",
+            "updatedAt": "2025-03-29T11:47:42.000Z"
         }
     ],
     "categories": [
@@ -90,7 +93,9 @@
             "block_id": "ddf26f57-ea54-4b25-b382-36925326f00b",
             "lesson_title": "Curso HTML y CSS desde cero (completo)",
             "lesson_video": "https://www.youtube.com/watch?v=ELSm-G201Ls&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=1",
+            "lesson_image": "https://i.ytimg.com/vi/ELSm-G201Ls/hqdefault.jpg",
             "lesson_description": "En este curso, aprenderás a crear p ginas web utilizando HTML y CSS. Primero, se aprender  a crear una p gina web con HTML y luego se aprender  a darle estilo con CSS. Se cubrir n los conceptos b sicos de cada tecnolog a y se ver n ejemplos pr cticos de c mo se pueden aplicar. Al final del curso, podr s crear tus propias p ginas web utilizando HTML y CSS.",
+            "lesson_duration": "24:01:02",
             "lesson_order": 1
         },
         {
@@ -98,7 +103,9 @@
             "block_id": "ddf26f57-ea54-4b25-b382-36925326f00b",
             "lesson_title": "Curso de JAVASCRIPT desde CERO (Completo)",
             "lesson_video": "https://www.youtube.com/watch?v=z95mZVUcJ-E&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=2",
+            "lesson_image": "https://i.ytimg.com/vi/z95mZVUcJ-E/hqdefault.jpg",
             "lesson_description": "En este curso de JavaScript desde cero, aprenderás a programar en JavaScript desde los conceptos m s b sicos hasta los m s avanzados. Se ver n conceptos como variables, tipos de datos, operadores, estructuras de control, funciones, objetos, arrays, entre otros. Tambi n se ver n las diferentes formas de interactuar con el DOM y los eventos en JavaScript, as como la creaci n de aplicaciones web con JavaScript.",
+            "lesson_duration": "10:00:40",
             "lesson_order": 2
         }
     ],

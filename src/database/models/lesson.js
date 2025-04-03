@@ -23,6 +23,15 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             lesson_description: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+            },
+            lesson_duration: {
+                type: DataTypes.TIME,
+                defaultValue: "00:00:00",
+                allowNull: false,
+            },
+            lesson_image: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

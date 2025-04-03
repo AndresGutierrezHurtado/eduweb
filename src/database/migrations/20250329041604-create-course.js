@@ -17,16 +17,32 @@ module.exports = {
                 allowNull: false,
             },
             course_description: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
                 allowNull: false,
             },
             course_image: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            course_difficulty: {
+                type: Sequelize.ENUM("básico", "intermedio", "avanzado"),
+                defaultValue: "básico",
+                allowNull: false,
+            },
             category_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                defaultValue: Sequelize.NOW,
+            },
+            updatedAt: {
+                allowNull: false,
+                type: Sequelize.DATE,
+                defaultValue: Sequelize.NOW,
+                onUpdate: Sequelize.NOW,
             },
         });
     },

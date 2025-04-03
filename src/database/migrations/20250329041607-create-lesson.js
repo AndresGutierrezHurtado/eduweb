@@ -9,24 +9,33 @@ module.exports = {
                 primaryKey: true,
             },
             block_id: {
-                allowNull: false,
                 type: Sequelize.UUID,
+                allowNull: false,
             },
             lesson_title: {
-                allowNull: false,
                 type: Sequelize.STRING,
+                allowNull: false,
             },
             lesson_video: {
-                allowNull: false,
                 type: Sequelize.STRING,
+                allowNull: false,
             },
             lesson_description: {
+                type: Sequelize.TEXT,
                 allowNull: false,
+            },
+            lesson_duration: {
+                type: Sequelize.TIME,
+                defaultValue: "00:00:00",
+                allowNull: false,
+            },
+            lesson_image: {
                 type: Sequelize.STRING,
+                allowNull: false,
             },
             lesson_order: {
-                allowNull: false,
                 type: Sequelize.INTEGER,
+                allowNull: false,
             },
         });
     },
