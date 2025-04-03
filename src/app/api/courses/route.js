@@ -8,7 +8,7 @@ export async function GET() {
             limit: 10,
             offset: 0,
             order: [["course_id", "ASC"]],
-            include: ["category"],
+            include: ["category", "teacher"],
         });
 
         return NextResponse.json({

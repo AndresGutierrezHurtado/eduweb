@@ -9,6 +9,7 @@ export async function GET(req, { params }) {
         const course = await Course.findByPk(id, {
             include: [
                 "category",
+                "teacher",
                 {
                     model: Block,
                     as: "blocks",

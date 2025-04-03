@@ -28,7 +28,7 @@ export default async function Page() {
                     <div className="flex flex-col gap-8">
                         <h2 className="text-2xl font-bold">Cursos recomendados para ti</h2>
                         <div className="flex flex-row w-full overflow-x-auto gap-10">
-                            {[...courses, ...courses, ...courses, ...courses].map((course, i) => (
+                            {courses.map((course, i) => (
                                 <div
                                     key={course.course_id + i}
                                     className="bg-base-100 rounded-lg border border-white/20 overflow-hidden w-full min-w-[300px] max-w-[350px]"
@@ -51,7 +51,10 @@ export default async function Page() {
                                                 {course.course_name}
                                             </h3>
                                             <p className="text-base-content/70">
-                                                {course.course_description}
+                                                Por{" "}
+                                                {course.teacher.user_name +
+                                                    " " +
+                                                    course.teacher.user_lastname}
                                             </p>
                                         </div>
                                     </Link>

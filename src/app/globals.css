@@ -16,3 +16,7 @@
     --font-inter: "Inter", "Inter Fallback";
     --font-alegreya: "Alegreya Sans", "Alegreya Sans Fallback";
 }
+
+.timeline-vertical > li > hr {
+    width: 0.15rem;
+}
