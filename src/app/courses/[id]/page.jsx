@@ -1,3 +1,4 @@
+import { TasksIcon } from "@/components/icons";
 import React from "react";
 
 export default async function Page({ params }) {
@@ -21,81 +22,110 @@ export default async function Page({ params }) {
                                 <p className="text-base-content/80">{course.course_description}</p>
                             </article>
                             <ul className="timeline timeline-vertical">
-                                {course.blocks.map((block) => (
-                                    <React.Fragment key={block.block_id}>
-                                        <li className="grid grid-cols-[0fr_15px_2fr_!important]">
-                                            <div className="timeline-end pl-5">
-                                                {block.block_description}
-                                            </div>
-                                            <div className="timeline-middle">
-                                                <div className="w-2 aspect-square bg-primary rounded-full"></div>
-                                            </div>
-                                            <hr className="bg-primary" />
-                                        </li>
-                                        {block.lessons.map((lesson, li) => {
-                                            const url = new URL(lesson.lesson_video);
-                                            const videoId = url.searchParams.get("v");
-                                            if (!videoId) return null;
+                                {course.blocks
+                                    .sort((a, b) => a.block_order - b.block_order)
+                                    .map((block) => (
+                                        <React.Fragment key={block.block_id}>
+                                            <li className="grid grid-cols-[0fr_15px_2fr_!important]">
+                                                {block.block_order > 1 && (
+                                                    <hr className="bg-primary" />
+                                                )}
+                                                <div className="timeline-end pl-5 text-lg text-base-content/80 italic">
+                                                    {block.block_description}
+                                                </div>
+                                                <div className="timeline-middle">
+                                                    <div className="w-2 aspect-square bg-primary rounded-full"></div>
+                                                </div>
+                                                <hr className="bg-primary" />
+                                            </li>
+                                            {block.lessons
+                                                .sort((a, b) => a.lesson_order - b.lesson_order)
+                                                .map((lesson, li) => {
+                                                    const url = new URL(lesson.lesson_video);
+                                                    const videoId = url.searchParams.get("v");
+                                                    if (!videoId) return null;
 
-                                            const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
-                                            return (
-                                                <li
-                                                    key={lesson.lesson_id}
-                                                    className="grid grid-cols-[0fr_15px_2fr_!important]"
-                                                >
-                                                    <hr className="bg-primary" />
-                                                    <div className="timeline-middle">
-                                                        <div className="w-5 outline-primary/50 outline-2 outline-offset-1 aspect-square bg-primary rounded-full flex items-center justify-center">
-                                                            <p className="text-center text-sm text-primary-content leading-tight font-bold">
-                                                                {li + 1}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="timeline-end pl-5 py-3">
-                                                        <div className="flex flex-row gap-5">
-                                                            <img
-                                                                src={thumbnailUrl}
-                                                                className="w-18 aspect-square object-cover rounded-lg"
-                                                                alt={
-                                                                    "Imagen " + lesson.lesson_title
-                                                                }
-                                                            />
-                                                            <div className="flex flex-col text-sm">
-                                                                <p className="grow">
-                                                                    {lesson.lesson_title}
-                                                                </p>
-                                                                <p className="text-base-content/70">
-                                                                    {parseInt(
-                                                                        lesson.lesson_duration.split(
-                                                                            ":"
-                                                                        )[0]
-                                                                    ) > 0 && (
-                                                                        <span className="mr-2">
-                                                                            {lesson.lesson_duration.split(
-                                                                                ":"
-                                                                            )[0] + " horas"}
-                                                                        </span>
-                                                                    )}
-                                                                    <span>
-                                                                        {lesson.lesson_duration.split(
-                                                                            ":"
-                                                                        )[1] + " minutos"}
-                                                                    </span>
-                                                                </p>
+                                                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+                                                    return (
+                                                        <li
+                                                            key={lesson.lesson_id}
+                                                            className="grid grid-cols-[0fr_15px_2fr_!important]"
+                                                        >
+                                                            <hr className="bg-primary" />
+                                                            <div className="timeline-middle">
+                                                                <div className="w-5 outline-primary/50 outline-2 outline-offset-1 aspect-square bg-primary rounded-full flex items-center justify-center">
+                                                                    <p className="text-center text-sm text-primary-content leading-tight font-bold">
+                                                                        {lesson.lesson_order}
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <hr className="bg-primary" />
-                                                </li>
-                                            );
-                                        })}
-                                    </React.Fragment>
-                                ))}
+                                                            <div className="timeline-end pl-5 py-3">
+                                                                <div className="flex flex-row gap-5">
+                                                                    <img
+                                                                        src={thumbnailUrl}
+                                                                        className="w-18 aspect-square object-cover rounded-lg"
+                                                                        alt={
+                                                                            "Imagen " +
+                                                                            lesson.lesson_title
+                                                                        }
+                                                                    />
+                                                                    <div className="flex flex-col text-sm">
+                                                                        <p className="grow">
+                                                                            {lesson.lesson_title}
+                                                                        </p>
+                                                                        <p className="text-base-content/70">
+                                                                            {parseInt(
+                                                                                lesson.lesson_duration.split(
+                                                                                    ":"
+                                                                                )[0]
+                                                                            ) > 0 && (
+                                                                                <span className="mr-2">
+                                                                                    {lesson.lesson_duration.split(
+                                                                                        ":"
+                                                                                    )[0] + " horas"}
+                                                                                </span>
+                                                                            )}
+                                                                            <span>
+                                                                                {lesson.lesson_duration.split(
+                                                                                    ":"
+                                                                                )[1] + " minutos"}
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr className="bg-primary" />
+                                                        </li>
+                                                    );
+                                                })}
+                                        </React.Fragment>
+                                    ))}
+                                <li className="grid grid-cols-[0fr_15px_2fr_!important]">
+                                    <hr className="bg-primary" />
+                                    <div className="timeline-middle">
+                                        <div className="w-2 aspect-square bg-primary rounded-full"></div>
+                                    </div>
+                                    <div className="timeline-end pl-5 py-3">
+                                        <div className="flex gap-5">
+                                            <figure className="w-18 aspect-square object-cover rounded-lg bg-black/30 flex items-center justify-center">
+                                                <TasksIcon className="text-3xl text-primary" />
+                                            </figure>
+                                            <div>
+                                                <h3 className="text-lg font-semibold">
+                                                    Evaluación final
+                                                </h3>
+                                                <p className="text-base-content/70">
+                                                    completa esta evaluación para obtener tu certificado
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
 
                         <div className="w-1/3">
-                            <div className="bg-base-100 rounded-lg border border-white/20 overflow-hidden">
+                            <div className="bg-base-100 rounded-lg border border-white/20 overflow-hidden sticky top-10">
                                 <figure className="w-full h-48 flex items-center justify-center overflow-hidden bg-white relative">
                                     <img
                                         src={course.course_image}

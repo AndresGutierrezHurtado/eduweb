@@ -85,6 +85,20 @@
             "block_description": "Introducción a la programación web",
             "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
             "block_order": 1
+        },
+        {
+            "block_id": "a0c3b3b9-0b8f-4a0b-8a3b-4c4d3f4a5b6c",
+            "block_title": "Bases de datos relacionales",
+            "block_description": "Bases de datos relacionales con SQLite y Python",
+            "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
+            "block_order": 2
+        },
+        {
+            "block_id": "b7c4c9c4-6c2c-4e9d-96c1-7c3f5f9c7dc2",
+            "block_title": "Herramientas de desarrollo",
+            "block_description": "Herramientas de desarrollo",
+            "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
+            "block_order": 3
         }
     ],
     "lessons": [
@@ -107,6 +121,46 @@
             "lesson_description": "En este curso de JavaScript desde cero, aprenderás a programar en JavaScript desde los conceptos m s b sicos hasta los m s avanzados. Se ver n conceptos como variables, tipos de datos, operadores, estructuras de control, funciones, objetos, arrays, entre otros. Tambi n se ver n las diferentes formas de interactuar con el DOM y los eventos en JavaScript, as como la creaci n de aplicaciones web con JavaScript.",
             "lesson_duration": "10:00:40",
             "lesson_order": 2
+        },
+        {
+            "lesson_id": "7a8c3a5a-4f6c-4463-83a3-0f1f3c9f4f17",
+            "block_id": "a0c3b3b9-0b8f-4a0b-8a3b-4c4d3f4a5b6c",
+            "lesson_title": "Curso de SQL desde CERO (Completo)",
+            "lesson_video": "https://www.youtube.com/watch?v=DFg1V-rO6Pg&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=5",
+            "lesson_image": "https://i.ytimg.com/vi/DFg1V-rO6Pg/hqdefault.jpg",
+            "lesson_description": "En este curso de SQL desde CERO Completo vas a aprender a manejar SQL, el lenguaje mas usado del mundo para bases de datos relacionales, un lenguaje requisito para cualquier perfil IT.",
+            "lesson_duration": "07:21:26",
+            "lesson_order": 3
+        },
+        {
+            "lesson_id": "b7c4c9c4-6c2c-4e9d-96c1-7c3f5f9c7dc3",
+            "block_id": "b7c4c9c4-6c2c-4e9d-96c1-7c3f5f9c7dc2",
+            "lesson_title": "Curso de GIT desde CERO (Completo)",
+            "lesson_video": "https://www.youtube.com/watch?v=9ZJ-K-zk_Go&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=7",
+            "lesson_image": "https://i.ytimg.com/vi/9ZJ-K-zk_Go/hqdefault.jpg",
+            "lesson_description": "En este curso de GIT desde CERO Completo vas a aprender a manejar GIT, el lenguaje mas usado del mundo para controlar versiones de proyectos.",
+            "lesson_duration": "04:11:46",
+            "lesson_order": 4
+        }, 
+        {
+            "lesson_id": "e3488447-9878-4c3b-a2f1-9ca1312d33ad",
+            "block_id": "b7c4c9c4-6c2c-4e9d-96c1-7c3f5f9c7dc2",
+            "lesson_title": "Curso de HOSTING desde CERO (Completo)",
+            "lesson_video": "https://www.youtube.com/watch?v=hikoV1Q9EzY&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=8",
+            "lesson_image": "https://i.ytimg.com/vi/hikoV1Q9EzY/hqdefault.jpg",
+            "lesson_description": "En este curso de Hosting para principiantes vas a aprender a hosting, el lenguaje mas usado del mundo para alojar proyectos en la nube.",
+            "lesson_duration": "02:15:33",
+            "lesson_order": 5
+        },
+        {
+            "lesson_id": "cedf10fb-e690-4182-a686-62bf831bf487",
+            "block_id": "b7c4c9c4-6c2c-4e9d-96c1-7c3f5f9c7dc2",
+            "lesson_title": "Curso de VISUAL STUDIO CODE desde CERO (Completo)",
+            "lesson_video": "https://www.youtube.com/watch?v=TbzrOz8HbFM&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=9",
+            "lesson_image": "https://i.ytimg.com/vi/TbzrOz8HbFM/hqdefault.jpg",
+            "lesson_description": "En este curso de Visual Studio Code para principiantes vas a aprender a utilizar Visual Studio Code, el lenguaje mas usado del mundo para programar.",
+            "lesson_duration": "02:20:21",
+            "lesson_order": 6
         }
     ],
     "exams": [

@@ -8,6 +8,7 @@ import {
     FaQuoteLeft as QuotesIcon,
     FaCode as CodeIcon,
     FaPaintBrush as PaintBrushIcon,
+    FaTasks as TasksIcon,
 } from "react-icons/fa";
 
 export {
@@ -20,4 +21,5 @@ export {
     QuotesIcon,
     CodeIcon,
     PaintBrushIcon,
+    TasksIcon,
 };
