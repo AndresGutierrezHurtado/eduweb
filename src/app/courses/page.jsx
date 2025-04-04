@@ -1,11 +1,21 @@
-import { CodeIcon, PaintBrushIcon } from "@/components/icons";
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
-export default async function Page() {
-    const response = await fetch(process.env.NEXTAUTH_URL + "/api/courses");
-    const { data: courses } = await response.json();
+// Hooks
+import { useGetData } from "@/hooks/useFetch.js";
 
+// Icons
+import { CodeIcon, PaintBrushIcon } from "@/components/icons.jsx";
+
+export default function Page() {
+    const [categories, setCategories] = useState(null);
+    const { data: courses, loading: loadingCourses } = useGetData(
+        "/courses?order=createdAt:DESC" + (categories ? `category=${categories}&` : "")
+    );
+
+    if (loadingCourses) return <>Cargando...</>;
     return (
         <>
             <section className="w-full px-3">
@@ -13,10 +23,20 @@ export default async function Page() {
                     <div className="flex flex-col gap-3">
                         <h2 className="text-2xl font-bold">Descubre las categorias</h2>
                         <div className="flex gap-5">
-                            <div className="badge badge-lg badge-soft badge-primary border border-primary hover:bg-primary/30 duration-300 cursor-pointer">
+                            <button
+                                onClick={() => setCategories((prev) => (prev == 1 ? null : 1))}
+                                className={`badge badge-lg ${
+                                    categories == 1 ? "" : "badge-soft hover:bg-primary/30"
+                                } badge-primary border border-primary duration-300 cursor-pointer`}
+                            >
                                 <CodeIcon /> Programación
-                            </div>
-                            <div className="badge badge-lg badge-soft badge-primary border border-primary hover:bg-primary/30 duration-300 cursor-pointer">
+                            </button>
+                            <div
+                                onClick={() => setCategories((prev) => (prev == 2 ? null : 2))}
+                                className={`badge badge-lg ${
+                                    categories == 2 ? "" : "badge-soft hover:bg-primary/30"
+                                } badge-primary border border-primary duration-300 cursor-pointer`}
+                            >
                                 <PaintBrushIcon /> Diseño gráfico
                             </div>
                         </div>
@@ -26,7 +46,7 @@ export default async function Page() {
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
                     <div className="flex flex-col gap-8">
-                        <h2 className="text-2xl font-bold">Cursos recomendados para ti</h2>
+                        <h2 className="text-2xl font-bold">Explora nuestros cursos</h2>
                         <div className="flex flex-row w-full overflow-x-auto gap-10">
                             {courses.map((course, i) => (
                                 <div
