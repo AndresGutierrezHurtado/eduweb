@@ -62,6 +62,17 @@
             "category_id": 1,
             "createdAt": "2025-03-29T11:47:42.000Z",
             "updatedAt": "2025-03-29T11:47:42.000Z"
+        },
+        {
+            "course_id": "b9d2f45a-7e12-4f3c-a6b8-4e23a981f789",
+            "teacher_id": "66853387-e365-4d22-89b6-c51708efb1ad",
+            "course_name": "Curso Completo de Bases de Datos: Relacionales y No Relacionales",
+            "course_description": "Aprende a gestionar bases de datos relacionales con MySQL y phpMyAdmin, y bases de datos no relacionales con MongoDB. Comprende las diferencias entre estos modelos y cuándo utilizar cada uno.",
+            "course_image": "https://www.epitech-it.es/wp-content/uploads/2022/07/programas-bases-de-datos.jpg",
+            "course_difficulty": "intermedio",
+            "category_id": 1,
+            "createdAt": "2025-04-03T12:00:00.000Z",
+            "updatedAt": "2025-04-03T12:00:00.000Z"
         }
     ],
     "categories": [
@@ -98,6 +109,28 @@
             "block_title": "Herramientas de desarrollo",
             "block_description": "Herramientas de desarrollo",
             "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
+            "block_order": 3
+        },
+
+        {
+            "block_id": "a3b4567e-9c23-4d56-b8e1-123f67a9b789",
+            "block_title": "Introducción a las Bases de Datos",
+            "block_description": "Conceptos básicos de bases de datos, modelos relacionales y no relacionales.",
+            "course_id": "b9d2f45a-7e12-4f3c-a6b8-4e23a981f789",
+            "block_order": 1
+        },
+        {
+            "block_id": "d8f12345-6a78-4b9c-9e12-4567a9b3cde0",
+            "block_title": "Bases de Datos Relacionales con MySQL y phpMyAdmin",
+            "block_description": "Cómo gestionar bases de datos relacionales con MySQL y phpMyAdmin.",
+            "course_id": "b9d2f45a-7e12-4f3c-a6b8-4e23a981f789",
+            "block_order": 2
+        },
+        {
+            "block_id": "f7a65432-1b23-4c5d-8e91-5678b9d3aef0",
+            "block_title": "Bases de Datos No Relacionales con MongoDB",
+            "block_description": "Cómo gestionar bases de datos NoSQL con MongoDB.",
+            "course_id": "b9d2f45a-7e12-4f3c-a6b8-4e23a981f789",
             "block_order": 3
         }
     ],
@@ -141,7 +174,7 @@
             "lesson_description": "En este curso de GIT desde CERO Completo vas a aprender a manejar GIT, el lenguaje mas usado del mundo para controlar versiones de proyectos.",
             "lesson_duration": "04:11:46",
             "lesson_order": 4
-        }, 
+        },
         {
             "lesson_id": "e3488447-9878-4c3b-a2f1-9ca1312d33ad",
             "block_id": "b7c4c9c4-6c2c-4e9d-96c1-7c3f5f9c7dc2",
@@ -161,6 +194,67 @@
             "lesson_description": "En este curso de Visual Studio Code para principiantes vas a aprender a utilizar Visual Studio Code, el lenguaje mas usado del mundo para programar.",
             "lesson_duration": "02:20:21",
             "lesson_order": 6
+        },
+
+        {
+            "lesson_id": "abcd1234-5678-4e9f-bc1d-2a3456789ef0",
+            "block_id": "a3b4567e-9c23-4d56-b8e1-123f67a9b789",
+            "lesson_title": "¿Qué es una Base de Datos?",
+            "lesson_video": "https://www.youtube.com/watch?v=knVwokXITGI",
+            "lesson_image": "https://i.ytimg.com/vi/knVwokXITGI/hqdefault.jpg",
+            "lesson_description": "Aprende qué es una base de datos, los diferentes modelos y su importancia en el desarrollo de software.",
+            "lesson_duration": "00:21:03",
+            "lesson_order": 1
+        },
+        {
+            "lesson_id": "efgh5678-1234-4b9c-a1d2-3a456789bcde",
+            "block_id": "d8f12345-6a78-4b9c-9e12-4567a9b3cde0",
+            "lesson_title": "Diseño de Bases de Datos relacionales",
+            "lesson_video": "https://www.youtube.com/watch?v=LL4WYeB3C_8",
+            "lesson_image": "https://i.ytimg.com/vi/LL4WYeB3C_8/hqdefault.jpg",
+            "lesson_description": "Cómo instalar y utilizar phpMyAdmin para administrar bases de datos MySQL.",
+            "lesson_duration": "00:28:57",
+            "lesson_order": 2
+        },
+        {
+            "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh11",
+            "block_id": "d8f12345-6a78-4b9c-9e12-4567a9b3cde0",
+            "lesson_title": "Instalación y Uso de phpMyAdmin",
+            "lesson_video": "https://www.youtube.com/watch?v=IQ22Nme9t0M",
+            "lesson_image": "https://i.ytimg.com/vi/IQ22Nme9t0M/hqdefault.jpg",
+            "lesson_description": "Este curso te guiará a través del proceso de instalación y uso de phpMyAdmin, una herramienta popular para la administración de bases de datos MySQL. Aprenderás a crear y gestionar bases de datos, realizar consultas SQL, y mantener la seguridad de tu entorno de base de datos con facilidad.",
+            "lesson_duration": "00:08:05",
+            "lesson_order": 3
+        },
+        {
+            "lesson_id": "98765432-1b23-4c5d-8e91-5678b9d3aef1",
+            "block_id": "d8f12345-6a78-4b9c-9e12-4567a9b3cde0",
+            "lesson_title": "Curso de SQL",
+            "lesson_video": "https://www.youtube.com/watch?v=uUdKAYl-F7g",
+            "lesson_image": "https://i.ytimg.com/vi/uUdKAYl-F7g/hqdefault.jpg",
+            "lesson_description": "En este curso de SQL, aprenderás a utilizar SQL para interactuar con bases de datos relacionales. Aprenderás a crear consultas SQL para extraer y manipular datos de una base de datos.",
+            "lesson_duration": "01:56:58",
+            "lesson_order": 4
+        },
+        {
+            "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh12",
+            "block_id": "f7a65432-1b23-4c5d-8e91-5678b9d3aef0",
+            "lesson_title": "MongoDB: Instalación y primeros comandos básicos",
+            "lesson_video": "https://www.youtube.com/watch?v=heZhS6UzF7k",
+            "lesson_image": "https://i.ytimg.com/vi/heZhS6UzF7k/hqdefault.jpg",
+            "lesson_description": "Introducción a MongoDB, instalación y primeros comandos básicos.",
+            "lesson_duration": "00:15:29",
+            "lesson_order": 5
+        },
+        {
+            "lesson_id": "1f7f6a03-3e55-4ffc-95c6-57a6e6befe4c",
+            "block_id": "f7a65432-1b23-4c5d-8e91-5678b9d3aef0",
+            "lesson_title": "MongoDB: Introducción a las bases de datos NoSQL",
+            "lesson_video": "https://www.youtube.com/watch?v=DPdAfgmkNuE",
+            "lesson_image": "https://i.ytimg.com/vi/DPdAfgmkNuE/hqdefault.jpg",
+            "lesson_description": "Introducción a MongoDB, bases de datos NoSQL y su funcionamiento.",
+            "lesson_duration": "00:30:00",
+            "lesson_order": 6
         }
     ],
     "exams": [
@@ -169,6 +263,12 @@
             "course_id": "15e58474-9e12-4939-88cd-4b02675914dd",
             "exam_title": "Examen Introducción a la programación web",
             "exam_description": "Examen Introducción a la programación web"
+        },
+        {
+            "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
+            "course_id": "b9d2f45a-7e12-4f3c-a6b8-4e23a981f789",
+            "exam_title": "Evaluación: Bases de Datos Relacionales y No Relacionales",
+            "exam_description": "Examen final para evaluar el conocimiento sobre bases de datos relacionales y no relacionales."
         }
     ],
     "questions": [
@@ -181,6 +281,32 @@
             "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
             "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
             "question_text": "¿Cuál es el propósito principal de JavaScript en el desarrollo web?"
+        },
+
+        {
+            "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
+            "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
+            "question_text": "¿Qué tipo de bases de datos utiliza SQL?"
+        },
+        {
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
+            "question_text": "¿Cuál es la diferencia clave entre una base de datos relacional y una no relacional?"
+        },
+        {
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
+            "question_text": "¿Cuál de las siguientes opciones es un gestor de bases de datos NoSQL?"
+        },
+        {
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
+            "question_text": "¿Qué comando se usa para insertar datos en una tabla en MySQL?"
+        },
+        {
+            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
+            "question_text": "¿MongoDB almacena los datos en formato?"
         }
     ],
     "answers": [
@@ -230,6 +356,67 @@
             "answer_id": "0f8a1f7c-0c8f-4f19-8c8c-7e2c9a8a1dab",
             "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
             "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear p ginas web est ticas",
+            "is_correct": false
+        },
+
+        {
+            "answer_id": "1a2b3c4d-5678-9e01-2345-6789abcdef01",
+            "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
+            "answer_text": "Bases de datos relacionales",
+            "is_correct": true
+        },
+        {
+            "answer_id": "2b3c4d5e-6789-0f12-3456-789abcdef012",
+            "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
+            "answer_text": "Bases de datos no relacionales",
+            "is_correct": false
+        },
+        {
+            "answer_id": "3c4d5e6f-7890-1a23-4567-89abcdef0123",
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "answer_text": "Las bases de datos relacionales organizan los datos en tablas con relaciones, mientras que las no relacionales los almacenan en documentos, grafos o clave-valor.",
+            "is_correct": true
+        },
+        {
+            "answer_id": "4d5e6f7g-8901-2b34-5678-9abcdef01234",
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "answer_text": "Ambas almacenan los datos de la misma manera.",
+            "is_correct": false
+        },
+        {
+            "answer_id": "5e6f7g8h-9012-3c45-6789-abcdef012345",
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "answer_text": "MongoDB",
+            "is_correct": true
+        },
+        {
+            "answer_id": "6f7g8h9i-0123-4d56-7890-bcdef0123456",
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "answer_text": "MySQL",
+            "is_correct": false
+        },
+        {
+            "answer_id": "7g8h9i0j-1234-5e67-8901-cdef01234567",
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "answer_text": "INSERT INTO",
+            "is_correct": true
+        },
+        {
+            "answer_id": "8h9i0j1k-2345-6f78-9012-def012345678",
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "answer_text": "UPDATE SET",
+            "is_correct": false
+        },
+        {
+            "answer_id": "9i0j1k2l-3456-7g89-0123-ef0123456789",
+            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "answer_text": "Documentos JSON",
+            "is_correct": true
+        },
+        {
+            "answer_id": "0j1k2l3m-4567-8h90-1234-f01234567890",
+            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "answer_text": "Tablas estructuradas",
             "is_correct": false
         }
     ],
