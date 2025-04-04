@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Hooks
 import { useGetData } from "@/hooks/useFetch.js";
@@ -12,8 +12,12 @@ import { CodeIcon, PaintBrushIcon } from "@/components/icons.jsx";
 export default function Page() {
     const [categories, setCategories] = useState(null);
     const { data: courses, loading: loadingCourses } = useGetData(
-        "/courses?order=createdAt:DESC" + (categories ? `category=${categories}&` : "")
+        "/courses?order=createdAt:DESC&" + (categories ? `category=${categories}&` : "")
     );
+
+    useEffect(() => {
+        document.title = "Cursos | Eduweb";
+    }, [])
 
     if (loadingCourses) return <>Cargando...</>;
     return (

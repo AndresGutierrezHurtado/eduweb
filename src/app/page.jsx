@@ -10,6 +10,10 @@ import {
     UserIcon,
 } from "@/components/icons";
 
+export const metadata = {
+    title: "Inicio | EduWeb"
+}
+
 export default async function Home() {
     return (
         <div className="flex flex-col gap-[100px]">

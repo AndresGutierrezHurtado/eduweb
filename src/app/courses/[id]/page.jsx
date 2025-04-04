@@ -1,6 +1,10 @@
 import { TasksIcon } from "@/components/icons";
 import React from "react";
 
+export const metadata = {
+    title: "Curso | EduWeb",
+}
+
 export default async function Page({ params }) {
     const { id } = await params;
     const response = await fetch(process.env.NEXTAUTH_URL + "/api/courses/" + id);
