@@ -1,18 +1,23 @@
 "use client";
-import { GlobeIcon } from "@/components/icons";
-import { useGetData } from "@/hooks/useFetch";
-import { useSession } from "next-auth/react";
+
 import Link from "next/link";
 import React from "react";
+import { useSession } from "next-auth/react";
+
+// Components
+import { GlobeIcon } from "@/components/icons";
+
+// Hooks
+import { useGetData } from "@/hooks/useFetch";
+import UserUpdate from "@/components/userUpdate";
 
 export default function Page() {
-    const { data, status } = useSession();
+    const { data, status, update } = useSession();
     const userSession = data?.user;
 
     const { data: courses, loading: loadingCourses } = useGetData(
         "/users/" + userSession?.user_id + "/courses"
     );
-    console.log(courses);
 
     if (status == "loading" || loadingCourses) return <>Cargando...</>;
     if (!userSession) return <>No estas logueado</>;
@@ -53,7 +58,10 @@ export default function Page() {
                                     </Link>
                                 </p>
                             )}
-                            <button className="btn btn-primary shadow-none h-auto py-1 px-5 w-fit  mt-3">
+                            <button
+                                onClick={() => document.querySelector(`#edit-modal-${userSession.user_id}`).show()}
+                                className="btn btn-primary shadow-none h-auto py-1 px-5 w-fit  mt-3"
+                            >
                                 Editar perfil
                             </button>
                         </div>
@@ -234,9 +242,7 @@ export default function Page() {
                                                                 </p>
                                                             </div>
                                                             <div className="h-full flex items-center justify-center">
-                                                                <Link
-                                                                    href={`/pending`}
-                                                                >
+                                                                <Link href={`/pending`}>
                                                                     <button className="btn btn-primary shadow-none h-auto py-2 px-5 w-fit mt-3">
                                                                         Descarga tu certificado
                                                                     </button>
@@ -277,6 +283,8 @@ export default function Page() {
                     </div>
                 </div>
             </section>
+
+            <UserUpdate user={userSession} update={update} />
         </>
     );
 }
