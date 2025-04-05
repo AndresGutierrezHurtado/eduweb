@@ -23,7 +23,8 @@
         "react": "19.1.0",
         "react-dom": "19.1.0",
         "react-icons": "^5.5.0",
-        "sequelize": "^6.37.7"
+        "sequelize": "^6.37.7",
+        "sweetalert2": "^11.17.2"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",
