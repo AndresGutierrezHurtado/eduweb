@@ -20,6 +20,14 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            user_profession: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            user_website: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             user_email: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -46,10 +54,16 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "User",
+            timestamps: true,
         }
     );
 
     User.beforeCreate((user, options) => {
+        user.user_password = bcrypt.hashSync(user.user_password, 10);
+        return user;
+    });
+
+    User.beforeUpdate((user, options) => {
         user.user_password = bcrypt.hashSync(user.user_password, 10);
         return user;
     });

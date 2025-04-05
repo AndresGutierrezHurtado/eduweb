@@ -17,7 +17,8 @@ module.exports = {
                 allowNull: false,
             },
             course_state: {
-                type: Sequelize.ENUM("progress", "lost", "completed"),
+                type: Sequelize.ENUM("progress", "completed"),
+                defaultValue: "progress",
                 allowNull: false,
             },
             course_completion: {

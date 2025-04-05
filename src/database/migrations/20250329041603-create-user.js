@@ -16,6 +16,14 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            user_profession: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            user_website: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
             user_email: {
                 type: Sequelize.STRING,
                 allowNull: false,
