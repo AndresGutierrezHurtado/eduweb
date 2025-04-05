@@ -1,19 +1,34 @@
 import { NextResponse } from "next/server";
 
-import { User, UserCourse } from "@/database/models";
+import { UserCourse, Course, Block } from "@/database/models";
 
 export async function GET(request, { params }) {
     try {
         const { id } = await params;
 
-        const user = await User.findByPk(id, {
-            include: ["role"],
+        const userCourses = await UserCourse.findAll({
+            where: { user_id: id },
+            include: [
+                "lessonsTaken",
+                "examsTaken",
+                {
+                    model: Course,
+                    as: "course",
+                    include: [
+                        {
+                            model: Block,
+                            as: "blocks",
+                            include: ["lessons"],
+                        },
+                    ],
+                },
+            ],
         });
 
         return NextResponse.json(
             {
                 success: true,
-                data: user,
+                data: userCourses,
                 message: "Usuarios obtenidos correctamente",
             },
             { status: 200 }
