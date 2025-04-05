@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const fetchData = async (endpoint, config) => {
     const response = await fetch(process.env.NEXT_PUBLIC_APP_DOMAIN + "/api" + endpoint, {
@@ -43,4 +44,16 @@ export const useGetData = (endpoint) => {
         loading,
         reload,
     };
+};
+
+export const usePutData = async (endpoint, body) => {
+    const { success, data, message } = await fetchData(endpoint, {
+        method: "PUT",
+        body: JSON.stringify(body),
+    });
+
+    if (!success) Swal.fire("Error", message, "error");
+    else Swal.fire("Éxito", message, "success");
+
+    return { success, data, message };
 };
