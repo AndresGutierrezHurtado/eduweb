@@ -1,5 +1,6 @@
-import { TasksIcon } from "@/components/icons";
+import { ClockIcon, CodeIcon, CubesIcon, TasksIcon } from "@/components/icons";
 import React from "react";
+import { FaGraduationCap } from "react-icons/fa";
 
 export const metadata = {
     title: "Curso | EduWeb",
@@ -9,6 +10,16 @@ export default async function Page({ params }) {
     const { id } = await params;
     const response = await fetch(process.env.NEXTAUTH_URL + "/api/courses/" + id);
     const { data: course } = await response.json();
+
+    const duration = course.blocks.reduce((acc, block) => {
+        return acc + block.lessons.reduce((acc2, lesson) => {
+            const [hours, minutes, seconds] = lesson.lesson_duration.split(":").map(Number);
+            return acc2 + hours * 60 * 60 + minutes * 60 + seconds;
+        }, 0);
+    }, 0);
+
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration % 3600) / 60);
 
     return (
         <>
@@ -23,6 +34,20 @@ export default async function Page({ params }) {
                                 <p className="text-sm text-base-content/80">
                                     Publicado el {new Date(course.createdAt).toDateString("es-CO")}
                                 </p>
+                                <div className="flex flex-wrap gap-2 py-3">
+                                    <div className="badge badge-lg">
+                                        <FaGraduationCap size={15} />
+                                        {course.category.category_name}
+                                    </div>
+                                    <div className="badge badge-lg">
+                                        <CubesIcon size={15} />
+                                        {course.course_difficulty}
+                                    </div>
+                                    <div className="badge badge-lg">
+                                        <ClockIcon size={15} />
+                                        {hours}h {minutes}m
+                                    </div>
+                                </div>
                                 <p className="text-base-content/80">{course.course_description}</p>
                             </article>
                             <ul className="timeline timeline-vertical">

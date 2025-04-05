@@ -1,4 +1,5 @@
 "use client";
+import { GlobeIcon } from "@/components/icons";
 import { useGetData } from "@/hooks/useFetch";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -19,7 +20,7 @@ export default function Page() {
         <>
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
-                    <div className="flex flex-row gap-3">
+                    <div className="flex flex-row gap-5">
                         <div className="article bg-black/25 border border-base-300 p-8 rounded-lg flex flex-col gap-3 w-2/7 h-fit">
                             <div className="avatar">
                                 <div className="w-24 rounded-full">
@@ -31,13 +32,27 @@ export default function Page() {
                                     {userSession.user_name} {userSession.user_lastname}
                                 </h2>
                                 <p className="text-base-content/80 text-lg italic font-medium capitalize">
-                                    {userSession.role.role_name}
+                                    {userSession.user_profession || user.role.role_name}
                                 </p>
                             </div>
                             <div>
                                 <p>{userSession.user_email}</p>
                                 <p>{userSession.user_phone}</p>
                             </div>
+                            {userSession.user_website && (
+                                <p className="flex items-center gap-2 text-primary">
+                                    <span>
+                                        <GlobeIcon size={20} />
+                                    </span>
+                                    <Link
+                                        href={userSession.user_website}
+                                        className="underline"
+                                        target="_blank"
+                                    >
+                                        {userSession.user_website}
+                                    </Link>
+                                </p>
+                            )}
                             <button className="btn btn-primary shadow-none h-auto py-1 px-5 w-fit  mt-3">
                                 Editar perfil
                             </button>
@@ -64,6 +79,21 @@ export default function Page() {
                                             <h2 className="text-2xl font-bold">
                                                 Cursos pendientes
                                             </h2>
+                                            {courses.filter(
+                                                (course) => course.course_state == "progress"
+                                            ).length == 0 && (
+                                                <div>
+                                                    <p className="text-base-content/80 text-lg leading-tight">
+                                                        No tienes cursos pendientes...
+                                                    </p>
+                                                    <Link
+                                                        href="/courses"
+                                                        className="btn btn-primary shadow-none h-auto py-1 px-5 w-fit  mt-3"
+                                                    >
+                                                        Ver cursos
+                                                    </Link>
+                                                </div>
+                                            )}
                                             {courses
                                                 .filter(
                                                     (course) => course.course_state == "progress"
@@ -135,6 +165,80 @@ export default function Page() {
                                                                 >
                                                                     <button className="btn btn-primary shadow-none h-auto py-2 px-5 w-fit mt-3">
                                                                         Continuar curso
+                                                                    </button>
+                                                                </Link>
+                                                            </div>
+                                                        </article>
+                                                    );
+                                                })}
+                                        </div>
+                                        <div className="flex flex-col gap-5">
+                                            <h2 className="text-2xl font-bold">
+                                                Cursos completados
+                                            </h2>
+                                            {courses.filter(
+                                                (course) => course.course_state == "completed"
+                                            ).length == 0 && (
+                                                <div>
+                                                    <p className="text-base-content/80 text-lg leading-tight">
+                                                        Aún no has completado ningun curso
+                                                    </p>
+                                                </div>
+                                            )}
+                                            {courses
+                                                .filter(
+                                                    (course) => course.course_state == "completed"
+                                                )
+                                                .map((course) => {
+                                                    return (
+                                                        <article
+                                                            key={course.course_id}
+                                                            className="flex gap-8"
+                                                        >
+                                                            <Link
+                                                                href={
+                                                                    "/courses/" + course.course_id
+                                                                }
+                                                            >
+                                                                <div className="avatar bg-black/25 rounded-lg">
+                                                                    <div className="w-24 rounded-lg">
+                                                                        <img
+                                                                            src={
+                                                                                course.course
+                                                                                    .course_image
+                                                                            }
+                                                                            alt="Imagen de perfil"
+                                                                            className="[object-fit:contain_!important]"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                            <div className="grow flex flex-col gap-2">
+                                                                <Link
+                                                                    href={
+                                                                        "/courses/" +
+                                                                        course.course_id
+                                                                    }
+                                                                >
+                                                                    <h2 className="text-xl font-medium leading-[1] mb-2">
+                                                                        {course.course.course_name}
+                                                                        {" - "}
+                                                                        <span className="text-primary font-bold leading-tight tracking-tight">
+                                                                            100 %
+                                                                        </span>
+                                                                    </h2>
+                                                                </Link>
+                                                                <p className="text-primary font-bold">
+                                                                    Felicidades por completar el
+                                                                    curso con éxito!
+                                                                </p>
+                                                            </div>
+                                                            <div className="h-full flex items-center justify-center">
+                                                                <Link
+                                                                    href={`/pending`}
+                                                                >
+                                                                    <button className="btn btn-primary shadow-none h-auto py-2 px-5 w-fit mt-3">
+                                                                        Descarga tu certificado
                                                                     </button>
                                                                 </Link>
                                                             </div>

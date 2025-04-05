@@ -9,7 +9,10 @@ import {
     FaCode as CodeIcon,
     FaPaintBrush as PaintBrushIcon,
     FaTasks as TasksIcon,
+    FaCubes as CubesIcon,
+    FaGraduationCap as GraduationCapIcon,
 } from "react-icons/fa";
+import { BsGlobe2 as GlobeIcon } from "react-icons/bs";
 
 export {
     SearchIcon,
@@ -22,4 +25,7 @@ export {
     CodeIcon,
     PaintBrushIcon,
     TasksIcon,
+    CubesIcon,
+    GraduationCapIcon,
+    GlobeIcon,
 };
