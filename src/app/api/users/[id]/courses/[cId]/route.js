@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { UserCourse } from "@/database/models";
+import { UserAnswer, UserCourse, UserExam } from "@/database/models";
 
 export async function GET(req, { params }) {
     try {
@@ -10,7 +10,11 @@ export async function GET(req, { params }) {
             where: { user_id: id, course_id: cId },
             include: [
                 "lessonsTaken",
-                "examsTaken",
+                {
+                    model: UserExam,
+                    as: "examsTaken",
+                    include: [{ model: UserAnswer, as: "userAnswers", include: ["answer"] }],
+                },
             ],
         });
 
