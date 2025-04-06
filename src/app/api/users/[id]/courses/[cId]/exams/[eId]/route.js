@@ -58,7 +58,10 @@ export async function POST(req, { params }) {
         const score = (correctAnswers / totalQuestions) * 100;
 
         if (score >= 80) {
-            await userExam.userCourse.update({ course_state: "completed" });
+            await userExam.userCourse.update({
+                course_state: "completed",
+                course_completion: new Date(),
+            });
         }
 
         return NextResponse.json(

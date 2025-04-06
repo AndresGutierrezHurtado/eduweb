@@ -119,7 +119,13 @@ export default async function Page({ params }) {
                                         }
                                     />
                                     <div className="timeline-middle">
-                                        <div className={`w-2 aspect-square ${ucourse?.course_state === "completed" ? "bg-primary" : "bg-base-300"} rounded-full`}></div>
+                                        <div
+                                            className={`w-2 aspect-square ${
+                                                ucourse?.course_state === "completed"
+                                                    ? "bg-primary"
+                                                    : "bg-base-300"
+                                            } rounded-full`}
+                                        ></div>
                                     </div>
                                     <div className="timeline-end pl-5 py-3">
                                         <Link href={`/courses/${id}/exam`}>
@@ -180,9 +186,14 @@ export default async function Page({ params }) {
                                         </button>
                                     </Link>
                                     {ucourse?.course_state === "completed" && (
-                                        <button className="btn btn-primary btn-outline shadow-none rounded-lg w-full">
-                                            <span>Ver certificado</span>
-                                        </button>
+                                        <Link
+                                            href={`/api/users/${userSession.user_id}/courses/${id}/certificate`}
+                                            target="_blank"
+                                        >
+                                            <button className="btn btn-primary btn-outline shadow-none rounded-lg w-full">
+                                                <span>Ver certificado</span>
+                                            </button>
+                                        </Link>
                                     )}
                                 </div>
                             </div>

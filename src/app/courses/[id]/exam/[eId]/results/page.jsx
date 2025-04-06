@@ -76,9 +76,14 @@ export default async function Page({ params }) {
                                             ¡Felicitaciones! Has aprobado la evaluación. Ahora
                                             puedes obtener tu certificado digital.
                                         </p>
-                                        <button className="btn btn-primary shadow-none w-fit rounded-lg font-medium text-base">
-                                            Obtener certificado <ArrowRight />
-                                        </button>
+                                        <Link
+                                            href={`/api/users/${user.user_id}/courses/${id}/certificate`}
+                                            target="_blank"
+                                        >
+                                            <button className="btn btn-primary shadow-none w-fit rounded-lg font-medium text-base">
+                                                Obtener certificado <ArrowRight />
+                                            </button>
+                                        </Link>
                                     </>
                                 ) : (
                                     <>

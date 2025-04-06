@@ -59,7 +59,11 @@ export default function Page() {
                                 </p>
                             )}
                             <button
-                                onClick={() => document.querySelector(`#edit-modal-${userSession.user_id}`).show()}
+                                onClick={() =>
+                                    document
+                                        .querySelector(`#edit-modal-${userSession.user_id}`)
+                                        .show()
+                                }
                                 className="btn btn-primary shadow-none h-auto py-1 px-5 w-fit  mt-3"
                             >
                                 Editar perfil
@@ -242,7 +246,10 @@ export default function Page() {
                                                                 </p>
                                                             </div>
                                                             <div className="h-full flex items-center justify-center">
-                                                                <Link href={`/pending`}>
+                                                                <Link
+                                                                    href={`/api/users/${userSession.user_id}/courses/${course.course_id}/certificate`}
+                                                                    target="_blank"
+                                                                >
                                                                     <button className="btn btn-primary shadow-none h-auto py-2 px-5 w-fit mt-3">
                                                                         Descarga tu certificado
                                                                     </button>
