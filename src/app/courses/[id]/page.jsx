@@ -1,4 +1,6 @@
 import React from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 // Components
 import { ClockIcon, GraduationCapIcon, CubesIcon, TasksIcon } from "@/components/icons";
@@ -12,9 +14,11 @@ export const metadata = {
 
 export default async function Page({ params }) {
     const { id } = await params;
+    const data = await getServerSession(authOptions);
+    const userSession = data ? data.user : null;
 
     const course = await getData(`/courses/${id}`);
-    const ucourse = await getData(`/users/session/courses/${id}`);
+    const ucourse = await getData(`/users/${userSession?.user_id}/courses/${id}`);
 
     const duration = course.blocks.reduce((acc, block) => {
         return (
@@ -65,15 +69,15 @@ export default async function Page({ params }) {
                                         <React.Fragment key={block.block_id}>
                                             <li className="grid grid-cols-[0fr_15px_2fr_!important]">
                                                 {block.block_order > 1 && (
-                                                    <hr className="bg-primary" />
+                                                    <hr className="bg-base-300" />
                                                 )}
                                                 <div className="timeline-end pl-5 text-lg text-base-content/80 italic">
                                                     {block.block_description}
                                                 </div>
                                                 <div className="timeline-middle">
-                                                    <div className="w-2 aspect-square bg-primary rounded-full"></div>
+                                                    <div className="w-2 aspect-square bg-base-300 rounded-full"></div>
                                                 </div>
-                                                <hr className="bg-primary" />
+                                                <hr className="bg-base-300" />
                                             </li>
                                             {block.lessons
                                                 .sort((a, b) => a.lesson_order - b.lesson_order)
@@ -88,10 +92,10 @@ export default async function Page({ params }) {
                                                             key={lesson.lesson_id}
                                                             className="grid grid-cols-[0fr_15px_2fr_!important]"
                                                         >
-                                                            <hr className="bg-primary" />
+                                                            <hr className="bg-base-300" />
                                                             <div className="timeline-middle">
-                                                                <div className="w-5 outline-primary/50 outline-2 outline-offset-1 aspect-square bg-primary rounded-full flex items-center justify-center">
-                                                                    <p className="text-center text-sm text-primary-content leading-tight font-bold">
+                                                                <div className="w-5 outline-base-300/50 outline-2 outline-offset-1 aspect-square bg-base-300 rounded-full flex items-center justify-center">
+                                                                    <p className="text-center text-sm text-base-content leading-tight font-bold">
                                                                         {lesson.lesson_order}
                                                                     </p>
                                                                 </div>
@@ -131,16 +135,16 @@ export default async function Page({ params }) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <hr className="bg-primary" />
+                                                            <hr className="bg-base-300" />
                                                         </li>
                                                     );
                                                 })}
                                         </React.Fragment>
                                     ))}
                                 <li className="grid grid-cols-[0fr_15px_2fr_!important]">
-                                    <hr className="bg-primary" />
+                                    <hr className="bg-base-300" />
                                     <div className="timeline-middle">
-                                        <div className="w-2 aspect-square bg-primary rounded-full"></div>
+                                        <div className="w-2 aspect-square bg-base-300 rounded-full"></div>
                                     </div>
                                     <div className="timeline-end pl-5 py-3">
                                         <div className="flex gap-5">
@@ -184,8 +188,17 @@ export default async function Page({ params }) {
                                         </p>
                                     </div>
                                     <button className="btn btn-primary shadow-none rounded-lg">
-                                        Empezar curso
+                                        {ucourse?.course_state === "progress" ? (
+                                            <span>Continuar curso</span>
+                                        ) : (
+                                            <span>{ucourse ? "Volver a ver curso" : "Empezar curso"}</span>
+                                        )}
                                     </button>
+                                    {ucourse?.course_state === "completed" && (
+                                        <button className="btn btn-primary btn-outline shadow-none rounded-lg">
+                                            <span>Ver certificado</span>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
