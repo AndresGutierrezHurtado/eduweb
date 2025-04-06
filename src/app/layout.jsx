@@ -15,10 +15,6 @@ const inter = Inter({ subsets: ["latin"] });
 const alegreya = Alegreya_Sans({ subsets: ["latin"], weight: "700" });
 
 export default function RootLayout({ children }) {
-    useEffect(() => {
-        document.title = "Inicio | Eduweb";
-    }, []);
-
     return (
         <html lang="es">
             <body className="antialiased font-inter">

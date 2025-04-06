@@ -492,36 +492,52 @@
     "usersLessons": [
         {
             "user_course_id": "76c85f07-3359-4be3-bc7d-c6cfcbb09b75",
-            "lesson_id": "c52fd89c-d3b0-437f-9674-278dfc99de22"
+            "lesson_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "createdAt": "2025-04-03T20:32:10.000Z",
+            "updatedAt": "2025-04-03T20:32:10.000Z"
         },
         {
             "user_course_id": "76c85f07-3359-4be3-bc7d-c6cfcbb09b75",
-            "lesson_id": "fc206644-f05a-4ee8-ae69-cdfa6e35b650"
+            "lesson_id": "fc206644-f05a-4ee8-ae69-cdfa6e35b650",
+            "createdAt": "2025-04-04T20:32:10.000Z",
+            "updatedAt": "2025-04-04T20:32:10.000Z"
         },
 
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
-            "lesson_id": "abcd1234-5678-4e9f-bc1d-2a3456789ef0"
+            "lesson_id": "abcd1234-5678-4e9f-bc1d-2a3456789ef0",
+            "createdAt": "2025-04-06T20:32:10.000Z",
+            "updatedAt": "2025-04-06T20:32:10.000Z"
         },
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
-            "lesson_id": "efgh5678-1234-4b9c-a1d2-3a456789bcde"
+            "lesson_id": "efgh5678-1234-4b9c-a1d2-3a456789bcde",
+            "createdAt": "2025-04-06T20:32:10.000Z",
+            "updatedAt": "2025-04-06T20:32:10.000Z"
         },
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
-            "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh11"
+            "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh11",
+            "createdAt": "2025-04-06T20:32:10.000Z",
+            "updatedAt": "2025-04-06T20:32:10.000Z"
         },
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
-            "lesson_id": "98765432-1b23-4c5d-8e91-5678b9d3aef1"
+            "lesson_id": "98765432-1b23-4c5d-8e91-5678b9d3aef1",
+            "createdAt": "2025-04-06T20:32:10.000Z",
+            "updatedAt": "2025-04-06T20:32:10.000Z"
         },
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
-            "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh12"
+            "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh12",
+            "createdAt": "2025-04-06T20:32:10.000Z",
+            "updatedAt": "2025-04-06T20:32:10.000Z"
         },
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
-            "lesson_id": "1f7f6a03-3e55-4ffc-95c6-57a6e6befe4c"
+            "lesson_id": "1f7f6a03-3e55-4ffc-95c6-57a6e6befe4c",
+            "createdAt": "2025-04-06T20:32:10.000Z",
+            "updatedAt": "2025-04-06T20:32:10.000Z"
         }
     ]
 }

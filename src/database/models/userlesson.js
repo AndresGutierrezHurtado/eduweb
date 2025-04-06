@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "UserLesson",
-            timestamps: false,
+            timestamps: true,
         }
     );
 

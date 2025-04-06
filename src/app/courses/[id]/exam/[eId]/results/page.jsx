@@ -5,6 +5,10 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+    title: "Resultados | EduWeb",
+};
+
 export default async function Page({ params }) {
     const { id, eId } = await params;
     const data = await getServerSession(authOptions);
@@ -94,7 +98,6 @@ export default async function Page({ params }) {
                                         </p>
                                         <Link
                                             href={`/courses/${id}/exam/`}
-                                            className="btn btn-primary shadow-none w-fit rounded-lg font-medium text-base"
                                         >
                                             <button className="btn btn-primary shadow-none w-fit rounded-lg font-medium text-base">
                                                 Volver a intentarlo <ArrowRight />

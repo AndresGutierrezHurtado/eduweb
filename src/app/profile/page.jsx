@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 // Components
@@ -10,6 +10,8 @@ import { GlobeIcon } from "@/components/icons";
 // Hooks
 import { useGetData } from "@/hooks/useFetch";
 import UserUpdate from "@/components/userUpdate";
+import PdfViewer from "@/components/pdfViewer";
+import ChartComponent from "@/components/chart";
 
 export default function Page() {
     const { data, status, update } = useSession();
@@ -18,6 +20,10 @@ export default function Page() {
     const { data: courses, loading: loadingCourses } = useGetData(
         "/users/" + userSession?.user_id + "/courses"
     );
+
+    useEffect(() => {
+        document.title = "Perfil | Eduweb";
+    }, []);
 
     if (status == "loading" || loadingCourses) return <>Cargando...</>;
     if (!userSession) return <>No estas logueado</>;
@@ -267,7 +273,55 @@ export default function Page() {
                                     Mis certificados
                                 </label>
                                 <div className="tab-content bg-base-100 border-base-300 p-6">
-                                    Tab content 2
+                                    <div className="flex flex-col gap-8">
+                                        <div>
+                                            <h2 className="text-2xl font-bold">Mis certificados</h2>
+                                            <p className="text-base-content/80 text-lg leading-tight">
+                                                En esta sección, podrás ver todos los certificados
+                                                que has obtenido al completar los cursos. Puedes
+                                                descargar tus certificados en formato PDF.
+                                            </p>
+                                        </div>
+                                        <hr />
+                                        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-8">
+                                            {courses
+                                                .filter((c) => c.course_state == "completed")
+                                                .map((course) => (
+                                                    <article
+                                                        key={course.course_id}
+                                                        className="bg-black/25 border border-base-300 p-5 rounded-lg"
+                                                    >
+                                                        <div className="flex flex-col gap-5">
+                                                            <figure className="w-full">
+                                                                <PdfViewer
+                                                                    id={course.user_course_id}
+                                                                />
+                                                            </figure>
+                                                            <div>
+                                                                <h2 className="font-medium leading-[1.05] mb-2">
+                                                                    {course.course.course_name}
+                                                                </h2>
+                                                                <p className="text-xs mb-2">
+                                                                    Aprobado el{" "}
+                                                                    {new Date(
+                                                                        course.course_completion
+                                                                    ).toDateString("es-ES")}
+                                                                </p>
+                                                                <hr className="border-base-300" />
+                                                                <Link
+                                                                    href={`/api/users/${userSession.user_id}/courses/${course.course_id}/certificate`}
+                                                                    target="_blank"
+                                                                >
+                                                                    <button className="btn btn-primary shadow-none h-auto py-1 px-5 w-full mt-3">
+                                                                        Ver certificado
+                                                                    </button>
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                ))}
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <label className="tab">
@@ -275,16 +329,49 @@ export default function Page() {
                                     Mi progreso
                                 </label>
                                 <div className="tab-content bg-base-100 border-base-300 p-6">
-                                    Tab content 3
+                                    <div className="flex flex-col gap-8">
+                                        <div>
+                                            <h2 className="text-2xl font-bold">Mi progreso</h2>
+                                            <p className="text-base-content/80 text-lg leading-tight">
+                                                En esta sección, tendrás la oportunidad de examinar
+                                                detalladamente todas las clases que has completado
+                                                durante la semana en tus cursos, permitiéndote
+                                                llevar un seguimiento de tu progreso académico.
+                                            </p>
+                                        </div>
+                                        <hr />
+                                        <div>
+                                            <ChartComponent
+                                                userLessons={courses.flatMap((c) => c.lessonsTaken)}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <label className="tab">
-                                    <input type="radio" name="my_tabs_4" />
-                                    Cursos creados
-                                </label>
-                                <div className="tab-content bg-base-100 border-base-300 p-6">
-                                    Tab content 3
-                                </div>
+                                {userSession.role_id === 2 && (
+                                    <>
+                                        <label className="tab">
+                                            <input type="radio" name="my_tabs_4" />
+                                            Cursos creados
+                                        </label>
+                                        <div className="tab-content bg-base-100 border-base-300 p-6">
+                                            <div className="flex flex-col gap-8">
+                                                <div>
+                                                    <h2 className="text-2xl font-bold">
+                                                        Cursos creados
+                                                    </h2>
+                                                    <p className="text-base-content/80 text-lg leading-tight">
+                                                        En esta sección, podrás ver todos los cursos
+                                                        que has creado. Puedes ver la información de
+                                                        cada curso y hacer cambios en el contenido.
+                                                    </p>
+                                                </div>
+                                                <hr />
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

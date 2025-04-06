@@ -11,6 +11,17 @@ module.exports = {
                 type: Sequelize.UUID,
                 allowNull: false,
             },
+            createdAt: {
+                type: Sequelize.DATE,
+                defaultValue: Sequelize.NOW,
+                allowNull: false,
+            },
+            updatedAt: {
+                type: Sequelize.DATE,
+                defaultValue: Sequelize.NOW,
+                onUpdate: Sequelize.NOW,
+                allowNull: false,
+            },
         });
     },
     async down(queryInterface, Sequelize) {

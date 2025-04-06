@@ -16,7 +16,7 @@ export default function Page() {
     const { data: examInfo } = useGetData(`/users/${user?.user_id}/courses/${id}/exams/start`);
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(20);
+    const [timeLeft, setTimeLeft] = useState(600);
     const [answers, setAnswers] = useState({});
 
     const timerRef = useRef(null);
@@ -51,6 +51,8 @@ export default function Page() {
     };
 
     useEffect(() => {
+        document.title = "Preguntas Examen | EduWeb";
+
         timerRef.current = setInterval(() => {
             setTimeLeft((prev) => {
                 if (prev <= 1) {
@@ -80,7 +82,7 @@ export default function Page() {
     }, []);
 
     useEffect(() => {
-        const secondsLeft = new Date(examInfo.createdAt).getTime() + 20 * 60 * 1000 - Date.now();
+        const secondsLeft = new Date(examInfo.createdAt).getTime() + 10 * 60 * 1000 - Date.now();
         setTimeLeft(Math.ceil(secondsLeft / 1000));
     }, [examInfo]);
 
@@ -104,7 +106,7 @@ export default function Page() {
                         </p>
                     </div>
                     <progress
-                        class="progress progress-primary w-full"
+                        className="progress progress-primary w-full"
                         value={((currentQuestion + 1) / exam.questions.length) * 100}
                         max="100"
                     ></progress>

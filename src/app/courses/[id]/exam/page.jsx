@@ -4,6 +4,10 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+    title: "Examen | EduWeb",
+};
+
 export default async function Page({ params }) {
     const { id } = await params;
     const { user } = await getServerSession(authOptions);

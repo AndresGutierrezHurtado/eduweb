@@ -6,6 +6,10 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import React, { Fragment } from "react";
 
+export const metadata = {
+    title: "Lección | EduWeb",
+};
+
 export default async function Page({ params }) {
     const { id, lid } = await params;
     const { user: userSession } = await getServerSession(authOptions);
@@ -136,7 +140,13 @@ export default async function Page({ params }) {
                                                 }
                                             />
                                             <div className="timeline-middle">
-                                                <div className={`w-2 aspect-square ${ucourse?.course_state === "completed" ? "bg-primary" : "bg-base-300"} rounded-full`}></div>
+                                                <div
+                                                    className={`w-2 aspect-square ${
+                                                        ucourse?.course_state === "completed"
+                                                            ? "bg-primary"
+                                                            : "bg-base-300"
+                                                    } rounded-full`}
+                                                ></div>
                                             </div>
                                             <div className="timeline-end px-5 py-3 hover:bg-base-300 rounded cursor-pointer duration-200">
                                                 <Link href={`/courses/${id}/exam`}>
