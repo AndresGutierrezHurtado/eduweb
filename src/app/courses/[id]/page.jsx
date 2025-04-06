@@ -20,6 +20,18 @@ export default async function Page({ params }) {
     const course = await getData(`/courses/${id}`);
     const ucourse = await getData(`/users/${userSession?.user_id}/courses/${id}`);
 
+    if (ucourse) {
+        const { lessonsTaken } = ucourse;
+        const courseLessons = course.blocks.flatMap((block) =>
+            block.lessons.map((lesson) => lesson)
+        );
+
+        ucourse.lessonsTaken = lessonsTaken.map((lesson) => {
+            const courseLesson = courseLessons.find((cl) => cl.lesson_id === lesson.lesson_id);
+            return { ...lesson, block_id: courseLesson.block_id };
+        });
+    }
+
     const duration = course.blocks.reduce((acc, block) => {
         return (
             acc +
@@ -65,84 +77,45 @@ export default async function Page({ params }) {
                             <ul className="timeline timeline-vertical">
                                 {course.blocks
                                     .sort((a, b) => a.block_order - b.block_order)
-                                    .map((block) => (
-                                        <React.Fragment key={block.block_id}>
-                                            <li className="grid grid-cols-[0fr_15px_2fr_!important]">
-                                                {block.block_order > 1 && (
-                                                    <hr className="bg-base-300" />
-                                                )}
-                                                <div className="timeline-end pl-5 text-lg text-base-content/80 italic">
-                                                    {block.block_description}
-                                                </div>
-                                                <div className="timeline-middle">
-                                                    <div className="w-2 aspect-square bg-base-300 rounded-full"></div>
-                                                </div>
-                                                <hr className="bg-base-300" />
-                                            </li>
-                                            {block.lessons
-                                                .sort((a, b) => a.lesson_order - b.lesson_order)
-                                                .map((lesson, li) => {
-                                                    const url = new URL(lesson.lesson_video);
-                                                    const videoId = url.searchParams.get("v");
-                                                    if (!videoId) return null;
+                                    .map((block) => {
+                                        const isBlockCompleted = ucourse?.lessonsTaken.some(
+                                            (lt) => lt.block_id === block.block_id
+                                        );
+                                        return (
+                                            <React.Fragment key={block.block_id}>
+                                                <BlockLesson
+                                                    block={block}
+                                                    isCompleted={isBlockCompleted}
+                                                />
+                                                {block.lessons
+                                                    .sort((a, b) => a.lesson_order - b.lesson_order)
+                                                    .map((lesson) => {
+                                                        const isCompleted =
+                                                            ucourse?.lessonsTaken.find(
+                                                                (lt) =>
+                                                                    lt.lesson_id ===
+                                                                    lesson.lesson_id
+                                                            );
 
-                                                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
-                                                    return (
-                                                        <li
-                                                            key={lesson.lesson_id}
-                                                            className="grid grid-cols-[0fr_15px_2fr_!important]"
-                                                        >
-                                                            <hr className="bg-base-300" />
-                                                            <div className="timeline-middle">
-                                                                <div className="w-5 outline-base-300/50 outline-2 outline-offset-1 aspect-square bg-base-300 rounded-full flex items-center justify-center">
-                                                                    <p className="text-center text-sm text-base-content leading-tight font-bold">
-                                                                        {lesson.lesson_order}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="timeline-end pl-5 py-3">
-                                                                <div className="flex flex-row gap-5">
-                                                                    <img
-                                                                        src={thumbnailUrl}
-                                                                        className="w-18 aspect-square object-cover rounded-lg"
-                                                                        alt={
-                                                                            "Imagen " +
-                                                                            lesson.lesson_title
-                                                                        }
-                                                                    />
-                                                                    <div className="flex flex-col text-sm">
-                                                                        <p className="grow">
-                                                                            {lesson.lesson_title}
-                                                                        </p>
-                                                                        <p className="text-base-content/70">
-                                                                            {parseInt(
-                                                                                lesson.lesson_duration.split(
-                                                                                    ":"
-                                                                                )[0]
-                                                                            ) > 0 && (
-                                                                                <span className="mr-2">
-                                                                                    {lesson.lesson_duration.split(
-                                                                                        ":"
-                                                                                    )[0] + " horas"}
-                                                                                </span>
-                                                                            )}
-                                                                            <span>
-                                                                                {lesson.lesson_duration.split(
-                                                                                    ":"
-                                                                                )[1] + " minutos"}
-                                                                            </span>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr className="bg-base-300" />
-                                                        </li>
-                                                    );
-                                                })}
-                                        </React.Fragment>
-                                    ))}
+                                                        return (
+                                                            <LessonItem
+                                                                key={lesson.lesson_id}
+                                                                lesson={lesson}
+                                                                isCompleted={isCompleted}
+                                                            />
+                                                        );
+                                                    })}
+                                            </React.Fragment>
+                                        );
+                                    })}
                                 <li className="grid grid-cols-[0fr_15px_2fr_!important]">
-                                    <hr className="bg-base-300" />
+                                    <hr
+                                        className={
+                                            ucourse?.course_state === "completed"
+                                                ? "bg-primary"
+                                                : "bg-base-300"
+                                        }
+                                    />
                                     <div className="timeline-middle">
                                         <div className="w-2 aspect-square bg-base-300 rounded-full"></div>
                                     </div>
@@ -191,7 +164,9 @@ export default async function Page({ params }) {
                                         {ucourse?.course_state === "progress" ? (
                                             <span>Continuar curso</span>
                                         ) : (
-                                            <span>{ucourse ? "Volver a ver curso" : "Empezar curso"}</span>
+                                            <span>
+                                                {ucourse ? "Volver a ver curso" : "Empezar curso"}
+                                            </span>
                                         )}
                                     </button>
                                     {ucourse?.course_state === "completed" && (
@@ -206,5 +181,62 @@ export default async function Page({ params }) {
                 </div>
             </section>
         </>
+    );
+}
+
+function BlockLesson({ block, isCompleted }) {
+    return (
+        <li className="grid grid-cols-[0fr_15px_2fr_!important]">
+            {block.block_order > 1 && <hr className={isCompleted ? "bg-primary" : "bg-base-300"} />}
+            <div className="timeline-end pl-5 text-lg text-base-content/80 italic">
+                {block.block_description}
+            </div>
+            <div className="timeline-middle">
+                <div
+                    className="w-2 aspect-square rounded-full"
+                    style={{
+                        background: isCompleted ? "var(--color-primary)" : "var(--color-base-300)",
+                    }}
+                ></div>
+            </div>
+            <hr className={isCompleted ? "bg-primary" : "bg-base-300"} />
+        </li>
+    );
+}
+
+function LessonItem({ lesson, isCompleted }) {
+    return (
+        <li className="grid grid-cols-[0fr_15px_2fr_!important]">
+            <hr className={isCompleted ? "bg-primary" : "bg-base-300"} />
+            <div className="timeline-middle">
+                <div
+                    className="w-2 aspect-square rounded-full"
+                    style={{
+                        background: isCompleted ? "var(--color-primary)" : "var(--color-base-300)",
+                    }}
+                ></div>
+            </div>
+            <div className="timeline-end pl-5 py-3">
+                <div className="flex flex-row gap-5">
+                    <img
+                        src={lesson.lesson_image}
+                        className="w-18 aspect-square object-cover rounded-lg"
+                        alt={"Imagen " + lesson.lesson_title}
+                    />
+                    <div className="flex flex-col text-sm">
+                        <p className="grow">{lesson.lesson_title}</p>
+                        <p className="text-base-content/70">
+                            {parseInt(lesson.lesson_duration.split(":")[0]) > 0 && (
+                                <span className="mr-2">
+                                    {lesson.lesson_duration.split(":")[0] + " horas"}
+                                </span>
+                            )}
+                            <span>{lesson.lesson_duration.split(":")[1] + " minutos"}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr className={isCompleted ? "bg-primary" : "bg-base-300"} />
+        </li>
     );
 }
