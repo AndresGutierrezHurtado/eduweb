@@ -86,6 +86,9 @@ UserExam.belongsTo(UserCourse, { as: "userCourse", foreignKey: "user_course_id" 
 UserExam.hasMany(UserAnswer, { as: "userAnswers", foreignKey: "user_exam_id" });
 UserAnswer.belongsTo(UserExam, { as: "userExam", foreignKey: "user_exam_id" });
 
+Answer.hasMany(UserAnswer, { as: "userAnswers", foreignKey: "answer_id" });
+UserAnswer.belongsTo(Answer, { as: "answer", foreignKey: "answer_id" });
+
 module.exports = {
     Answer,
     Block,

@@ -5,10 +5,12 @@ module.exports = {
         await queryInterface.createTable("UserAnswers", {
             user_exam_id: {
                 type: Sequelize.UUID,
+                primaryKey: true,
                 allowNull: false,
             },
             answer_id: {
                 type: Sequelize.UUID,
+                primaryKey: true,
                 allowNull: false,
             },
         });
