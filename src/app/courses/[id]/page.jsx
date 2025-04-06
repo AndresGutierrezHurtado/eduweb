@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
@@ -101,6 +102,7 @@ export default async function Page({ params }) {
                                                             <LessonItem
                                                                 key={lesson.lesson_id}
                                                                 lesson={lesson}
+                                                                course_id={id}
                                                                 isCompleted={isCompleted}
                                                             />
                                                         );
@@ -160,15 +162,21 @@ export default async function Page({ params }) {
                                                 course.teacher.user_lastname}
                                         </p>
                                     </div>
-                                    <button className="btn btn-primary shadow-none rounded-lg">
-                                        {ucourse?.course_state === "progress" ? (
-                                            <span>Continuar curso</span>
-                                        ) : (
-                                            <span>
-                                                {ucourse ? "Volver a ver curso" : "Empezar curso"}
-                                            </span>
-                                        )}
-                                    </button>
+                                    <Link
+                                        href={`/courses/${course.course_id}/lessons/${course.blocks[0].lessons[0].lesson_id}`}
+                                    >
+                                        <button className="btn btn-primary shadow-none rounded-lg">
+                                            {ucourse?.course_state === "progress" ? (
+                                                <span>Continuar curso</span>
+                                            ) : (
+                                                <span>
+                                                    {ucourse
+                                                        ? "Volver a ver curso"
+                                                        : "Empezar curso"}
+                                                </span>
+                                            )}
+                                        </button>
+                                    </Link>
                                     {ucourse?.course_state === "completed" && (
                                         <button className="btn btn-primary btn-outline shadow-none rounded-lg">
                                             <span>Ver certificado</span>
@@ -204,7 +212,7 @@ function BlockLesson({ block, isCompleted }) {
     );
 }
 
-function LessonItem({ lesson, isCompleted }) {
+function LessonItem({ lesson, isCompleted, course_id }) {
     return (
         <li className="grid grid-cols-[0fr_15px_2fr_!important]">
             <hr className={isCompleted ? "bg-primary" : "bg-base-300"} />
@@ -216,25 +224,30 @@ function LessonItem({ lesson, isCompleted }) {
                     }}
                 ></div>
             </div>
-            <div className="timeline-end pl-5 py-3">
-                <div className="flex flex-row gap-5">
-                    <img
-                        src={lesson.lesson_image}
-                        className="w-18 aspect-square object-cover rounded-lg"
-                        alt={"Imagen " + lesson.lesson_title}
-                    />
-                    <div className="flex flex-col text-sm">
-                        <p className="grow">{lesson.lesson_title}</p>
-                        <p className="text-base-content/70">
-                            {parseInt(lesson.lesson_duration.split(":")[0]) > 0 && (
-                                <span className="mr-2">
-                                    {lesson.lesson_duration.split(":")[0] + " horas"}
-                                </span>
-                            )}
-                            <span>{lesson.lesson_duration.split(":")[1] + " minutos"}</span>
-                        </p>
+            <div className="timeline-end pl-5 py-3 w-full">
+                <Link
+                    href={`/courses/${course_id}/lessons/${lesson.lesson_id}`}
+                    className="w-full"
+                >
+                    <div className="flex flex-row gap-5 w-full">
+                        <img
+                            src={lesson.lesson_image}
+                            className="w-18 aspect-square object-cover rounded-lg"
+                            alt={"Imagen " + lesson.lesson_title}
+                        />
+                        <div className="flex flex-col text-sm">
+                            <p className="grow">{lesson.lesson_title}</p>
+                            <p className="text-base-content/70">
+                                {parseInt(lesson.lesson_duration.split(":")[0]) > 0 && (
+                                    <span className="mr-2">
+                                        {lesson.lesson_duration.split(":")[0] + " horas"}
+                                    </span>
+                                )}
+                                <span>{lesson.lesson_duration.split(":")[1] + " minutos"}</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                </Link>
             </div>
             <hr className={isCompleted ? "bg-primary" : "bg-base-300"} />
         </li>
