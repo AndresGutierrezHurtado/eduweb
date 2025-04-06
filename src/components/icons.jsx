@@ -11,9 +11,12 @@ import {
     FaTasks as TasksIcon,
     FaCubes as CubesIcon,
     FaGraduationCap as GraduationCapIcon,
-    FaCheckCircle as CheckIcon,
+    FaCheckCircle as CircleCheckIcon,
+    FaCheck as CheckIcon,
 } from "react-icons/fa";
 import { BsGlobe2 as GlobeIcon } from "react-icons/bs";
+import { IoClose as CloseIcon } from "react-icons/io5";
+import { LuTimer as TimerIcon } from "react-icons/lu";
 
 export {
     SearchIcon,
@@ -30,4 +33,7 @@ export {
     GraduationCapIcon,
     GlobeIcon,
     CheckIcon,
+    CloseIcon,
+    CircleCheckIcon,
+    TimerIcon,
 };

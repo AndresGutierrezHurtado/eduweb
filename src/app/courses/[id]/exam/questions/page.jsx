@@ -1,4 +1,5 @@
 "use client";
+import { TimerIcon } from "@/components/icons";
 import { useGetData, usePostData } from "@/hooks/useFetch";
 import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
@@ -95,17 +96,18 @@ export default function Page() {
     return (
         <>
             <section className="w-full px-3">
-                <div className="w-full max-w-[1200px] mx-auto flex gap-10 items-center">
+                <div className="w-full max-w-[1200px] mx-auto mt-10 flex flex-col gap-5">
                     <div>
                         <h2 className="text-2xl font-bold">{course.course_name}</h2>
                         <p className="text-base-content/80">
                             Pregunta {currentQuestion + 1} de {exam.questions.length}
                         </p>
                     </div>
-                    <div className="text-right">
-                        <p className="font-semibold text-red-600">Tiempo restante:</p>
-                        <p className="text-xl font-bold">{formatTime(timeLeft)}</p>
-                    </div>
+                    <progress
+                        class="progress progress-primary w-full"
+                        value={((currentQuestion + 1) / exam.questions.length) * 100}
+                        max="100"
+                    ></progress>
                 </div>
             </section>
             <section className="w-full px-3">
@@ -130,7 +132,7 @@ export default function Page() {
                         ))}
                     </ul>
 
-                    <div className="mt-8 flex gap-4">
+                    <div className="mt-15 flex items-center justify-between gap-4">
                         <button
                             className="btn btn-outline btn-primary"
                             onClick={() => setCurrentQuestion(currentQuestion - 1)}
@@ -138,6 +140,14 @@ export default function Page() {
                         >
                             Anterior
                         </button>
+
+                        <div className="text-center flex gap-2 items-center justify-center text-base-content/60 w-25">
+                            <span>
+                                <TimerIcon className="mx-auto" size={20} />
+                            </span>
+                            <p className="text-lg font-semibold">{formatTime(timeLeft)}</p>
+                        </div>
+
                         {currentQuestion < exam.questions.length - 1 ? (
                             <button
                                 className="btn btn-primary shadow-none h-auto py-2 w-fit"

@@ -119,23 +119,25 @@ export default async function Page({ params }) {
                                         }
                                     />
                                     <div className="timeline-middle">
-                                        <div className="w-2 aspect-square bg-base-300 rounded-full"></div>
+                                        <div className={`w-2 aspect-square ${ucourse?.course_state === "completed" ? "bg-primary" : "bg-base-300"} rounded-full`}></div>
                                     </div>
                                     <div className="timeline-end pl-5 py-3">
-                                        <div className="flex gap-5">
-                                            <figure className="w-18 aspect-square object-cover rounded-lg bg-black/30 flex items-center justify-center">
-                                                <TasksIcon className="text-3xl text-primary" />
-                                            </figure>
-                                            <div>
-                                                <h3 className="text-lg font-semibold">
-                                                    Evaluación final
-                                                </h3>
-                                                <p className="text-base-content/70">
-                                                    completa esta evaluación para obtener tu
-                                                    certificado
-                                                </p>
+                                        <Link href={`/courses/${id}/exam`}>
+                                            <div className="flex gap-5">
+                                                <figure className="w-18 aspect-square object-cover rounded-lg bg-black/30 flex items-center justify-center">
+                                                    <TasksIcon className="text-3xl text-primary" />
+                                                </figure>
+                                                <div>
+                                                    <h3 className="text-lg font-semibold">
+                                                        Evaluación final
+                                                    </h3>
+                                                    <p className="text-base-content/70">
+                                                        completa esta evaluación para obtener tu
+                                                        certificado
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     </div>
                                 </li>
                             </ul>
@@ -165,7 +167,7 @@ export default async function Page({ params }) {
                                     <Link
                                         href={`/courses/${course.course_id}/lessons/${course.blocks[0].lessons[0].lesson_id}`}
                                     >
-                                        <button className="btn btn-primary shadow-none rounded-lg">
+                                        <button className="btn btn-primary shadow-none rounded-lg w-full">
                                             {ucourse?.course_state === "progress" ? (
                                                 <span>Continuar curso</span>
                                             ) : (
@@ -178,7 +180,7 @@ export default async function Page({ params }) {
                                         </button>
                                     </Link>
                                     {ucourse?.course_state === "completed" && (
-                                        <button className="btn btn-primary btn-outline shadow-none rounded-lg">
+                                        <button className="btn btn-primary btn-outline shadow-none rounded-lg w-full">
                                             <span>Ver certificado</span>
                                         </button>
                                     )}
@@ -225,10 +227,7 @@ function LessonItem({ lesson, isCompleted, course_id }) {
                 ></div>
             </div>
             <div className="timeline-end pl-5 py-3 w-full">
-                <Link
-                    href={`/courses/${course_id}/lessons/${lesson.lesson_id}`}
-                    className="w-full"
-                >
+                <Link href={`/courses/${course_id}/lessons/${lesson.lesson_id}`} className="w-full">
                     <div className="flex flex-row gap-5 w-full">
                         <img
                             src={lesson.lesson_image}

@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.UUID,
                 allowNull: false,
             },
+            exam_state: {
+                type: DataTypes.ENUM("progress", "completed"),
+                defaultValue: "progress",
+                allowNull: false,
+            },
         },
         {
             sequelize,

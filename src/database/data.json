@@ -437,6 +437,7 @@
         {
             "user_course_id": "76c85f07-3359-4be3-bc7d-c6cfcbb09b75",
             "user_exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "exam_state": "completed",
             "createdAt": "2025-03-29T11:47:42.000Z",
             "updatedAt": "2025-03-29T11:47:42.000Z"
         }

@@ -1,4 +1,4 @@
-import { CheckIcon, TasksIcon } from "@/components/icons";
+import { CircleCheckIcon, TasksIcon } from "@/components/icons";
 import VideoPlayer from "@/components/videoPlayer";
 import { getData } from "@/hooks/serverFetch";
 import { authOptions } from "@/lib/authOptions";
@@ -136,7 +136,7 @@ export default async function Page({ params }) {
                                                 }
                                             />
                                             <div className="timeline-middle">
-                                                <div className="w-2 aspect-square bg-base-300 rounded-full"></div>
+                                                <div className={`w-2 aspect-square ${ucourse?.course_state === "completed" ? "bg-primary" : "bg-base-300"} rounded-full`}></div>
                                             </div>
                                             <div className="timeline-end px-5 py-3 hover:bg-base-300 rounded cursor-pointer duration-200">
                                                 <Link href={`/courses/${id}/exam`}>
@@ -217,7 +217,7 @@ function LessonItem({ lesson, isCompleted, course_id }) {
                                 <span>{lesson.lesson_duration.split(":")[1] + " minutos"}</span>
                                 {isCompleted && (
                                     <span className="text-primary flex items-center gap-1">
-                                        <CheckIcon /> Completado
+                                        <CircleCheckIcon /> Completado
                                     </span>
                                 )}
                             </p>

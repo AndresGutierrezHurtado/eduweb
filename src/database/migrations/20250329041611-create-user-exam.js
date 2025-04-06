@@ -12,6 +12,11 @@ module.exports = {
                 type: Sequelize.UUID,
                 allowNull: false,
             },
+            exam_state: {
+                type: Sequelize.ENUM("progress", "completed"),
+                defaultValue: "progress",
+                allowNull: false,
+            },
             createdAt: {
                 type: Sequelize.DATE,
                 defaultValue: Sequelize.NOW,

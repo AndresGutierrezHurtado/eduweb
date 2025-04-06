@@ -9,7 +9,8 @@ export default async function Page({ params }) {
     const { user } = await getServerSession(authOptions);
 
     const course = await getData(`/courses/${id}`);
-    const { examsTaken } = await getData(`/users/${user?.user_id}/courses/${id}`);
+    const ucourse = await getData(`/users/${user?.user_id}/courses/${id}`);
+    const examsTaken = ucourse?.examsTaken || [];
 
     return (
         <>
@@ -35,40 +36,45 @@ export default async function Page({ params }) {
                                 certificarte, puedes presentar el examen las veces que quieras.
                             </p>
                         </div>
-                        <div className="collapse collapse-arrow bg-base-100 border border-base-300">
-                            <input type="radio" name="my-accordion-2" />
-                            <div className="collapse-title font-semibold">Intentos anteriores</div>
-                            <div className="collapse-content text-sm flex flex-col gap-2">
-                                {examsTaken.map((exam) => {
-                                    const answers = exam.userAnswers.flatMap(
-                                        (answer) => answer.answer
-                                    );
-                                    const correctAnswers = answers.filter(
-                                        (answer) => answer.is_correct
-                                    ).length;
-                                    return (
-                                        <div key={exam.user_exam_id}>
-                                            <Link
-                                                href={`/courses/${id}/exam/${exam.user_exam_id}/results`}
-                                                className="flex items-center justify-between gap-2 hover:underline cursor-pointer"
-                                            >
-                                                <span className="flex items-center gap-4">
-                                                    <span>
-                                                        Intento {examsTaken.indexOf(exam) + 1}
+
+                        {examsTaken.length > 0 && (
+                            <div className="collapse collapse-arrow bg-base-100 border border-base-300">
+                                <input type="radio" name="my-accordion-2" />
+                                <div className="collapse-title font-semibold">
+                                    Intentos anteriores
+                                </div>
+                                <div className="collapse-content text-sm flex flex-col gap-2">
+                                    {examsTaken.map((exam) => {
+                                        const answers = exam.userAnswers.flatMap(
+                                            (answer) => answer.answer
+                                        );
+                                        const correctAnswers = answers.filter(
+                                            (answer) => answer.is_correct
+                                        ).length;
+                                        return (
+                                            <div key={exam.user_exam_id}>
+                                                <Link
+                                                    href={`/courses/${id}/exam/${exam.user_exam_id}/results`}
+                                                    className="flex items-center justify-between gap-2 hover:underline cursor-pointer"
+                                                >
+                                                    <span className="flex items-center gap-4">
+                                                        <span>
+                                                            Intento {examsTaken.indexOf(exam) + 1}
+                                                        </span>
+                                                        <span>
+                                                            {correctAnswers}/{answers.length}
+                                                        </span>
                                                     </span>
                                                     <span>
-                                                        {correctAnswers}/{answers.length}
+                                                        {new Date(exam.createdAt).toLocaleString()}
                                                     </span>
-                                                </span>
-                                                <span>
-                                                    {new Date(exam.createdAt).toLocaleString()}
-                                                </span>
-                                            </Link>
-                                        </div>
-                                    );
-                                })}
+                                                </Link>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
+                        )}
                         <Link href={`/courses/${id}/exam/questions`}>
                             <button className="btn btn-primary shadow-none h-auto py-2 w-fit">
                                 Comenzar

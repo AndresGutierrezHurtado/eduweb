@@ -26,7 +26,7 @@ export async function GET(req, { params }) {
             return diff <= 10 * 60 * 1000;
         });
 
-        if (!recentExam) {
+        if (!recentExam || recentExam.exam_state === "completed") {
             recentExam = await UserExam.create({
                 user_course_id: userCourse.user_course_id,
             });
