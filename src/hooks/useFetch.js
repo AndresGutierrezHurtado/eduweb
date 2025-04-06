@@ -18,7 +18,7 @@ const fetchData = async (endpoint, config) => {
 export const useGetData = (endpoint) => {
     const [data, setData] = useState([]);
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [trigger, setTrigger] = useState(0);
 
     useEffect(() => {
@@ -49,6 +49,18 @@ export const useGetData = (endpoint) => {
 export const usePutData = async (endpoint, body) => {
     const { success, data, message } = await fetchData(endpoint, {
         method: "PUT",
+        body: JSON.stringify(body),
+    });
+
+    if (!success) Swal.fire("Error", message, "error");
+    else Swal.fire("Éxito", message, "success");
+
+    return { success, data, message };
+};
+
+export const usePostData = async (endpoint, body) => {
+    const { success, data, message } = await fetchData(endpoint, {
+        method: "POST",
         body: JSON.stringify(body),
     });
 
