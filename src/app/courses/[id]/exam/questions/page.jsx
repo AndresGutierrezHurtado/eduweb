@@ -1,0 +1,166 @@
+"use client";
+import { useGetData, usePostData } from "@/hooks/useFetch";
+import { useSession } from "next-auth/react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+
+export default function Page() {
+    const { id } = useParams();
+    const { data } = useSession();
+    const router = useRouter();
+    const user = data?.user;
+
+    const { data: course, loading: loadingCourse } = useGetData(`/courses/${id}`);
+    const { data: exam, loading: loadingExam } = useGetData(`/courses/${id}/exam`);
+    const { data: examInfo } = useGetData(`/users/${user?.user_id}/courses/${id}/exams/start`);
+
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(20);
+    const [answers, setAnswers] = useState({});
+
+    const timerRef = useRef(null);
+    const answersRef = useRef({});
+    const unloadHandlerRef = useRef(null);
+
+    const handleAnswerChange = (questionId, answerId) => {
+        const updated = {
+            ...answersRef.current,
+            [questionId]: answerId,
+        };
+        setAnswers(updated);
+        answersRef.current = updated;
+    };
+
+    const handleSubmit = async () => {
+        const data = Object.values(answersRef.current);
+
+        const response = await usePostData(
+            `/users/${user?.user_id}/courses/${id}/exams/${examInfo.user_exam_id}`,
+            { answers: data }
+        );
+
+        if (response.success) {
+            if (timerRef.current) clearInterval(timerRef.current);
+            if (unloadHandlerRef.current) {
+                window.removeEventListener("beforeunload", unloadHandlerRef.current);
+            }
+
+            router.push(`/courses/${id}/exam/${examInfo.user_exam_id}/results`);
+        }
+    };
+
+    useEffect(() => {
+        timerRef.current = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    clearInterval(timerRef.current);
+                    handleSubmit();
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timerRef.current);
+    }, []);
+
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = "";
+        };
+
+        unloadHandlerRef.current = handleBeforeUnload;
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, []);
+
+    useEffect(() => {
+        const secondsLeft = new Date(examInfo.createdAt).getTime() + 20 * 60 * 1000 - Date.now();
+        setTimeLeft(Math.ceil(secondsLeft / 1000));
+    }, [examInfo]);
+
+    if (loadingExam || loadingCourse) return <p>Loading...</p>;
+    const question = exam.questions[currentQuestion];
+
+    const formatTime = (seconds) => {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    };
+
+    return (
+        <>
+            <section className="w-full px-3">
+                <div className="w-full max-w-[1200px] mx-auto flex gap-10 items-center">
+                    <div>
+                        <h2 className="text-2xl font-bold">{course.course_name}</h2>
+                        <p className="text-base-content/80">
+                            Pregunta {currentQuestion + 1} de {exam.questions.length}
+                        </p>
+                    </div>
+                    <div className="text-right">
+                        <p className="font-semibold text-red-600">Tiempo restante:</p>
+                        <p className="text-xl font-bold">{formatTime(timeLeft)}</p>
+                    </div>
+                </div>
+            </section>
+            <section className="w-full px-3">
+                <div className="w-full max-w-[1200px] mx-auto py-10">
+                    <h3 className="text-xl font-bold">{question.question_text}</h3>
+                    <ul className="grid grid-cols-1 gap-5 mt-4">
+                        {question.answers.map((answer) => (
+                            <li key={answer.answer_id}>
+                                <input
+                                    type="radio"
+                                    name={`question-${question.question_id}`}
+                                    id={answer.answer_id}
+                                    checked={answers[question.question_id] === answer.answer_id}
+                                    onChange={() =>
+                                        handleAnswerChange(question.question_id, answer.answer_id)
+                                    }
+                                    disabled={timeLeft <= 0}
+                                    className="mr-2"
+                                />
+                                <label htmlFor={answer.answer_id}>{answer.answer_text}</label>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div className="mt-8 flex gap-4">
+                        <button
+                            className="btn btn-outline btn-primary"
+                            onClick={() => setCurrentQuestion(currentQuestion - 1)}
+                            disabled={currentQuestion === 0}
+                        >
+                            Anterior
+                        </button>
+                        {currentQuestion < exam.questions.length - 1 ? (
+                            <button
+                                className="btn btn-primary shadow-none h-auto py-2 w-fit"
+                                onClick={() => setCurrentQuestion(currentQuestion + 1)}
+                                disabled={!answers[question.question_id]}
+                            >
+                                Siguiente
+                            </button>
+                        ) : (
+                            <button
+                                className="btn btn-primary shadow-none h-auto py-2 w-fit"
+                                onClick={handleSubmit}
+                                disabled={
+                                    Object.keys(answers).length !== exam.questions.length ||
+                                    timeLeft <= 0
+                                }
+                            >
+                                Enviar examen
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </section>
+        </>
+    );
+}
