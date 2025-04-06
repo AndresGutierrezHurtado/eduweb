@@ -11,6 +11,7 @@ import {
     FaTasks as TasksIcon,
     FaCubes as CubesIcon,
     FaGraduationCap as GraduationCapIcon,
+    FaCheckCircle as CheckIcon,
 } from "react-icons/fa";
 import { BsGlobe2 as GlobeIcon } from "react-icons/bs";
 
@@ -28,4 +29,5 @@ export {
     CubesIcon,
     GraduationCapIcon,
     GlobeIcon,
+    CheckIcon,
 };
