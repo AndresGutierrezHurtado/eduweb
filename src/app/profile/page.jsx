@@ -44,7 +44,7 @@ export default function Page() {
                                     {userSession.user_name} {userSession.user_lastname}
                                 </h2>
                                 <p className="text-base-content/80 text-lg italic font-medium capitalize">
-                                    {userSession.user_profession || user.role.role_name}
+                                    {userSession.user_profession || userSession.role.role_name}
                                 </p>
                             </div>
                             <div>
@@ -284,6 +284,13 @@ export default function Page() {
                                             </p>
                                         </div>
                                         <hr />
+                                        {courses.length == 0 && (
+                                            <div>
+                                                <p className="text-base-content/80 text-lg leading-tight">
+                                                    Aún no has completado ningun curso...
+                                                </p>
+                                            </div>
+                                        )}
                                         <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-8">
                                             {courses
                                                 .filter((c) => c.course_state == "completed")
