@@ -89,6 +89,10 @@ export default function ChartComponent({ userLessons }) {
                         {
                             ticks: {
                                 fontColor: "rgba(255,255,255,.7)",
+                                beginAtZero: true,
+                                stepSize: 1,
+                                min: 0,
+                                max: Math.max(...daysLessons) + 5,
                             },
                             display: true,
                             scaleLabel: {

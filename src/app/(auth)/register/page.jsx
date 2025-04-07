@@ -2,14 +2,26 @@
 
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+// Hooks
+import { usePostData } from "@/hooks/useFetch.js";
+
+// Components
 import { FaGoogle, FaGithub } from "react-icons/fa";
 
 export default function Page() {
-    const handleSubmit = (e) => {
+    const router = useRouter();
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
 
-        console.log(data);
+        const response = await usePostData("/users", { user: data });
+
+        if (response.success) {
+            e.target.reset();
+            router.push("/login");
+        }
     };
 
     return (
@@ -68,6 +80,19 @@ export default function Page() {
                             />
                         </div>
 
+                        <div className="fieldset">
+                            <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
+                                <span className="label-text">Teléfono:</span>
+                            </label>
+                            <input
+                                type="tel"
+                                placeholder="Ingresa tu número de teléfono"
+                                className="input input-bordered focus:outline-none focus:border-primary w-full"
+                                name="user_phone"
+                                required
+                            />
+                        </div>
+
                         <div className="form-control">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">Contraseña:</span>
@@ -99,11 +124,11 @@ export default function Page() {
                             </label>
                             <select
                                 className="select select-bordered focus:outline-none focus:border-primary w-full"
-                                name="role"
+                                name="role_id"
                                 required
                             >
-                                <option value="student">Estudiante</option>
-                                <option value="teacher">Profesor</option>
+                                <option value="1">Estudiante</option>
+                                <option value="2">Profesor</option>
                             </select>
                         </div>
 

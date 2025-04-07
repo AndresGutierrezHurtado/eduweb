@@ -30,3 +30,51 @@ export async function GET(request) {
         });
     }
 }
+
+export async function POST(request) {
+    try {
+        const { user } = await request.json();
+
+        const newUser = await User.create(user);
+
+        return NextResponse.json(
+            {
+                success: true,
+                data: newUser,
+                message: "Usuario creado correctamente",
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.log(error);
+        if (error.name === "SequelizeUniqueConstraintError") {
+            const duplicateFields = error.errors.map((err) => err.path);
+            let field;
+            switch (duplicateFields[0]) {
+                case "user_email":
+                    field = "correo electrónico";
+                    break;
+                case "user_phone":
+                    field = "número de teléfono";
+                    break;
+            }
+
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: `El ${field} ya está registrado`,
+                },
+                { status: 400 }
+            );
+        }
+
+        return NextResponse.json(
+            {
+                success: false,
+                data: error,
+                message: "Error al crear el usuario: " + error.message,
+            },
+            { status: 500 }
+        );
+    }
+}
