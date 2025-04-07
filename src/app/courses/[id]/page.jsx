@@ -147,6 +147,59 @@ export default async function Page({ params }) {
                                     </div>
                                 </li>
                             </ul>
+                            <section className="flex gap-5 py-5">
+                                <div className="space-y-4">
+                                    <div>
+                                        <div className="badge badge-primary badge-soft border-[var(--color-primary)_!important] rounded text-sm">
+                                            Certificado digital
+                                        </div>
+                                        <h2 className="text-3xl font-bold">
+                                            ¡Comparte tus logros con un certificado!
+                                        </h2>
+                                    </div>
+                                    <p className="mt-2 text-base">
+                                        Cuando termines el curso tendrás acceso al certificado
+                                        digital para compartirlo con tu familia, amigos, empleadores
+                                        y la comunidad.
+                                    </p>
+                                </div>
+                                <img
+                                    src="/certificate.png"
+                                    alt="Certificado de Platzi"
+                                    className="rounded shadow-md w-2/5"
+                                />
+                            </section>
+                            <section className="space-y-4">
+                                <div>
+                                    <div className="badge badge-primary badge-soft border-[var(--color-primary)_!important] rounded text-sm">
+                                        Profe del curso
+                                    </div>
+                                    <h2 className="text-3xl font-bold">
+                                        Conoce quien enseña el curso
+                                    </h2>
+                                </div>
+
+                                <div className="flex items-center gap-6 bg-base-200/50 p-4 rounded-box shadow-md">
+                                    <div className="avatar">
+                                        <div className="w-25 rounded">
+                                            <img
+                                                src={course.teacher.user_image}
+                                                alt={course.teacher.user_name}
+                                                className="object-contain"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-semibold">{course.teacher.user_name} {course.teacher.user_lastname}</h3>
+                                        <p className="text-sm text-gray-400">
+                                            {course.teacher.user_profession}
+                                        </p>
+                                        <Link href={`/teacher/${course.teacher_id}`} className="link link-primary mt-3 block">
+                                            Ver cursos de {course.teacher.user_name} →
+                                        </Link>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
 
                         <div className="w-1/3">
