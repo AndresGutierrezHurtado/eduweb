@@ -1,4 +1,3 @@
-
 import bcrypt from "bcrypt";
 import Credentials from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
@@ -45,6 +44,9 @@ export const authOptions = {
         }),
     ],
     callbacks: {
+        async signIn({ user }) {
+            return true;
+        },
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.user_id;
@@ -68,6 +70,9 @@ export const authOptions = {
             session.user.role = token.role;
 
             return session;
+        },
+        redirect({ baseUrl }) {
+            return baseUrl;
         },
     },
     adapter: SequelizeAdapter(connection),

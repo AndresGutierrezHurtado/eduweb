@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 import { Alegreya_Sans } from "next/font/google";
 import { Inter } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 // Components
 import Header from "@/layouts/header.jsx";
@@ -15,14 +15,23 @@ const inter = Inter({ subsets: ["latin"] });
 const alegreya = Alegreya_Sans({ subsets: ["latin"], weight: "700" });
 
 export default function RootLayout({ children }) {
+    const pathname = usePathname();
+    const excludedRoutes = ["/login", "/register", "/api/auth/error"];
+
     return (
         <html lang="es">
             <body className="antialiased font-inter">
                 <SessionProvider>
                     <div id="root" className="flex flex-col min-h-screen">
-                        <Header />
-                        <main className="flex-1 flex flex-col">{children}</main>
-                        <Footer />
+                        {excludedRoutes.includes(pathname) ? (
+                            <main className="flex-1 flex flex-col">{children}</main>
+                        ) : (
+                            <>
+                                <Header />
+                                <main className="flex-1 flex flex-col">{children}</main>
+                                <Footer />
+                            </>
+                        )}
                     </div>
                 </SessionProvider>
                 <div>

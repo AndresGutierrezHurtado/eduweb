@@ -98,7 +98,7 @@ export default function Header() {
                             </>
                         ) : (
                             <Link
-                                href="/api/auth/signin"
+                                href="/login"
                                 className="btn btn-primary shadow-none rounded-lg btn-sm text-sm px-4 font-medium"
                             >
                                 <button>Autentícate</button>
