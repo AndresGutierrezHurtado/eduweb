@@ -17,6 +17,7 @@ const fetchData = async (endpoint, config) => {
 
 export const useGetData = (endpoint) => {
     const [data, setData] = useState([]);
+    const [total, setTotal] = useState(null);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [trigger, setTrigger] = useState(0);
@@ -25,8 +26,9 @@ export const useGetData = (endpoint) => {
         const getData = async () => {
             setLoading(true);
             try {
-                const { data } = await fetchData(endpoint);
+                const { data, ...rest } = await fetchData(endpoint);
                 setData(data);
+                setTotal(rest?.total);
             } catch (error) {
                 setError(error);
             } finally {
@@ -42,6 +44,7 @@ export const useGetData = (endpoint) => {
         data,
         error,
         loading,
+        total,
         reload,
     };
 };
@@ -66,6 +69,17 @@ export const usePostData = async (endpoint, body) => {
 
     if (!success) Swal.fire("Error", message, "error");
     else Swal.fire("Éxito", message, "success");
+
+    return { success, data, message };
+};
+
+export const useDeleteData = async (endpoint) => {
+    const { success, data, message } = await fetchData(endpoint, {
+        method: "DELETE",
+    });
+
+    if (!success) Swal.fire("Error", message, "error");
+    else Swal.fire("Éxito", message, "success");
 
     return { success, data, message };
 };

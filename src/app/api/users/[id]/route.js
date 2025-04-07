@@ -62,3 +62,29 @@ export async function PUT(request, { params }) {
         );
     }
 }
+
+export async function DELETE(request, { params }) {
+    try {
+        const { id } = await params;
+
+        const user = await User.findByPk(id);
+        await user.destroy();
+
+        return NextResponse.json(
+            {
+                success: true,
+                message: "Usuario eliminado correctamente",
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json(
+            {
+                success: false,
+                message: "Error al eliminar el usuario: " + error.message,
+            },
+            { status: 500 }
+        );
+    }
+}
