@@ -4,6 +4,7 @@ import { getData } from "@/hooks/serverFetch";
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React, { Fragment } from "react";
 
 export const metadata = {
@@ -12,7 +13,13 @@ export const metadata = {
 
 export default async function Page({ params }) {
     const { id, lid } = await params;
-    const { user: userSession } = await getServerSession(authOptions);
+    const data = await getServerSession(authOptions);
+    const userSession = data?.user;
+
+    if (!userSession) {
+        redirect("/login");
+    }
+
     await getData(`/users/${userSession.user_id}/courses/${id}/lessons/${lid}`);
 
     const course = await getData(`/courses/${id}`);

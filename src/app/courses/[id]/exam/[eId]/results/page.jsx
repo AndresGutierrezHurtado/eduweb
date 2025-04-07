@@ -14,6 +14,10 @@ export default async function Page({ params }) {
     const data = await getServerSession(authOptions);
     const user = data?.user;
 
+    if (!user) {
+        redirect("/login");
+    }
+
     const course = await getData(`/courses/${id}`);
     const exam = await getData(`/courses/${id}/exam`);
     const ucourse = await getData(`/users/${user.user_id}/courses/${id}`);

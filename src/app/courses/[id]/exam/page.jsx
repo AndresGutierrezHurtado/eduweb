@@ -10,7 +10,12 @@ export const metadata = {
 
 export default async function Page({ params }) {
     const { id } = await params;
-    const { user } = await getServerSession(authOptions);
+    const data = await getServerSession(authOptions);
+    const user = data?.user;
+
+    if (!user) {
+        redirect("/login");
+    }
 
     const course = await getData(`/courses/${id}`);
     const ucourse = await getData(`/users/${user?.user_id}/courses/${id}`);

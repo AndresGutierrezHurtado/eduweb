@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import Swal from "sweetalert2";
@@ -17,9 +17,18 @@ export default function Header() {
 
     const [courses, setCourses] = useState([]);
     const [search, setSearch] = useState("");
+    const modalRef = useRef(null);
 
     const closeModal = () => {
-        document.querySelector("#search-modal").close();
+        if (modalRef.current) {
+            modalRef.current.close();
+        }
+    };
+
+    const openModal = () => {
+        if (modalRef.current) {
+            modalRef.current.showModal();
+        }
     };
 
     const logout = () => {
@@ -63,7 +72,7 @@ export default function Header() {
                                 type="text"
                                 name="search"
                                 placeholder="Buscar cursos"
-                                onClick={() => document.querySelector("#search-modal").showModal()}
+                                onClick={openModal}
                             />
                             <button className="btn btn-ghost hover:bg-white/10 btn-sm btn-circle">
                                 <SearchIcon size={15} />
@@ -133,7 +142,7 @@ export default function Header() {
                     </div>
                 </div>
             </header>
-            <dialog id="search-modal" className="modal">
+            <dialog ref={modalRef} id="search-modal" className="modal">
                 <div className="modal-box p-0 rounded-none bg-transparent border-none">
                     <div className="bg-base-100 rounded-lg p-4">
                         <input
