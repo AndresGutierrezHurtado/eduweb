@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 // Components
 import {
@@ -11,8 +12,8 @@ import {
 } from "@/components/icons";
 
 export const metadata = {
-    title: "Inicio | EduWeb"
-}
+    title: "Inicio | EduWeb",
+};
 
 export default async function Home() {
     return (
@@ -22,25 +23,22 @@ export default async function Home() {
                     <div className="flex items-center">
                         <div className="w-full flex flex-col gap-5">
                             <div>
-                                <h3 className="uppercase text-xl font-bold text-primary">
-                                    EduWeb
-                                </h3>
+                                <h3 className="uppercase text-xl font-bold text-primary">EduWeb</h3>
                                 <h1 className="text-5xl font-bold">
-                                    Impulsa tu conocimiento, transforma tu
-                                    futuro
+                                    Impulsa tu conocimiento, transforma tu futuro
                                 </h1>
                             </div>
                             <p className="text-base-content/80">
-                                Accede a cursos de alta calidad y obtén
-                                certificados gratuitos que avalen tu progreso.
-                                Aprende a tu ritmo, desarrolla nuevas
-                                habilidades y prepárate para transformar tu
-                                futuro profesional con contenidos actualizados y
-                                una comunidad de apoyo.
+                                Accede a cursos de alta calidad y obtén certificados gratuitos que
+                                avalen tu progreso. Aprende a tu ritmo, desarrolla nuevas
+                                habilidades y prepárate para transformar tu futuro profesional con
+                                contenidos actualizados y una comunidad de apoyo.
                             </p>
-                            <button className="btn btn-primary shadow-none w-fit rounded-lg font-medium text-base">
-                                Explora nuestros cursos <ArrowRight />
-                            </button>
+                            <Link href="/courses">
+                                <button className="btn btn-primary shadow-none w-fit rounded-lg font-medium text-base">
+                                    Explora nuestros cursos <ArrowRight />
+                                </button>
+                            </Link>
                         </div>
                         <div className="w-full flex items-center justify-center">
                             <Image
@@ -58,57 +56,46 @@ export default async function Home() {
                 <div className="w-full max-w-[1200px] mx-auto py-10">
                     <div className="w-full text-center flex flex-col gap-10">
                         <h2 className="text-3xl font-extrabold">
-                            ¿Por qué{" "}
-                            <span className="text-primary">
-                                aprender con EduWeb?
-                            </span>
+                            ¿Por qué <span className="text-primary">aprender con EduWeb?</span>
                         </h2>
                         <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-10">
                             <div className="flex flex-col gap-5 items-center w-full">
                                 <UserIcon size={70} />
                                 <div className="flex flex-col gap-1">
-                                    <h3 className="text-xl font-bold">
-                                        Expertos en Latam
-                                    </h3>
+                                    <h3 className="text-xl font-bold">Expertos en Latam</h3>
                                     <p className="text-sm text-pretty text-base-content/80">
-                                        Tu equipo aprenderá de profesionales
-                                        reconocidos de Latinoamérica y España.
+                                        Tu equipo aprenderá de profesionales reconocidos de
+                                        Latinoamérica y España.
                                     </p>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-5 items-center w-full">
                                 <ClockIcon size={70} />
                                 <div className="flex flex-col gap-1">
-                                    <h3 className="text-xl font-bold">
-                                        Expertos en Latam
-                                    </h3>
+                                    <h3 className="text-xl font-bold">Expertos en Latam</h3>
                                     <p className="text-sm text-pretty text-base-content/80">
-                                        Tu equipo aprenderá de profesionales
-                                        reconocidos de Latinoamérica y España.
+                                        Tu equipo aprenderá de profesionales reconocidos de
+                                        Latinoamérica y España.
                                     </p>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-5 items-center w-full">
                                 <CalendarIcon size={70} />
                                 <div className="flex flex-col gap-1">
-                                    <h3 className="text-xl font-bold">
-                                        Expertos en Latam
-                                    </h3>
+                                    <h3 className="text-xl font-bold">Expertos en Latam</h3>
                                     <p className="text-sm text-pretty text-base-content/80">
-                                        Tu equipo aprenderá de profesionales
-                                        reconocidos de Latinoamérica y España.
+                                        Tu equipo aprenderá de profesionales reconocidos de
+                                        Latinoamérica y España.
                                     </p>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-5 items-center w-full">
                                 <CertificateIcon size={70} />
                                 <div className="flex flex-col gap-1">
-                                    <h3 className="text-xl font-bold">
-                                        Expertos en Latam
-                                    </h3>
+                                    <h3 className="text-xl font-bold">Expertos en Latam</h3>
                                     <p className="text-sm text-pretty text-base-content/80">
-                                        Tu equipo aprenderá de profesionales
-                                        reconocidos de Latinoamérica y España.
+                                        Tu equipo aprenderá de profesionales reconocidos de
+                                        Latinoamérica y España.
                                     </p>
                                 </div>
                             </div>
@@ -122,15 +109,12 @@ export default async function Home() {
                         <div className="w-full flex flex-col gap-5">
                             <h2 className="text-5xl font-extrabold">
                                 Obten un <br />
-                                <span className="text-primary italic">
-                                    Certificado oficial
-                                </span>
+                                <span className="text-primary italic">Certificado oficial</span>
                                 <br /> de EduWeb
                             </h2>
                             <p className="text-lg leading-tight  text-pretty text-base-content/80">
-                                Demuestra tus habilidades con certificaciones
-                                reconocidas por la industria a nivel
-                                internacional.
+                                Demuestra tus habilidades con certificaciones reconocidas por la
+                                industria a nivel internacional.
                             </p>
                         </div>
                         <div className="w-full flex items-center justify-center">
@@ -183,25 +167,16 @@ export default async function Home() {
                                     className="bg-base-content/20 p-8 rounded-lg flex flex-col gap-5"
                                 >
                                     <QuotesIcon size={40} />
-                                    <p className="text-sm italic grow">
-                                        {tes.testimonial}
-                                    </p>
+                                    <p className="text-sm italic grow">{tes.testimonial}</p>
                                     <div className="flex gap-3 ">
                                         <div className="avatar">
                                             <div className="w-15 aspect-square rounded-full">
-                                                <img
-                                                    src={tes.img}
-                                                    alt="Imagen testimonio"
-                                                />
+                                                <img src={tes.img} alt="Imagen testimonio" />
                                             </div>
                                         </div>
                                         <div className="flex flex-col gap-1 text-sm">
-                                            <p className="font-semibold">
-                                                {tes.name}
-                                            </p>
-                                            <p className="text-base-content/70">
-                                                {tes.role}
-                                            </p>
+                                            <p className="font-semibold">{tes.name}</p>
+                                            <p className="text-base-content/70">{tes.role}</p>
                                         </div>
                                     </div>
                                 </div>

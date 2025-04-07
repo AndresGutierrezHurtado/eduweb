@@ -6,12 +6,13 @@ import { useSession } from "next-auth/react";
 
 // Components
 import { GlobeIcon } from "@/components/icons";
-
-// Hooks
-import { useGetData } from "@/hooks/useFetch";
+import LoadingComponent from "@/components/loading";
 import UserUpdate from "@/components/userUpdate";
 import PdfViewer from "@/components/pdfViewer";
 import ChartComponent from "@/components/chart";
+
+// Hooks
+import { useGetData } from "@/hooks/useFetch";
 
 export default function Page() {
     const { data, status, update } = useSession();
@@ -25,7 +26,7 @@ export default function Page() {
         document.title = "Perfil | Eduweb";
     }, []);
 
-    if (status == "loading" || loadingCourses) return <>Cargando...</>;
+    if (status == "loading" || loadingCourses) return <LoadingComponent />;
     if (!userSession) return <>No estas logueado</>;
     return (
         <>

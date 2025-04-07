@@ -8,6 +8,7 @@ import { useGetData } from "@/hooks/useFetch.js";
 
 // Icons
 import { CodeIcon, PaintBrushIcon } from "@/components/icons.jsx";
+import LoadingComponent from "@/components/loading";
 
 export default function Page() {
     const [categories, setCategories] = useState(null);
@@ -19,7 +20,7 @@ export default function Page() {
         document.title = "Cursos | Eduweb";
     }, [])
 
-    if (loadingCourses) return <>Cargando...</>;
+    if (loadingCourses) return <LoadingComponent />;
     return (
         <>
             <section className="w-full px-3">

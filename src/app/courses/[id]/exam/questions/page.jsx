@@ -1,9 +1,15 @@
 "use client";
-import { TimerIcon } from "@/components/icons";
-import { useGetData, usePostData } from "@/hooks/useFetch";
+
+import React, { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+
+// Hooks
+import { useGetData, usePostData } from "@/hooks/useFetch";
+
+// Components
+import { TimerIcon } from "@/components/icons";
+import LoadingComponent from "@/components/loading";
 
 export default function Page() {
     const { id } = useParams();
@@ -86,7 +92,7 @@ export default function Page() {
         setTimeLeft(Math.ceil(secondsLeft / 1000));
     }, [examInfo]);
 
-    if (loadingExam || loadingCourse) return <p>Loading...</p>;
+    if (loadingExam || loadingCourse) return <LoadingComponent />;
     const question = exam.questions[currentQuestion];
 
     const formatTime = (seconds) => {
