@@ -5,8 +5,9 @@ export default function Loading() {
         <>
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
-                    <div className="w-full flex items-center justify-center">
-                        <span className="loading loading-ring loading-xl"></span>
+                    <div className="w-full flex flex-col items-center justify-center">
+                        <span className="loading loading-ring w-50"></span>
+                        <h2 className="text-5xl font-bold">Cargando...</h2>
                     </div>
                 </div>
             </section>

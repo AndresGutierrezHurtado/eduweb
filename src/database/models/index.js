@@ -74,7 +74,7 @@ Answer.belongsTo(Question, { as: "question", foreignKey: "question_id" });
 User.hasMany(UserCourse, { as: "userCourses", foreignKey: "user_id" });
 UserCourse.belongsTo(User, { as: "user", foreignKey: "user_id" });
 
-Course.hasMany(UserCourse, { as: "userCourse", foreignKey: "course_id" });
+Course.hasMany(UserCourse, { as: "students", foreignKey: "course_id" });
 UserCourse.belongsTo(Course, { as: "course", foreignKey: "course_id" });
 
 UserCourse.hasMany(UserLesson, { as: "lessonsTaken", foreignKey: "user_course_id" });

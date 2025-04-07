@@ -53,9 +53,9 @@ export default function Page() {
                     <div className="flex flex-col gap-8">
                         <h2 className="text-2xl font-bold">Explora nuestros cursos</h2>
                         <div className="flex flex-row w-full overflow-x-auto gap-10">
-                            {courses.map((course, i) => (
+                            {courses.map((course) => (
                                 <div
-                                    key={course.course_id + i}
+                                    key={course.course_id}
                                     className="bg-base-100 rounded-lg border border-white/20 overflow-hidden w-full min-w-[300px] max-w-[350px]"
                                 >
                                     <Link className="w-full" href={`/courses/${course.course_id}`}>

@@ -194,7 +194,7 @@ export default async function Page({ params }) {
                                         <p className="text-sm text-gray-400">
                                             {course.teacher.user_profession}
                                         </p>
-                                        <Link href={`/teacher/${course.teacher_id}`} className="link link-primary mt-3 block">
+                                        <Link href={`/teachers/${course.teacher_id}`} className="link link-primary mt-3 block">
                                             Ver cursos de {course.teacher.user_name} →
                                         </Link>
                                     </div>
