@@ -17,6 +17,8 @@ import {
 import { BsGlobe2 as GlobeIcon } from "react-icons/bs";
 import { IoClose as CloseIcon } from "react-icons/io5";
 import { LuTimer as TimerIcon } from "react-icons/lu";
+import { FiLogOut as LogOutIcon } from "react-icons/fi";
+import { FaGear as GearIcon } from "react-icons/fa6";
 
 export {
     SearchIcon,
@@ -36,4 +38,6 @@ export {
     CloseIcon,
     CircleCheckIcon,
     TimerIcon,
+    GearIcon,
+    LogOutIcon,
 };

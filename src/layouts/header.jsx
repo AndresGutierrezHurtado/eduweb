@@ -1,13 +1,33 @@
 "use client";
 
 import React from "react";
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { SearchIcon } from "@/components/icons";
+import { signOut, useSession } from "next-auth/react";
+import Swal from "sweetalert2";
+
+// Components
+import { GearIcon, LogOutIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 export default function Header() {
     const { data, status } = useSession();
     const userSession = data?.user;
+
+    const logout = () => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "Esta acción cerrará tu sesión",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, cerrar sesión",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                signOut();
+            }
+        });
+    };
 
     return (
         <header className="w-full px-3">
@@ -54,10 +74,24 @@ export default function Header() {
                                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                                     >
                                         <li>
-                                            <Link href="/profile" className="justify-between">Profile</Link>
+                                            <Link href="/profile">
+                                                <UserIcon size={15} />
+                                                Perfil
+                                            </Link>
                                         </li>
-                                        <li>
-                                            <a onClick={() => signOut()}>Logout</a>
+                                        {userSession?.role_id === 3 && (
+                                            <li>
+                                                <Link href="/admin/users">
+                                                    <GearIcon />
+                                                    Usuarios
+                                                </Link>
+                                            </li>
+                                        )}
+                                        <li className="text-error font-medium">
+                                            <a onClick={logout}>
+                                                <LogOutIcon size={15} />
+                                                Cerrar sesión
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
