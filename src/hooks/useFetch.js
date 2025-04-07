@@ -69,3 +69,15 @@ export const usePostData = async (endpoint, body) => {
 
     return { success, data, message };
 };
+
+export const getData = async (endpoint, body) => {
+    const { success, data, message } = await fetchData(endpoint, {
+        method: "GET",
+        body: JSON.stringify(body),
+    });
+
+    if (!success) Swal.fire("Error", message, "error");
+    else Swal.fire("Éxito", message, "success");
+
+    return { success, data, message };
+};
