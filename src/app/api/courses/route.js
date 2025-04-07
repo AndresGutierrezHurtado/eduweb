@@ -7,14 +7,23 @@ export async function GET(request) {
     try {
         const searchParams = request.nextUrl.searchParams;
         const category = searchParams.get("category");
-        const order = searchParams.get("order") ? searchParams.get("order").split(":") : ["course_id", "ASC"];
+        const order = searchParams.get("order")
+            ? searchParams.get("order").split(":")
+            : ["course_id", "ASC"];
+        const search = searchParams.get("search") || "";
 
         const limit = searchParams.get("limit") || 10;
         const page = searchParams.get("page") || 1;
         const offset = (page - 1) * limit;
 
         const { rows, count } = await Course.findAndCountAll({
-            where: { category_id: category ? category : { [Op.ne]: null } },
+            where: {
+                category_id: category ? category : { [Op.ne]: null },
+                [Op.or]: [
+                    { course_name: { [Op.like]: `%${search.toLowerCase()}%` } },
+                    { course_description: { [Op.like]: `%${search.toLowerCase()}%` } },
+                ],
+            },
             limit,
             offset,
             order: [order],

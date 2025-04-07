@@ -84,14 +84,11 @@ export const useDeleteData = async (endpoint) => {
     return { success, data, message };
 };
 
-export const getData = async (endpoint, body) => {
-    const { success, data, message } = await fetchData(endpoint, {
-        method: "GET",
-        body: JSON.stringify(body),
-    });
+export const getData = async (endpoint, alert = true) => {
+    const { success, data, message } = await fetchData(endpoint);
 
-    if (!success) Swal.fire("Error", message, "error");
-    else Swal.fire("Éxito", message, "success");
+    if (alert && !success) Swal.fire("Error", message, "error");
+    else if (alert && success) Swal.fire("Éxito", message, "success");
 
     return { success, data, message };
 };
