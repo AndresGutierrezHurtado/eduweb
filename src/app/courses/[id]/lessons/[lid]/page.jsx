@@ -1,11 +1,17 @@
-import { CircleCheckIcon, TasksIcon } from "@/components/icons";
-import VideoPlayer from "@/components/videoPlayer";
-import { getData } from "@/hooks/serverFetch";
-import { authOptions } from "@/lib/authOptions";
-import { getServerSession } from "next-auth";
+// React and Next.js imports
+import React, { Fragment } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import React, { Fragment } from "react";
+import { getServerSession } from "next-auth";
+import Markdown from "react-markdown";
+
+// Components
+import { CircleCheckIcon, TasksIcon } from "@/components/icons";
+import VideoPlayer from "@/components/videoPlayer";
+
+// Utils
+import { getData } from "@/hooks/serverFetch";
+import { authOptions } from "@/lib/authOptions";
 
 export const metadata = {
     title: "Lección | EduWeb",
@@ -102,7 +108,7 @@ export default async function Page({ params }) {
                                 <VideoPlayer videoId={videoId} />
                                 <div className="bg-black/25 p-5 rounded-lg">
                                     <h2 className="text-2xl font-bold">Descripcion</h2>
-                                    <p>{lesson.lesson_description}</p>
+                                    <Markdown className="markdown">{lesson.lesson_description}</Markdown>
                                 </div>
                             </main>
                             <aside className="flex flex-col gap-5 w-2/5">

@@ -143,7 +143,7 @@
             "lesson_title": "Curso HTML y CSS desde cero (completo)",
             "lesson_video": "https://www.youtube.com/watch?v=ELSm-G201Ls&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=1",
             "lesson_image": "https://i.ytimg.com/vi/ELSm-G201Ls/hqdefault.jpg",
-            "lesson_description": "En este curso, aprenderás a crear p ginas web utilizando HTML y CSS. Primero, se aprender  a crear una p gina web con HTML y luego se aprender  a darle estilo con CSS. Se cubrir n los conceptos b sicos de cada tecnolog a y se ver n ejemplos pr cticos de c mo se pueden aplicar. Al final del curso, podr s crear tus propias p ginas web utilizando HTML y CSS.",
+            "lesson_description": "# Curso HTML y CSS desde cero (completo)\n\n## Descripción General\nEste curso integral te guiará paso a paso en el mundo del desarrollo web frontend, enfocándose en las dos tecnologías fundamentales: HTML y CSS.\n\n## Lo que aprenderás\n- Fundamentos de HTML5\n- Estructura básica de documentos web\n- Etiquetas semánticas\n- Formularios y validación\n- Principios de CSS3\n- Selectores y especificidad\n- Modelo de cajas\n- Flexbox y Grid\n- Diseño responsivo\n\n## Metodología\nEl curso combina teoría con práctica, incluyendo:\n- Ejemplos prácticos\n- Ejercicios guiados\n- Proyectos reales\n- Mejores prácticas\n\n## Resultado Final\nAl completar el curso, serás capaz de:\n- Crear sitios web desde cero\n- Implementar diseños modernos\n- Aplicar estilos profesionales\n- Desarrollar páginas responsivas",
             "lesson_duration": "24:01:02",
             "lesson_order": 1
         },
@@ -153,7 +153,7 @@
             "lesson_title": "Curso de JAVASCRIPT desde CERO (Completo)",
             "lesson_video": "https://www.youtube.com/watch?v=z95mZVUcJ-E&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=2",
             "lesson_image": "https://i.ytimg.com/vi/z95mZVUcJ-E/hqdefault.jpg",
-            "lesson_description": "En este curso de JavaScript desde cero, aprenderás a programar en JavaScript desde los conceptos m s b sicos hasta los m s avanzados. Se ver n conceptos como variables, tipos de datos, operadores, estructuras de control, funciones, objetos, arrays, entre otros. Tambi n se ver n las diferentes formas de interactuar con el DOM y los eventos en JavaScript, as como la creaci n de aplicaciones web con JavaScript.",
+            "lesson_description": "# Curso de JavaScript desde CERO (Completo)\n\n## Descripción General\nEste curso te llevará desde los conceptos más básicos hasta los más avanzados de JavaScript, el lenguaje de programación más utilizado en el desarrollo web.\n\n## Lo que aprenderás\n- Fundamentos de JavaScript\n- Variables y tipos de datos\n- Operadores y expresiones\n- Estructuras de control\n- Funciones y scope\n- Objetos y arrays\n- Programación orientada a objetos\n- Manipulación del DOM\n- Eventos y listeners\n- AJAX y APIs\n\n## Ejemplos de código\n```js\n// Ejemplo de función básica\nfunction saludar(nombre) {\n    return `Hola, ${nombre}!`;\n}\n\n// Ejemplo de manipulación del DOM\ndocument.getElementById('miBoton').addEventListener('click', () => {\n    console.log('Botón clickeado!');\n});\n```\n\n## Resultado Final\nAl finalizar el curso, podrás:\n- Crear aplicaciones web interactivas\n- Manipular el DOM dinámicamente\n- Trabajar con APIs y datos externos\n- Implementar lógica de negocio compleja",
             "lesson_duration": "10:00:40",
             "lesson_order": 2
         },
@@ -163,7 +163,7 @@
             "lesson_title": "Curso de SQL desde CERO (Completo)",
             "lesson_video": "https://www.youtube.com/watch?v=DFg1V-rO6Pg&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=5",
             "lesson_image": "https://i.ytimg.com/vi/DFg1V-rO6Pg/hqdefault.jpg",
-            "lesson_description": "En este curso de SQL desde CERO Completo vas a aprender a manejar SQL, el lenguaje mas usado del mundo para bases de datos relacionales, un lenguaje requisito para cualquier perfil IT.",
+            "lesson_description": "# Curso de SQL desde CERO (Completo)\n\n## Descripción General\nAprende SQL, el lenguaje estándar para bases de datos relacionales, esencial para cualquier profesional de TI.\n\n## Lo que aprenderás\n- Fundamentos de bases de datos relacionales\n- Sintaxis SQL básica y avanzada\n- Consultas SELECT, INSERT, UPDATE, DELETE\n- Joins y relaciones entre tablas\n- Funciones agregadas\n- Subconsultas\n- Índices y optimización\n- Transacciones y concurrencia\n\n## Ejemplos de código\n```js\n// Consulta básica\nSELECT nombre, apellido FROM usuarios WHERE edad > 18;\n\n// Join entre tablas\nSELECT u.nombre, p.titulo\nFROM usuarios u\nJOIN posts p ON u.id = p.usuario_id;\n```\n\n## Resultado Final\nAl completar el curso, podrás:\n- Diseñar y consultar bases de datos eficientemente\n- Optimizar consultas SQL\n- Gestionar datos de forma segura\n- Trabajar con bases de datos en producción",
             "lesson_duration": "07:21:26",
             "lesson_order": 3
         },
@@ -173,7 +173,7 @@
             "lesson_title": "Curso de GIT desde CERO (Completo)",
             "lesson_video": "https://www.youtube.com/watch?v=9ZJ-K-zk_Go&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=7",
             "lesson_image": "https://i.ytimg.com/vi/9ZJ-K-zk_Go/hqdefault.jpg",
-            "lesson_description": "En este curso de GIT desde CERO Completo vas a aprender a manejar GIT, el lenguaje mas usado del mundo para controlar versiones de proyectos.",
+            "lesson_description": "# Curso de GIT desde CERO (Completo)\n\n## Descripción General\nAprende a utilizar Git, el sistema de control de versiones más popular del mundo, esencial para el desarrollo de software moderno.\n\n## Lo que aprenderás\n- Fundamentos de control de versiones\n- Instalación y configuración de Git\n- Comandos básicos y avanzados\n- Ramas (branches) y merge\n- GitHub y GitLab\n- Workflows colaborativos\n- Resolución de conflictos\n- Git hooks y automatización\n\n## Ejemplos de comandos\n```js\n# Inicializar un repositorio\ngit init\n\n# Clonar un repositorio\ngit clone https://github.com/usuario/repo.git\n\n# Crear y cambiar a una nueva rama\ngit checkout -b feature/nueva-funcionalidad\n```\n\n## Resultado Final\nAl finalizar el curso, podrás:\n- Gestionar proyectos de software eficientemente\n- Colaborar en equipos de desarrollo\n- Mantener un historial de cambios organizado\n- Implementar workflows profesionales",
             "lesson_duration": "04:11:46",
             "lesson_order": 4
         },
@@ -183,7 +183,7 @@
             "lesson_title": "Curso de HOSTING desde CERO (Completo)",
             "lesson_video": "https://www.youtube.com/watch?v=hikoV1Q9EzY&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=8",
             "lesson_image": "https://i.ytimg.com/vi/hikoV1Q9EzY/hqdefault.jpg",
-            "lesson_description": "En este curso de Hosting para principiantes vas a aprender a hosting, el lenguaje mas usado del mundo para alojar proyectos en la nube.",
+            "lesson_description": "# Curso de HOSTING desde CERO (Completo)\n\n## Descripción General\nAprende todo sobre hosting web, desde conceptos básicos hasta implementación avanzada de servicios en la nube.\n\n## Lo que aprenderás\n- Tipos de hosting (compartido, VPS, dedicado)\n- Dominios y DNS\n- Servidores web (Apache, Nginx)\n- SSL y seguridad\n- Bases de datos en la nube\n- CDN y optimización\n- Monitoreo y mantenimiento\n- Escalabilidad y alta disponibilidad\n\n## Configuración básica\n```js\n# Ejemplo de configuración Nginx\nserver {\n    listen 80;\n    server_name ejemplo.com;\n    root /var/www/html;\n    index index.php index.html;\n}\n```\n\n## Resultado Final\nAl completar el curso, podrás:\n- Implementar soluciones de hosting profesionales\n- Optimizar el rendimiento de sitios web\n- Gestionar la seguridad de servidores\n- Escalar aplicaciones según demanda",
             "lesson_duration": "02:15:33",
             "lesson_order": 5
         },
@@ -193,7 +193,7 @@
             "lesson_title": "Curso de VISUAL STUDIO CODE desde CERO (Completo)",
             "lesson_video": "https://www.youtube.com/watch?v=TbzrOz8HbFM&list=PLE8uP447fYpgOwKgbypiCGSz7veY2MLGb&index=9",
             "lesson_image": "https://i.ytimg.com/vi/TbzrOz8HbFM/hqdefault.jpg",
-            "lesson_description": "En este curso de Visual Studio Code para principiantes vas a aprender a utilizar Visual Studio Code, el lenguaje mas usado del mundo para programar.",
+            "lesson_description": "# Curso de Visual Studio Code desde CERO (Completo)\n\n## Descripción General\nDomina Visual Studio Code, el editor de código más popular y potente para desarrollo moderno.\n\n## Lo que aprenderás\n- Instalación y configuración\n- Atajos de teclado\n- Extensiones esenciales\n- Integración con Git\n- Debugging\n- Snippets y templates\n- Terminal integrada\n- Configuración de workspace\n\n## Configuración recomendada\n```js\n{\n    \"editor.formatOnSave\": true,\n    \"editor.tabSize\": 2,\n    \"files.autoSave\": \"afterDelay\",\n    \"terminal.integrated.shell.windows\": \"C:\\\\Program Files\\\\Git\\\\bin\\\\bash.exe\"\n}\n```\n\n## Resultado Final\nAl finalizar el curso, podrás:\n- Optimizar tu flujo de trabajo\n- Personalizar tu entorno de desarrollo\n- Trabajar de forma más eficiente\n- Integrar herramientas de desarrollo",
             "lesson_duration": "02:20:21",
             "lesson_order": 6
         },
@@ -204,7 +204,7 @@
             "lesson_title": "¿Qué es una Base de Datos?",
             "lesson_video": "https://www.youtube.com/watch?v=knVwokXITGI",
             "lesson_image": "https://i.ytimg.com/vi/knVwokXITGI/hqdefault.jpg",
-            "lesson_description": "Aprende qué es una base de datos, los diferentes modelos y su importancia en el desarrollo de software.",
+            "lesson_description": "# ¿Qué es una Base de Datos?\n\n## Descripción General\nIntroducción completa al mundo de las bases de datos, sus tipos y su importancia en el desarrollo de software.\n\n## Lo que aprenderás\n- Conceptos fundamentales\n- Tipos de bases de datos\n  - Relacionales (SQL)\n  - NoSQL\n  - Documentales\n  - Grafos\n- Modelos de datos\n- ACID y transacciones\n- Normalización\n\n## Ejemplo de modelo relacional\n```js\nCREATE TABLE usuarios (\n    id INT PRIMARY KEY,\n    nombre VARCHAR(50),\n    email VARCHAR(100) UNIQUE,\n    fecha_registro DATETIME\n);\n```\n\n## Resultado Final\nAl completar el curso, podrás:\n- Comprender los diferentes tipos de bases de datos\n- Elegir la base de datos adecuada para cada proyecto\n- Diseñar modelos de datos eficientes\n- Entender los principios de normalización",
             "lesson_duration": "00:21:03",
             "lesson_order": 1
         },
@@ -214,7 +214,7 @@
             "lesson_title": "Diseño de Bases de Datos relacionales",
             "lesson_video": "https://www.youtube.com/watch?v=LL4WYeB3C_8",
             "lesson_image": "https://i.ytimg.com/vi/LL4WYeB3C_8/hqdefault.jpg",
-            "lesson_description": "Cómo instalar y utilizar phpMyAdmin para administrar bases de datos MySQL.",
+            "lesson_description": "# Diseño de Bases de Datos Relacionales\n\n## Descripción General\nAprende a diseñar bases de datos relacionales eficientes y escalables siguiendo las mejores prácticas.\n\n## Lo que aprenderás\n- Modelado de datos\n- Normalización (1NF, 2NF, 3NF)\n- Relaciones y cardinalidad\n- Claves primarias y foráneas\n- Índices y optimización\n- Integridad referencial\n- Diagramas ER\n\n## Ejemplo de diseño\n```js\n-- Tabla de usuarios\nCREATE TABLE usuarios (\n    id INT PRIMARY KEY AUTO_INCREMENT,\n    nombre VARCHAR(50) NOT NULL,\n    email VARCHAR(100) UNIQUE NOT NULL\n);\n\n-- Tabla de pedidos\nCREATE TABLE pedidos (\n    id INT PRIMARY KEY AUTO_INCREMENT,\n    usuario_id INT,\n    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,\n    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)\n);\n```\n\n## Resultado Final\nAl finalizar el curso, podrás:\n- Diseñar bases de datos eficientes\n- Aplicar principios de normalización\n- Crear relaciones entre tablas\n- Optimizar el rendimiento",
             "lesson_duration": "00:28:57",
             "lesson_order": 2
         },
@@ -224,7 +224,7 @@
             "lesson_title": "Instalación y Uso de phpMyAdmin",
             "lesson_video": "https://www.youtube.com/watch?v=IQ22Nme9t0M",
             "lesson_image": "https://i.ytimg.com/vi/IQ22Nme9t0M/hqdefault.jpg",
-            "lesson_description": "Este curso te guiará a través del proceso de instalación y uso de phpMyAdmin, una herramienta popular para la administración de bases de datos MySQL. Aprenderás a crear y gestionar bases de datos, realizar consultas SQL, y mantener la seguridad de tu entorno de base de datos con facilidad.",
+            "lesson_description": "# Instalación y Uso de phpMyAdmin\n\n## Descripción General\nGuía completa para instalar y utilizar phpMyAdmin, la herramienta más popular para administrar bases de datos MySQL.\n\n## Lo que aprenderás\n- Instalación de phpMyAdmin\n- Configuración de seguridad\n- Gestión de bases de datos\n- Creación de tablas\n- Importación/exportación\n- Consultas SQL\n- Usuarios y permisos\n- Copias de seguridad\n\n## Configuración básica\n```js\n// config.inc.php\n$cfg['Servers'][$i]['auth_type'] = 'cookie';\n$cfg['Servers'][$i]['host'] = 'localhost';\n$cfg['Servers'][$i]['compress'] = false;\n$cfg['Servers'][$i]['AllowNoPassword'] = false;\n```\n\n## Resultado Final\nAl completar el curso, podrás:\n- Administrar bases de datos MySQL eficientemente\n- Realizar operaciones de mantenimiento\n- Gestionar usuarios y permisos\n- Implementar copias de seguridad",
             "lesson_duration": "00:08:05",
             "lesson_order": 3
         },
@@ -234,27 +234,27 @@
             "lesson_title": "Curso de SQL",
             "lesson_video": "https://www.youtube.com/watch?v=uUdKAYl-F7g",
             "lesson_image": "https://i.ytimg.com/vi/uUdKAYl-F7g/hqdefault.jpg",
-            "lesson_description": "En este curso de SQL, aprenderás a utilizar SQL para interactuar con bases de datos relacionales. Aprenderás a crear consultas SQL para extraer y manipular datos de una base de datos.",
+            "lesson_description": "# Curso de SQL\n\n## Descripción General\nCurso completo de SQL para interactuar con bases de datos relacionales de forma eficiente.\n\n## Lo que aprenderás\n- Fundamentos de SQL\n- Consultas SELECT\n- Filtrado y ordenamiento\n- Joins y subconsultas\n- Funciones agregadas\n- Transacciones\n- Vistas y procedimientos\n- Optimización de consultas\n\n## Ejemplos de consultas\n```js\n-- Consulta básica\nSELECT * FROM productos WHERE precio > 100;\n\n-- Join con funciones agregadas\nSELECT c.nombre, COUNT(p.id) as total_pedidos\nFROM clientes c\nLEFT JOIN pedidos p ON c.id = p.cliente_id\nGROUP BY c.id;\n```\n\n## Resultado Final\nAl finalizar el curso, podrás:\n- Escribir consultas SQL complejas\n- Optimizar el rendimiento\n- Gestionar transacciones\n- Crear vistas y procedimientos",
             "lesson_duration": "01:56:58",
             "lesson_order": 4
         },
         {
             "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh12",
             "block_id": "f7a65432-1b23-4c5d-8e91-5678b9d3aef0",
-            "lesson_title": "MongoDB: Instalación y primeros comandos básicos",
+            "lesson_title": "MongoDB: Instalación y Primeros Comandos Básicos",
             "lesson_video": "https://www.youtube.com/watch?v=heZhS6UzF7k",
             "lesson_image": "https://i.ytimg.com/vi/heZhS6UzF7k/hqdefault.jpg",
-            "lesson_description": "Introducción a MongoDB, instalación y primeros comandos básicos.",
+            "lesson_description": "# MongoDB: Instalación y Primeros Comandos Básicos\n\n## Descripción General\nIntroducción práctica a MongoDB, la base de datos NoSQL más popular.\n\n## Lo que aprenderás\n- Instalación de MongoDB\n- Comandos básicos\n- CRUD operations\n- Consultas básicas\n- Índices\n- Agregaciones\n\n## Ejemplos de comandos\n```js\n// Conexión a MongoDB\nconst MongoClient = require('mongodb').MongoClient;\nconst url = 'mongodb://localhost:27017';\n\n// Insertar documento\ndb.collection('usuarios').insertOne({\n    nombre: 'Juan',\n    edad: 30,\n    email: 'juan@ejemplo.com'\n});\n```\n\n## Resultado Final\nAl completar el curso, podrás:\n- Instalar y configurar MongoDB\n- Realizar operaciones CRUD\n- Crear consultas básicas\n- Gestionar índices",
             "lesson_duration": "00:15:29",
             "lesson_order": 5
         },
         {
             "lesson_id": "1f7f6a03-3e55-4ffc-95c6-57a6e6befe4c",
             "block_id": "f7a65432-1b23-4c5d-8e91-5678b9d3aef0",
-            "lesson_title": "MongoDB: Introducción a las bases de datos NoSQL",
+            "lesson_title": "MongoDB: Introducción a las Bases de Datos NoSQL",
             "lesson_video": "https://www.youtube.com/watch?v=DPdAfgmkNuE",
             "lesson_image": "https://i.ytimg.com/vi/DPdAfgmkNuE/hqdefault.jpg",
-            "lesson_description": "Introducción a MongoDB, bases de datos NoSQL y su funcionamiento.",
+            "lesson_description": "# MongoDB: Introducción a las Bases de Datos NoSQL\n\n## Descripción General\nExplora el mundo de las bases de datos NoSQL y su implementación en MongoDB.\n\n## Lo que aprenderás\n- Conceptos NoSQL\n- Modelo de documentos\n- Escalabilidad horizontal\n- Replicación y sharding\n- Agregaciones avanzadas\n- Índices compuestos\n- Transacciones\n\n## Ejemplo de agregación\n```js\n// Agregación compleja\ndb.ventas.aggregate([\n    { $match: { fecha: { $gte: new Date('2023-01-01') } } },\n    { $group: { _id: '$producto', total: { $sum: '$cantidad' } } },\n    { $sort: { total: -1 } }\n]);\n```\n\n## Resultado Final\nAl finalizar el curso, podrás:\n- Comprender el modelo NoSQL\n- Diseñar esquemas flexibles\n- Implementar agregaciones complejas\n- Optimizar el rendimiento",
             "lesson_duration": "00:30:00",
             "lesson_order": 6
         }
