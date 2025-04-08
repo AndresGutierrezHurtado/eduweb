@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 
-import { DragDropManager } from "@dnd-kit/dom";
-import { Sortable } from "@dnd-kit/dom/sortable";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // Components
 import { PencilIcon, PlusIcon, TrashIcon, DraggableIcon } from "@/components/icons";
 
 export default function CourseEditForm({ course = { blocks: [] } }) {
     const { blocks: courseBlocks, ...data } = course;
-    const [blocks, setBlocks] = useState(courseBlocks);
+    const [blocks, setBlocks] = useState(
+        courseBlocks.sort((a, b) => a.block_order - b.block_order)
+    );
     const [courseData, setCourseData] = useState(data);
 
     const handleSubmit = async (e) => {
@@ -38,6 +39,14 @@ export default function CourseEditForm({ course = { blocks: [] } }) {
                 <div className="collapse-content text-sm">
                     <ContentForm blocks={blocks} setBlocks={setBlocks} />
                 </div>
+            </div>
+            <div className="flex justify-center gap-8 mt-5 mb-10">
+                <button type="button" className="btn btn-ghost" onClick={() => router.back()}>
+                    Cancelar
+                </button>
+                <button type="submit" className="btn btn-primary">
+                    Guardar cambios
+                </button>
             </div>
         </form>
     );
@@ -130,80 +139,173 @@ function CourseForm({ course, setCourseData }) {
                     ))}
                 </select>
             </fieldset>
-
-            <div className="flex justify-end gap-4">
-                <button type="button" className="btn btn-ghost" onClick={() => router.back()}>
-                    Cancelar
-                </button>
-                <button type="submit" className="btn btn-primary">
-                    Guardar cambios
-                </button>
-            </div>
         </>
     );
 }
 
 function ContentForm({ blocks, setBlocks }) {
+    const handleDragEnd = (result) => {
+        const { source, destination, draggableId, type } = result;
+
+        if (!destination) return;
+
+        if (type === "BLOCKS") {
+            const newBlocks = [...blocks];
+            const [removed] = newBlocks.splice(source.index, 1);
+            newBlocks.splice(destination.index, 0, removed);
+
+            const updatedBlocks = newBlocks.map((block, index) => ({
+                ...block,
+                block_order: index,
+            }));
+
+            setBlocks(updatedBlocks);
+        }
+
+        if (type === "LESSONS") {
+            // se debe reorganizar el array de lecciones y cambiar su lesson_order
+            const lessonsList = blocks.flatMap((block) => block.lessons);
+            const [removed] = lessonsList.splice(source.index, 1);
+            lessonsList.splice(destination.index, 0, removed);
+
+            const orderedLessons = lessonsList.map((lesson, index) => ({
+                ...lesson,
+                lesson_order: index,
+            }));
+
+            // se debe actualizar el lesson.block_id de la lección que se mueve
+            const updatedLessons = orderedLessons.map((lesson) => {
+                if (lesson.lesson_id === removed.lesson_id) {
+                    return {
+                        ...lesson,
+                        block_id: destination.droppableId.replace("block-", ""),
+                    };
+                }
+                return lesson;
+            });
+
+            // se deben obtener los bloques y asignar sus lecciones
+            const updatedBlocks = blocks.map((block) => ({
+                ...block,
+                lessons: updatedLessons.filter((lesson) => lesson.block_id === block.block_id),
+            }));
+
+            // se debe actualizar los bloques
+            setBlocks(updatedBlocks);
+        }
+    };
+
     return (
-        <>
-            <div className="flex flex-col gap-4">
-                {blocks.map((block) => (
+        <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable
+                droppableId="blocks"
+                type="BLOCKS"
+                isDropDisabled={false}
+                isCombineEnabled={false}
+                ignoreContainerClipping={false}
+                direction="vertical"
+            >
+                {(provided) => (
                     <div
-                        key={block.block_id}
-                        id={`block-${block.block_id}`}
-                        className="bg-base-200/60 p-4 rounded-lg"
+                        className="flex flex-col gap-4"
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center gap-2">
-                                <button className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing">
-                                    <DraggableIcon />
-                                </button>
-                                <h2 className="text-lg font-semibold">{block.block_title}</h2>
-                            </div>
-                            <div className="flex gap-2">
-                                <button className="btn btn-sm btn-ghost">
-                                    <PencilIcon />
-                                </button>
-                                <button className="btn btn-sm btn-ghost">
-                                    <TrashIcon />
-                                </button>
-                            </div>
-                        </div>
-                        <div className="space-y-2">
-                            {block.lessons.map((lesson) => (
-                                <div
-                                    key={lesson.lesson_id}
-                                    id={`lesson-${lesson.lesson_id}`}
-                                    className="bg-base-100 p-3 rounded flex items-center justify-between"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <button className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing">
-                                            <DraggableIcon />
-                                        </button>
-                                        <span>{lesson.lesson_title}</span>
+                        {blocks.map((block) => (
+                            <Draggable
+                                key={block.block_id}
+                                draggableId={block.block_id.toString()}
+                                index={block.block_order}
+                            >
+                                {(provided) => (
+                                    <div
+                                        className="bg-base-200/60 p-4 rounded-lg space-y-5"
+                                        {...provided.draggableProps}
+                                        ref={provided.innerRef}
+                                    >
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                <div
+                                                    className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing"
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    <DraggableIcon />
+                                                </div>
+                                                <h2 className="text-lg font-semibold">
+                                                    {block.block_title}
+                                                </h2>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <button className="btn btn-sm btn-ghost">
+                                                    <PencilIcon />
+                                                </button>
+                                                <button className="btn btn-sm btn-ghost">
+                                                    <TrashIcon />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <Droppable
+                                            droppableId={`block-${block.block_id}`}
+                                            type="LESSONS"
+                                            isDropDisabled={false}
+                                            isCombineEnabled={false}
+                                            ignoreContainerClipping={false}
+                                            direction="vertical"
+                                        >
+                                            {(provided) => (
+                                                <div
+                                                    className="space-y-2"
+                                                    {...provided.droppableProps}
+                                                    ref={provided.innerRef}
+                                                >
+                                                    {block.lessons.map((lesson) => (
+                                                        <Draggable
+                                                            key={lesson.lesson_id}
+                                                            draggableId={lesson.lesson_id.toString()}
+                                                            index={lesson.lesson_order}
+                                                        >
+                                                            {(provided) => (
+                                                                <div
+                                                                    {...provided.draggableProps}
+                                                                    ref={provided.innerRef}
+                                                                    id={`lesson-${lesson.lesson_id}`}
+                                                                    className="bg-base-100 p-3 rounded flex items-center justify-between"
+                                                                >
+                                                                    <div className="flex items-center gap-2">
+                                                                        <div
+                                                                            className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing"
+                                                                            {...provided.dragHandleProps}
+                                                                        >
+                                                                            <DraggableIcon />
+                                                                        </div>
+                                                                        <span>
+                                                                            {lesson.lesson_title}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="flex gap-2">
+                                                                        <button className="btn btn-xs btn-ghost">
+                                                                            <PencilIcon />
+                                                                        </button>
+                                                                        <button className="btn btn-xs btn-ghost">
+                                                                            <TrashIcon />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                        </Draggable>
+                                                    ))}
+                                                    {provided.placeholder}
+                                                </div>
+                                            )}
+                                        </Droppable>
                                     </div>
-                                    <div className="flex gap-2">
-                                        <button className="btn btn-xs btn-ghost">
-                                            <PencilIcon />
-                                        </button>
-                                        <button className="btn btn-xs btn-ghost">
-                                            <TrashIcon />
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                            <button className="btn btn-sm btn-ghost w-full">
-                                <PlusIcon />
-                                Añadir lección
-                            </button>
-                        </div>
+                                )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
                     </div>
-                ))}
-                <button className="btn btn-ghost w-full">
-                    <PlusIcon />
-                    Añadir bloque
-                </button>
-            </div>
-        </>
+                )}
+            </Droppable>
+        </DragDropContext>
     );
 }
