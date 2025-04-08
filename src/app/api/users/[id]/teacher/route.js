@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Course } from "@/database/models";
+import { Block, Course, Lesson } from "@/database/models";
 
 export async function GET(req, { params }) {
     try {
@@ -9,7 +9,15 @@ export async function GET(req, { params }) {
             where: {
                 teacher_id: id,
             },
-            include: ["category", "students"],
+            include: [
+                "category",
+                "students",
+                {
+                    model: Block,
+                    as: "blocks",
+                    include: ["lessons"],
+                },
+            ],
         });
 
         return NextResponse.json(

@@ -21,12 +21,15 @@ export default function Page() {
     const { data: courses, loading: loadingCourses } = useGetData(
         "/users/" + userSession?.user_id + "/courses"
     );
+    const { data: teacherCourses, loading: loadingTeacherCourses } = useGetData(
+        "/users/" + userSession?.user_id + "/teacher"
+    );
 
     useEffect(() => {
         document.title = "Perfil | Eduweb";
     }, []);
 
-    if (status == "loading" || loadingCourses) return <LoadingComponent />;
+    if (status == "loading" || loadingCourses || loadingTeacherCourses) return <LoadingComponent />;
     if (!userSession) return <>No estas logueado</>;
     return (
         <>
@@ -193,7 +196,9 @@ export default function Page() {
                                             <h2 className="text-2xl font-bold">
                                                 Cursos completados
                                             </h2>
-                                            {!courses.some((c) => c.course_state == "completed") && (
+                                            {!courses.some(
+                                                (c) => c.course_state == "completed"
+                                            ) && (
                                                 <div>
                                                     <p className="text-base-content/80 text-lg leading-tight">
                                                         Aún no has completado ningun curso
@@ -371,7 +376,99 @@ export default function Page() {
                                                     </p>
                                                 </div>
                                                 <hr />
-                                                <div></div>
+                                                <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
+                                                    {teacherCourses.map((course) => {
+                                                        console.log(course);
+                                                        const duration = course.blocks.reduce(
+                                                            (acc, block) => {
+                                                                return (
+                                                                    acc +
+                                                                    block.lessons.reduce(
+                                                                        (acc2, lesson) => {
+                                                                            const [
+                                                                                hours,
+                                                                                minutes,
+                                                                                seconds,
+                                                                            ] =
+                                                                                lesson.lesson_duration
+                                                                                    .split(":")
+                                                                                    .map(Number);
+                                                                            return (
+                                                                                acc2 +
+                                                                                hours * 60 * 60 +
+                                                                                minutes * 60 +
+                                                                                seconds
+                                                                            );
+                                                                        },
+                                                                        0
+                                                                    )
+                                                                );
+                                                            },
+                                                            0
+                                                        );
+
+                                                        const hours = Math.floor(duration / 3600);
+                                                        const minutes = Math.floor(
+                                                            (duration % 3600) / 60
+                                                        );
+
+                                                        return (
+                                                            <div
+                                                                key={course.course_id}
+                                                                className="bg-base-100 border border-base-300 rounded-lg overflow-hidden"
+                                                            >
+                                                                <div className="relative h-48">
+                                                                    <img
+                                                                        src={course.course_image}
+                                                                        alt={course.course_name}
+                                                                        className="w-full h-full object-cover"
+                                                                    />
+                                                                    <div className="absolute top-2 right-2 flex flex-col gap-2 items-end">
+                                                                        <Link
+                                                                            href={`/courses/${course.course_id}/edit`}
+                                                                        >
+                                                                            <span className="badge badge-soft badge-primary">
+                                                                                Editar
+                                                                            </span>
+                                                                        </Link>
+                                                                        <span className="badge badge-soft">
+                                                                            {`${hours}h ${minutes}m`}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="p-4">
+                                                                    <Link
+                                                                        href={`/courses/${course.course_id}`}
+                                                                    >
+                                                                        <h3 className="text- font-semibold mb-2 leading-[1.1] hover:underline hover:text-primary">
+                                                                            {course.course_name}
+                                                                        </h3>
+                                                                    </Link>
+                                                                    <p className=" text-xs mb-4 line-clamp-2">
+                                                                        {course.course_description}
+                                                                    </p>
+                                                                    <div className="flex flex-wrap gap-2">
+                                                                        <span className="badge badge-soft">
+                                                                            {
+                                                                                course.category
+                                                                                    .category_name
+                                                                            }
+                                                                        </span>
+                                                                        <span className="badge badge-soft">
+                                                                            {
+                                                                                course.course_difficulty
+                                                                            }
+                                                                        </span>
+                                                                        <span className="badge badge-soft">
+                                                                            {course.students.length}
+                                                                            {" estudiantes"}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
                                             </div>
                                         </div>
                                     </>
