@@ -15,6 +15,7 @@ export async function GET(request, { params }) {
                     model: Course,
                     as: "course",
                     include: [
+                        "teacher",
                         {
                             model: Block,
                             as: "blocks",
