@@ -1,22 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 
 // Components
 import { PencilIcon, PlusIcon, TrashIcon, DraggableIcon } from "@/components/icons";
 
 export default function CourseEditForm({ course = { blocks: [] } }) {
     const { blocks: courseBlocks, ...data } = course;
-    const [blocks, setBlocks] = useState(
-        courseBlocks.sort((a, b) => a.block_order - b.block_order)
-    );
-    const [courseData, setCourseData] = useState(data);
+    const [blocks, setBlocks] = useState([]);
+
+    useEffect(() => {
+        const sortedBlocks = [...courseBlocks].sort((a, b) => a.block_order - b.block_order);
+        setBlocks(sortedBlocks);
+    }, [courseBlocks]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target));
+
+        const formData = Object.fromEntries(new FormData(e.target));
+        delete formData["edit-course"];
+
+        const lessonsList = [...blocks].flatMap((block) => block.lessons);
+        const blockList = [...blocks].map((b) => {
+            delete b.lessons;
+            return b;
+        });
+
+        const data = {
+            course: formData,
+            blocks: blockList,
+            lessons: lessonsList,
+        };
+
         console.log(data);
     };
 
@@ -28,7 +45,7 @@ export default function CourseEditForm({ course = { blocks: [] } }) {
                     <h2 className="text-xl font-bold">Editar Curso</h2>
                 </div>
                 <div className="collapse-content text-sm">
-                    <CourseForm course={data} setCourseData={setCourseData} />
+                    <CourseForm course={data} />
                 </div>
             </div>
             <div className="collapse collapse-arrow bg-base-100 border border-base-300">
@@ -52,7 +69,7 @@ export default function CourseEditForm({ course = { blocks: [] } }) {
     );
 }
 
-function CourseForm({ course, setCourseData }) {
+function CourseForm({ course }) {
     return (
         <>
             <fieldset className="fieldset">
@@ -64,7 +81,6 @@ function CourseForm({ course, setCourseData }) {
                     className="input input-bordered w-full focus:outline-none focus:border-primary"
                     name="course_name"
                     defaultValue={course?.course_name}
-                    onChange={(e) => setCourseData({ ...courseData, course_name: e.target.value })}
                 />
             </fieldset>
 
@@ -76,9 +92,6 @@ function CourseForm({ course, setCourseData }) {
                     className="textarea textarea-bordered h-30 w-full resize-none focus:outline-none focus:border-primary"
                     name="course_description"
                     defaultValue={course?.course_description}
-                    onChange={(e) =>
-                        setCourseData({ ...courseData, course_description: e.target.value })
-                    }
                 />
             </fieldset>
 
@@ -90,9 +103,6 @@ function CourseForm({ course, setCourseData }) {
                     name="course_difficulty"
                     className="select select-bordered w-full focus:outline-none focus:border-primary"
                     defaultValue={course?.course_difficulty}
-                    onChange={(e) =>
-                        setCourseData({ ...courseData, course_difficulty: e.target.value })
-                    }
                 >
                     <option value="" disabled>
                         Selecciona una dificultad
@@ -112,7 +122,6 @@ function CourseForm({ course, setCourseData }) {
                     className="input input-bordered w-full focus:outline-none focus:border-primary"
                     name="course_image"
                     defaultValue={course?.course_image}
-                    onChange={(e) => setCourseData({ ...courseData, course_image: e.target.value })}
                 />
             </fieldset>
 
@@ -124,7 +133,6 @@ function CourseForm({ course, setCourseData }) {
                     className="select select-bordered w-full focus:outline-none focus:border-primary"
                     name="category_id"
                     defaultValue={course?.category_id}
-                    onChange={(e) => setCourseData({ ...courseData, category_id: e.target.value })}
                 >
                     <option value="" disabled>
                         Selecciona una categoría
@@ -151,12 +159,12 @@ function ContentForm({ blocks, setBlocks }) {
 
         if (type === "BLOCKS") {
             const newBlocks = [...blocks];
-            const [removed] = newBlocks.splice(source.index, 1);
-            newBlocks.splice(destination.index, 0, removed);
+            const [removed] = newBlocks.splice(source.index - 1, 1);
+            newBlocks.splice(destination.index - 1, 0, removed);
 
             const updatedBlocks = newBlocks.map((block, index) => ({
                 ...block,
-                block_order: index,
+                block_order: index + 1,
             }));
 
             setBlocks(updatedBlocks);
@@ -165,12 +173,12 @@ function ContentForm({ blocks, setBlocks }) {
         if (type === "LESSONS") {
             // se debe reorganizar el array de lecciones y cambiar su lesson_order
             const lessonsList = blocks.flatMap((block) => block.lessons);
-            const [removed] = lessonsList.splice(source.index, 1);
-            lessonsList.splice(destination.index, 0, removed);
+            const [removed] = lessonsList.splice(source.index - 1, 1);
+            lessonsList.splice(destination.index - 1, 0, removed);
 
             const orderedLessons = lessonsList.map((lesson, index) => ({
                 ...lesson,
-                lesson_order: index,
+                lesson_order: index + 1,
             }));
 
             // se debe actualizar el lesson.block_id de la lección que se mueve

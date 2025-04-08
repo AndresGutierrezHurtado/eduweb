@@ -1,30 +1,34 @@
-import React from "react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
-import { redirect } from "next/navigation";
+"use client";
 
-// Components
-import CourseEditForm from "@/components/CourseEditForm";
+import React from "react";
+import { redirect } from "next/navigation";
+import { useParams } from "next/navigation";
+import dynamic from "next/dynamic";
 
 // Hooks
-import { getData } from "@/hooks/serverFetch";
+import { useGetData } from "@/hooks/useFetch";
+import { useSession } from "next-auth/react";
 
-export const metadata = {
-    title: "Editar Curso | EduWeb",
-};
+// Components
+const CourseEditForm = dynamic(() => import("@/components/CourseEditForm"), {
+    loading: () => <p>Loading...</p>,
+});
 
-export default async function Page({ params }) {
-    const { id } = await params;
-    const session = await getServerSession(authOptions);
+export default function Page() {
+    const { id } = useParams();
+    const { data: session, status } = useSession();
+    const userSession = session?.user;
+    const { data: course, loading: courseLoading } = useGetData(`/courses/${id}`);
 
-    if (!session) {
+    if (status === "unauthenticated") {
         redirect("/login");
     }
 
-    const course = await getData(`/courses/${id}`);
+    if (courseLoading || status === "loading") {
+        return <p>Loading...</p>;
+    }
 
-    // Verify if the logged user is the course teacher
-    if (course.teacher_id !== session.user.user_id) {
+    if (course.teacher_id !== userSession.user_id) {
         redirect("/profile");
     }
 
