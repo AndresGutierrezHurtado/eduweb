@@ -221,11 +221,53 @@ function ContentForm({ blocks, setBlocks }) {
         }
     };
 
-    console.log(
-        blocks
-            .flatMap((block) => block.lessons)
-            .map((lesson) => ({ order: lesson.lesson_order, title: lesson.lesson_title }))
-    );
+    const handleAddBlock = () => {
+        const newBlock = {
+            block_id: crypto.randomUUID(),
+            block_title: "Nuevo bloque",
+            block_description: "Descripción del bloque",
+            block_order: blocks.length + 1,
+            lessons: [],
+        };
+        setBlocks([...blocks, newBlock]);
+    };
+
+    const handleAddLesson = (blockId) => {
+        const newLesson = {
+            lesson_id: crypto.randomUUID(),
+            block_id: blockId,
+            lesson_title: "Nueva lección",
+            lesson_description: "Descripción de la lección",
+            lesson_video: "https://www.youtube.com/watch?v=",
+            lesson_image: "https://img.youtube.com/vi/id/0.jpg",
+            lesson_duration: "00:00:00",
+            lesson_order: 0,
+        };
+
+        const updatedBlocks = blocks.map((block) => {
+            if (block.block_id === blockId) {
+                return {
+                    ...block,
+                    lessons: [...block.lessons, newLesson],
+                };
+            }
+            return block;
+        });
+
+        const lessonsList = updatedBlocks.flatMap((block) => block.lessons);
+        const sortedLessonsList = lessonsList.map((lesson, index) => ({
+            ...lesson,
+            lesson_order: index + 1,
+        }));
+
+        const sortedBlocks = updatedBlocks.map((block) => ({
+            ...block,
+            lessons: sortedLessonsList.filter((lesson) => lesson.block_id === block.block_id),
+        }));
+
+        setBlocks(sortedBlocks);
+    };
+
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable
@@ -325,6 +367,16 @@ function ContentForm({ blocks, setBlocks }) {
                                                             )}
                                                         </Draggable>
                                                     ))}
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-sm btn-ghost w-full"
+                                                        onClick={() =>
+                                                            handleAddLesson(block.block_id)
+                                                        }
+                                                    >
+                                                        <PlusIcon />
+                                                        <span>Agregar lección</span>
+                                                    </button>
                                                     {provided.placeholder}
                                                 </div>
                                             )}
@@ -333,6 +385,14 @@ function ContentForm({ blocks, setBlocks }) {
                                 )}
                             </Draggable>
                         ))}
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-ghost w-full"
+                            onClick={handleAddBlock}
+                        >
+                            <PlusIcon />
+                            <span>Agregar bloque</span>
+                        </button>
                         {provided.placeholder}
                     </div>
                 )}

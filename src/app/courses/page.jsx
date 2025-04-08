@@ -53,7 +53,7 @@ export default function Page() {
                                 </Link>
                             </div>
                             <div className="flex flex-row w-full overflow-x-auto gap-10">
-                                {userCourses.map((userCourse) => (
+                                {userCourses.filter((c) => c.course_state == "progress").map((userCourse) => (
                                     <div
                                         key={userCourse.course_id}
                                         className="bg-base-100 rounded-lg border border-white/20 overflow-hidden w-full min-w-[300px] max-w-[350px]"
