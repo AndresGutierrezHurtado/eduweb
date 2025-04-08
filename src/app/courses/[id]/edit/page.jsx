@@ -19,7 +19,7 @@ export default function Page() {
     const { id } = useParams();
     const { data: session, status } = useSession();
     const userSession = session?.user;
-    const { data: course, loading: courseLoading } = useGetData(`/courses/${id}`);
+    const { data: course, loading: courseLoading, reload } = useGetData(`/courses/${id}`);
 
     useEffect(() => {
         document.title = "Editar Curso | Eduweb";
@@ -46,7 +46,7 @@ export default function Page() {
                         <p className="text-base-content/70">Actualiza la información de tu curso</p>
                     </div>
 
-                    <CourseEditForm course={course} />
+                    <CourseEditForm course={course} reload={reload} />
                 </div>
             </div>
         </section>

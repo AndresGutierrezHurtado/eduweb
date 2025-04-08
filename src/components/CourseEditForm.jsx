@@ -1,16 +1,21 @@
 "use client";
 
+import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import MDEditor from "@uiw/react-md-editor";
 
 // Components
 import { PencilIcon, PlusIcon, TrashIcon, DraggableIcon } from "@/components/icons";
-import Swal from "sweetalert2";
+import { usePutData } from "@/hooks/useFetch";
 
-export default function CourseEditForm({ course = { blocks: [] } }) {
+export default function CourseEditForm({ course = { blocks: [] }, reload }) {
     const { blocks: courseBlocks, ...data } = course;
     const [blocks, setBlocks] = useState([]);
+    const [lessonDescriptions, setLessonDescriptions] = useState({});
+    const router = useRouter();
 
     useEffect(() => {
         const lessonsList = courseBlocks.flatMap((block) => block.lessons);
@@ -22,6 +27,14 @@ export default function CourseEditForm({ course = { blocks: [] } }) {
         }));
 
         setBlocks(updatedBlocks);
+
+        const initialDescriptions = {};
+        updatedBlocks.forEach((block) => {
+            block.lessons.forEach((lesson) => {
+                initialDescriptions[lesson.lesson_id] = lesson.lesson_description;
+            });
+        });
+        setLessonDescriptions(initialDescriptions);
     }, [courseBlocks]);
 
     const handleSubmit = async (e) => {
@@ -31,9 +44,9 @@ export default function CourseEditForm({ course = { blocks: [] } }) {
         delete formData["edit-course"];
 
         const lessonsList = [...blocks].flatMap((block) => block.lessons);
-        const blockList = [...blocks].map((b) => {
-            delete b.lessons;
-            return b;
+        const blockList = blocks.map((b) => {
+            const { lessons, ...blockData } = b;
+            return blockData;
         });
 
         const data = {
@@ -42,38 +55,253 @@ export default function CourseEditForm({ course = { blocks: [] } }) {
             lessons: lessonsList,
         };
 
-        console.log(data);
+        const response = await usePutData(`/courses/${course.course_id}`, data);
+
+        if (response.success) {
+            reload();
+            Swal.fire({
+                title: "Éxito",
+                text: "Curso actualizado correctamente",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Ver resultado",
+                cancelButtonText: "Cerrar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push(`/courses/${course.course_id}`);
+                }
+            });
+        }
+    };
+
+    const handleEditBlock = (e) => {
+        e.preventDefault();
+        const newBlocks = [...blocks];
+        const { block_id, ...data } = Object.fromEntries(new FormData(e.target));
+
+        const updatedBlocks = newBlocks.map((block) =>
+            block.block_id === block_id ? { ...block, ...data } : block
+        );
+
+        setBlocks(updatedBlocks);
+        e.target.closest("dialog").close();
+    };
+
+    const handleEditLesson = (e) => {
+        e.preventDefault();
+
+        const newBlocks = [...blocks];
+        const { lesson_id, ...data } = Object.fromEntries(new FormData(e.target));
+
+        const lessonsList = newBlocks.flatMap((block) => block.lessons);
+        const updatedLessons = lessonsList.map((lesson) =>
+            lesson.lesson_id === lesson_id
+                ? { ...lesson, ...data, lesson_description: lessonDescriptions[lesson_id] }
+                : lesson
+        );
+
+        const updatedBlocks = newBlocks.map((block) => ({
+            ...block,
+            lessons: updatedLessons.filter((lesson) => lesson.block_id === block.block_id),
+        }));
+
+        setBlocks(updatedBlocks);
+        e.target.closest("dialog").close();
+    };
+
+    const handleDescriptionChange = (lessonId, value) => {
+        setLessonDescriptions((prev) => ({
+            ...prev,
+            [lessonId]: value,
+        }));
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="collapse collapse-arrow bg-base-100 border border-base-300">
-                <input type="radio" name="edit-course" defaultChecked />
-                <div className="collapse-title font-semibold">
-                    <h2 className="text-xl font-bold">Editar Curso</h2>
+        <>
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="collapse collapse-arrow bg-base-100 border border-base-300">
+                    <input type="radio" name="edit-course" defaultChecked />
+                    <div className="collapse-title font-semibold">
+                        <h2 className="text-xl font-bold">Editar Curso</h2>
+                    </div>
+                    <div className="collapse-content text-sm">
+                        <CourseForm course={data} />
+                    </div>
                 </div>
-                <div className="collapse-content text-sm">
-                    <CourseForm course={data} />
+                <div className="collapse collapse-arrow bg-base-100 border border-base-300">
+                    <input type="radio" name="edit-course" />
+                    <div className="collapse-title font-semibold">
+                        <h2 className="text-xl font-bold">Editar contendio del curso</h2>
+                    </div>
+                    <div className="collapse-content text-sm">
+                        <ContentForm blocks={blocks} setBlocks={setBlocks} />
+                    </div>
                 </div>
-            </div>
-            <div className="collapse collapse-arrow bg-base-100 border border-base-300">
-                <input type="radio" name="edit-course" />
-                <div className="collapse-title font-semibold">
-                    <h2 className="text-xl font-bold">Editar contendio del curso</h2>
+                <div className="flex justify-center gap-8 mt-5 mb-10">
+                    <button type="button" className="btn btn-ghost" onClick={() => router.back()}>
+                        Cancelar
+                    </button>
+                    <button type="submit" className="btn btn-primary">
+                        Guardar cambios
+                    </button>
                 </div>
-                <div className="collapse-content text-sm">
-                    <ContentForm blocks={blocks} setBlocks={setBlocks} />
-                </div>
-            </div>
-            <div className="flex justify-center gap-8 mt-5 mb-10">
-                <button type="button" className="btn btn-ghost" onClick={() => router.back()}>
-                    Cancelar
-                </button>
-                <button type="submit" className="btn btn-primary">
-                    Guardar cambios
-                </button>
-            </div>
-        </form>
+            </form>
+
+            {blocks.map((block) => (
+                <dialog key={block.block_id} id={`modal-block-${block.block_id}`} className="modal">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg mb-4">Editar bloque</h3>
+                        <form onSubmit={handleEditBlock} className="space-y-4">
+                            <input type="hidden" name="block_id" defaultValue={block.block_id} />
+                            <fieldset className="fieldset">
+                                <label className="fieldset-label text-sm">
+                                    <span className="label-text">Título del bloque:</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                    name="block_title"
+                                    defaultValue={block.block_title}
+                                    required
+                                />
+                            </fieldset>
+                            <fieldset className="fieldset">
+                                <label className="fieldset-label text-sm">
+                                    <span className="label-text">Descripción del bloque:</span>
+                                </label>
+                                <textarea
+                                    className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
+                                    name="block_description"
+                                    defaultValue={block.block_description}
+                                    required
+                                />
+                            </fieldset>
+                            <div className="modal-action">
+                                <button
+                                    type="button"
+                                    className="btn btn-ghost"
+                                    onClick={() =>
+                                        document
+                                            .getElementById(`modal-block-${block.block_id}`)
+                                            .close()
+                                    }
+                                >
+                                    Cancelar
+                                </button>
+                                <button type="submit" className="btn btn-primary">
+                                    Guardar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </dialog>
+            ))}
+
+            {blocks
+                .flatMap((block) => block.lessons)
+                .map((lesson) => (
+                    <dialog
+                        key={lesson.lesson_id}
+                        id={`modal-lesson-${lesson.lesson_id}`}
+                        className="modal"
+                    >
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg mb-4">Editar lección</h3>
+                            <form onSubmit={handleEditLesson} className="space-y-4">
+                                <input
+                                    type="hidden"
+                                    name="lesson_id"
+                                    defaultValue={lesson.lesson_id}
+                                />
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">Título de la lección:</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                        name="lesson_title"
+                                        defaultValue={lesson.lesson_title}
+                                        required
+                                    />
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">
+                                            Descripción de la lección:
+                                        </span>
+                                    </label>
+                                    <MDEditor
+                                        className="w-full"
+                                        value={
+                                            lessonDescriptions[lesson.lesson_id] ||
+                                            lesson.lesson_description
+                                        }
+                                        onChange={(value) =>
+                                            handleDescriptionChange(lesson.lesson_id, value)
+                                        }
+                                        required
+                                    />
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">URL del video:</span>
+                                    </label>
+                                    <input
+                                        type="url"
+                                        className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                        name="lesson_video"
+                                        defaultValue={lesson.lesson_video}
+                                        required
+                                    />
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">URL de la imagen:</span>
+                                    </label>
+                                    <input
+                                        type="url"
+                                        className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                        name="lesson_image"
+                                        defaultValue={lesson.lesson_image}
+                                        required
+                                    />
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">Duración (HH:MM:SS):</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                        name="lesson_duration"
+                                        defaultValue={lesson.lesson_duration}
+                                        pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$"
+                                        placeholder="00:00:00"
+                                        required
+                                    />
+                                </fieldset>
+                                <div className="modal-action">
+                                    <button
+                                        type="button"
+                                        className="btn btn-ghost"
+                                        onClick={() =>
+                                            document
+                                                .getElementById(`modal-lesson-${lesson.lesson_id}`)
+                                                .close()
+                                        }
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" className="btn btn-primary">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </dialog>
+                ))}
+        </>
     );
 }
 
@@ -289,10 +517,6 @@ function ContentForm({ blocks, setBlocks }) {
         setBlocks(sortedBlocks);
     };
 
-    const handleEditBlock = (blockId) => {
-        console.log(blockId);
-    };
-
     const handleDeleteBlock = (blockId) => {
         Swal.fire({
             title: "¿Estás seguro?",
@@ -309,10 +533,6 @@ function ContentForm({ blocks, setBlocks }) {
         });
     };
 
-    const handleEditLesson = (lessonId) => {
-        console.log(lessonId);
-    };
-
     const handleDeleteLesson = (lessonId) => {
         Swal.fire({
             title: "¿Estás seguro?",
@@ -322,7 +542,9 @@ function ContentForm({ blocks, setBlocks }) {
             confirmButtonColor: "#3085d6",
         }).then((result) => {
             if (result.isConfirmed) {
-                const lessonsList = blocks.flatMap((block) => block.lessons).filter((lesson) => lesson.lesson_id !== lessonId);
+                const lessonsList = blocks
+                    .flatMap((block) => block.lessons)
+                    .filter((lesson) => lesson.lesson_id !== lessonId);
                 const updatedBlocks = blocks.map((block) => ({
                     ...block,
                     lessons: lessonsList.filter((lesson) => lesson.block_id === block.block_id),
@@ -333,6 +555,10 @@ function ContentForm({ blocks, setBlocks }) {
         });
     };
 
+    console.log(
+        blocks,
+        blocks.flatMap((block) => block.lessons)
+    );
     return (
         <>
             <DragDropContext onDragEnd={handleDragEnd}>
@@ -500,108 +726,6 @@ function ContentForm({ blocks, setBlocks }) {
                     )}
                 </Droppable>
             </DragDropContext>
-
-            {blocks.map((block) => (
-                <dialog key={block.block_id} id={`modal-block-${block.block_id}`} className="modal">
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg mb-4">Editar bloque</h3>
-                        <fieldset
-                            role="form"
-                            onSubmit={handleEditBlock}
-                            method="dialog"
-                            className="space-y-4"
-                        >
-                            <fieldset className="fieldset">
-                                <label className="fieldset-label text-sm">
-                                    <span className="label-text">Título del bloque:</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    className="input input-bordered w-full focus:outline-none focus:border-primary"
-                                    name="block_title"
-                                    defaultValue={block.block_title}
-                                />
-                            </fieldset>
-                            <fieldset className="fieldset">
-                                <label className="fieldset-label text-sm">
-                                    <span className="label-text">Descripción del bloque:</span>
-                                </label>
-                                <textarea
-                                    className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
-                                    name="block_description"
-                                    defaultValue={block.block_description}
-                                />
-                            </fieldset>
-                            <div className="modal-action">
-                                <button className="btn btn-ghost">Cancelar</button>
-                                <button type="submit" className="btn btn-primary">
-                                    Guardar
-                                </button>
-                            </div>
-                        </fieldset>
-                    </div>
-                </dialog>
-            ))}
-
-            {blocks.map((block) =>
-                block.lessons.map((lesson) => (
-                    <dialog
-                        key={lesson.lesson_id}
-                        id={`modal-lesson-${lesson.lesson_id}`}
-                        className="modal"
-                    >
-                        <div className="modal-box">
-                            <h3 className="font-bold text-lg mb-4">Editar lección</h3>
-                            <fieldset
-                                role="form"
-                                onSubmit={handleEditLesson}
-                                method="dialog"
-                                className="space-y-4"
-                            >
-                                <fieldset className="fieldset">
-                                    <label className="fieldset-label text-sm">
-                                        <span className="label-text">Título de la lección:</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="input input-bordered w-full focus:outline-none focus:border-primary"
-                                        name="lesson_title"
-                                        defaultValue={lesson.lesson_title}
-                                    />
-                                </fieldset>
-                                <fieldset className="fieldset">
-                                    <label className="fieldset-label text-sm">
-                                        <span className="label-text">
-                                            Descripción de la lección:
-                                        </span>
-                                    </label>
-                                    <textarea
-                                        className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
-                                        name="lesson_description"
-                                        defaultValue={lesson.lesson_description}
-                                    />
-                                </fieldset>
-                                <fieldset className="fieldset">
-                                    <label className="fieldset-label text-sm">
-                                        <span className="label-text">Contenido de la lección:</span>
-                                    </label>
-                                    <textarea
-                                        className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
-                                        name="lesson_content"
-                                        defaultValue={lesson.lesson_content}
-                                    />
-                                </fieldset>
-                                <div className="modal-action">
-                                    <button className="btn btn-ghost">Cancelar</button>
-                                    <button type="submit" className="btn btn-primary">
-                                        Guardar
-                                    </button>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </dialog>
-                ))
-            )}
         </>
     );
 }
