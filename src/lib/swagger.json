@@ -2,20 +2,29 @@
     "openapi": "3.0.0",
     "info": {
         "title": "EduWeb API",
-        "description": "API documentation for EduWeb educational platform",
+        "description": "Documentación de la API para la plataforma educativa EduWeb",
         "version": "1.0.0"
     },
-    "servers": [
+    "tags": [
         {
-            "url": "/api",
-            "description": "API base URL"
+            "name": "Usuarios",
+            "description": "Operaciones relacionadas con usuarios"
+        },
+        {
+            "name": "Cursos", 
+            "description": "Operaciones relacionadas con cursos"
+        },
+        {
+            "name": "Certificados",
+            "description": "Operaciones relacionadas con certificados"
         }
     ],
     "paths": {
         "/users": {
             "get": {
-                "summary": "Get all users",
-                "description": "Retrieve a paginated list of users",
+                "tags": ["Usuarios"],
+                "summary": "Obtener todos los usuarios",
+                "description": "Recuperar una lista paginada de usuarios",
                 "parameters": [
                     {
                         "name": "page",
@@ -67,8 +76,9 @@
                 }
             },
             "post": {
-                "summary": "Create a new user",
-                "description": "Register a new user in the system",
+                "tags": ["Usuarios"],
+                "summary": "Crear un nuevo usuario",
+                "description": "Registrar un nuevo usuario en el sistema",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -96,15 +106,17 @@
         },
         "/users/{id}": {
             "get": {
-                "summary": "Get user by ID",
-                "description": "Retrieve a specific user by their ID",
+                "tags": ["Usuarios"],
+                "summary": "Obtener usuario por ID",
+                "description": "Recuperar un usuario específico por su ID",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -115,15 +127,17 @@
                 }
             },
             "put": {
-                "summary": "Update user",
-                "description": "Update an existing user's information",
+                "tags": ["Usuarios"],
+                "summary": "Actualizar usuario",
+                "description": "Actualizar la información de un usuario existente",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -149,15 +163,17 @@
                 }
             },
             "delete": {
-                "summary": "Delete user",
-                "description": "Delete a user from the system",
+                "tags": ["Usuarios"],
+                "summary": "Eliminar usuario",
+                "description": "Eliminar un usuario del sistema",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -170,15 +186,17 @@
         },
         "/users/{id}/courses": {
             "get": {
-                "summary": "Get user's courses",
-                "description": "Retrieve all courses associated with a user",
+                "tags": ["Usuarios", "Cursos"],
+                "summary": "Obtener cursos del usuario",
+                "description": "Recuperar todos los cursos asociados a un usuario",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -191,15 +209,17 @@
         },
         "/users/{id}/courses/{courseId}": {
             "get": {
-                "summary": "Get user's specific course",
-                "description": "Retrieve details of a specific course for a user",
+                "tags": ["Usuarios", "Cursos"],
+                "summary": "Obtener curso específico del usuario",
+                "description": "Recuperar detalles de un curso específico para un usuario",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -207,7 +227,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -220,15 +241,17 @@
         },
         "/users/{id}/courses/{courseId}/lessons/{lessonId}": {
             "get": {
-                "summary": "Mark lesson as completed",
-                "description": "Mark a lesson as completed for a user's course",
+                "tags": ["Usuarios", "Cursos"],
+                "summary": "Marcar lección como completada",
+                "description": "Marcar una lección como completada para el curso de un usuario",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -236,7 +259,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -244,7 +268,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -257,15 +282,17 @@
         },
         "/users/{id}/courses/{courseId}/exams/start": {
             "get": {
-                "summary": "Start course exam",
-                "description": "Start or resume an exam for a user's course",
+                "tags": ["Usuarios", "Cursos"],
+                "summary": "Iniciar examen del curso",
+                "description": "Iniciar o reanudar un examen para el curso de un usuario",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -273,7 +300,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -286,15 +314,17 @@
         },
         "/users/{id}/courses/{courseId}/exams/{examId}": {
             "get": {
-                "summary": "Get exam details",
-                "description": "Retrieve details of a specific exam",
+                "tags": ["Usuarios", "Cursos"],
+                "summary": "Obtener detalles del examen",
+                "description": "Recuperar detalles de un examen específico",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -302,7 +332,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -310,7 +341,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -321,15 +353,17 @@
                 }
             },
             "post": {
-                "summary": "Submit exam answers",
-                "description": "Submit answers for an exam",
+                "tags": ["Usuarios", "Cursos"],
+                "summary": "Enviar respuestas del examen",
+                "description": "Enviar respuestas para un examen",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -337,7 +371,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -345,7 +380,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -376,15 +412,17 @@
         },
         "/users/{id}/courses/{courseId}/certificate": {
             "get": {
-                "summary": "Get course certificate",
-                "description": "Generate and retrieve a course completion certificate",
+                "tags": ["Usuarios", "Cursos", "Certificados"],
+                "summary": "Obtener certificado del curso",
+                "description": "Generar y recuperar un certificado de finalización del curso",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
@@ -392,7 +430,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -413,8 +452,9 @@
         },
         "/courses": {
             "get": {
-                "summary": "Get all courses",
-                "description": "Retrieve a paginated list of courses with filtering options",
+                "tags": ["Cursos"],
+                "summary": "Obtener todos los cursos",
+                "description": "Recuperar una lista paginada de cursos con opciones de filtrado",
                 "parameters": [
                     {
                         "name": "category",
@@ -468,15 +508,17 @@
         },
         "/courses/{id}": {
             "get": {
-                "summary": "Get course by ID",
-                "description": "Retrieve details of a specific course",
+                "tags": ["Cursos"],
+                "summary": "Obtener curso por ID",
+                "description": "Recuperar detalles de un curso específico",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -489,15 +531,17 @@
         },
         "/courses/{id}/exam": {
             "get": {
-                "summary": "Get course exam",
-                "description": "Retrieve the exam for a specific course",
+                "tags": ["Cursos"],
+                "summary": "Obtener examen del curso",
+                "description": "Recuperar el examen de un curso específico",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -510,15 +554,17 @@
         },
         "/certificates/{id}": {
             "get": {
-                "summary": "Get certificate by ID",
-                "description": "Retrieve a specific certificate",
+                "tags": ["Certificados"],
+                "summary": "Obtener certificado por ID",
+                "description": "Recuperar un certificado específico",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -536,7 +582,8 @@
                 "type": "object",
                 "properties": {
                     "user_id": {
-                        "type": "integer"
+                        "type": "string",
+                        "format": "uuid"
                     },
                     "user_name": {
                         "type": "string"
