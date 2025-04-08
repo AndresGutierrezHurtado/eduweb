@@ -6,6 +6,7 @@ import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 
 // Components
 import { PencilIcon, PlusIcon, TrashIcon, DraggableIcon } from "@/components/icons";
+import Swal from "sweetalert2";
 
 export default function CourseEditForm({ course = { blocks: [] } }) {
     const { blocks: courseBlocks, ...data } = course;
@@ -159,6 +160,26 @@ function CourseForm({ course }) {
 }
 
 function ContentForm({ blocks, setBlocks }) {
+    const organizeBlocks = (blocks) => {
+        const lessonsList = blocks.flatMap((block) => block.lessons);
+        const sortedLessons = lessonsList.map((lesson, index) => ({
+            ...lesson,
+            lesson_order: index + 1,
+        }));
+
+        const updatedBlocks = blocks.map((block) => ({
+            ...block,
+            lessons: sortedLessons.filter((lesson) => lesson.block_id === block.block_id),
+        }));
+
+        const sortedBlocks = updatedBlocks.map((block, index) => ({
+            ...block,
+            block_order: index + 1,
+        }));
+
+        return sortedBlocks;
+    };
+
     const handleDragEnd = (result) => {
         const { source, destination, draggableId, type } = result;
 
@@ -268,135 +289,319 @@ function ContentForm({ blocks, setBlocks }) {
         setBlocks(sortedBlocks);
     };
 
+    const handleEditBlock = (blockId) => {
+        console.log(blockId);
+    };
+
+    const handleDeleteBlock = (blockId) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "No podrás revertir esto.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const updatedBlocks = blocks.filter((block) => block.block_id !== blockId);
+                const sortedBlocks = organizeBlocks(updatedBlocks);
+                setBlocks(sortedBlocks);
+            }
+        });
+    };
+
+    const handleEditLesson = (lessonId) => {
+        console.log(lessonId);
+    };
+
+    const handleDeleteLesson = (lessonId) => {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "No podrás revertir esto.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const lessonsList = blocks.flatMap((block) => block.lessons).filter((lesson) => lesson.lesson_id !== lessonId);
+                const updatedBlocks = blocks.map((block) => ({
+                    ...block,
+                    lessons: lessonsList.filter((lesson) => lesson.block_id === block.block_id),
+                }));
+                const sortedBlocks = organizeBlocks(updatedBlocks);
+                setBlocks(sortedBlocks);
+            }
+        });
+    };
+
     return (
-        <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable
-                droppableId="blocks"
-                type="BLOCKS"
-                isDropDisabled={false}
-                isCombineEnabled={false}
-                ignoreContainerClipping={false}
-                direction="vertical"
-            >
-                {(provided) => (
-                    <div
-                        className="flex flex-col gap-4"
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                    >
-                        {blocks.map((block) => (
-                            <Draggable
-                                key={block.block_id}
-                                draggableId={block.block_id.toString()}
-                                index={block.block_order}
-                            >
-                                {(provided) => (
-                                    <div
-                                        className="bg-base-200/60 p-4 rounded-lg space-y-5"
-                                        {...provided.draggableProps}
-                                        ref={provided.innerRef}
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-2">
-                                                <div
-                                                    className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing"
-                                                    {...provided.dragHandleProps}
-                                                >
-                                                    <DraggableIcon />
-                                                </div>
-                                                <h2 className="text-lg font-semibold">
-                                                    {block.block_title}
-                                                </h2>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                <button className="btn btn-sm btn-ghost">
-                                                    <PencilIcon />
-                                                </button>
-                                                <button className="btn btn-sm btn-ghost">
-                                                    <TrashIcon />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <Droppable
-                                            droppableId={`block-${block.block_id}`}
-                                            type="LESSONS"
-                                            isDropDisabled={false}
-                                            isCombineEnabled={false}
-                                            ignoreContainerClipping={false}
-                                            direction="vertical"
+        <>
+            <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable
+                    droppableId="blocks"
+                    type="BLOCKS"
+                    isDropDisabled={false}
+                    isCombineEnabled={false}
+                    ignoreContainerClipping={false}
+                    direction="vertical"
+                >
+                    {(provided) => (
+                        <div
+                            className="flex flex-col gap-4"
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                        >
+                            {blocks.map((block) => (
+                                <Draggable
+                                    key={block.block_id}
+                                    draggableId={block.block_id.toString()}
+                                    index={block.block_order}
+                                >
+                                    {(provided) => (
+                                        <div
+                                            className="bg-base-200/60 p-4 rounded-lg space-y-5"
+                                            {...provided.draggableProps}
+                                            ref={provided.innerRef}
                                         >
-                                            {(provided) => (
-                                                <div
-                                                    className="space-y-2"
-                                                    {...provided.droppableProps}
-                                                    ref={provided.innerRef}
-                                                >
-                                                    {block.lessons.map((lesson) => (
-                                                        <Draggable
-                                                            key={lesson.lesson_id}
-                                                            draggableId={lesson.lesson_id.toString()}
-                                                            index={lesson.lesson_order}
-                                                        >
-                                                            {(provided) => (
-                                                                <div
-                                                                    {...provided.draggableProps}
-                                                                    ref={provided.innerRef}
-                                                                    id={`lesson-${lesson.lesson_id}`}
-                                                                    className="bg-base-100 p-3 rounded flex items-center justify-between"
-                                                                >
-                                                                    <div className="flex items-center gap-2">
-                                                                        <div
-                                                                            className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing"
-                                                                            {...provided.dragHandleProps}
-                                                                        >
-                                                                            <DraggableIcon />
-                                                                        </div>
-                                                                        <span>
-                                                                            {lesson.lesson_title}
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="flex gap-2">
-                                                                        <button className="btn btn-xs btn-ghost">
-                                                                            <PencilIcon />
-                                                                        </button>
-                                                                        <button className="btn btn-xs btn-ghost">
-                                                                            <TrashIcon />
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                        </Draggable>
-                                                    ))}
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2">
+                                                    <div
+                                                        className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing"
+                                                        {...provided.dragHandleProps}
+                                                    >
+                                                        <DraggableIcon />
+                                                    </div>
+                                                    <h2 className="text-lg font-semibold">
+                                                        {block.block_title}
+                                                    </h2>
+                                                </div>
+                                                <div className="flex gap-2">
                                                     <button
                                                         type="button"
-                                                        className="btn btn-sm btn-ghost w-full"
+                                                        className="btn btn-sm btn-ghost"
                                                         onClick={() =>
-                                                            handleAddLesson(block.block_id)
+                                                            document
+                                                                .getElementById(
+                                                                    `modal-block-${block.block_id}`
+                                                                )
+                                                                .showModal()
                                                         }
                                                     >
-                                                        <PlusIcon />
-                                                        <span>Agregar lección</span>
+                                                        <PencilIcon />
                                                     </button>
-                                                    {provided.placeholder}
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-sm btn-ghost"
+                                                        onClick={() =>
+                                                            handleDeleteBlock(block.block_id)
+                                                        }
+                                                    >
+                                                        <TrashIcon />
+                                                    </button>
                                                 </div>
-                                            )}
-                                        </Droppable>
-                                    </div>
-                                )}
-                            </Draggable>
-                        ))}
-                        <button
-                            type="button"
-                            className="btn btn-sm btn-ghost w-full"
-                            onClick={handleAddBlock}
+                                            </div>
+                                            <Droppable
+                                                droppableId={`block-${block.block_id}`}
+                                                type="LESSONS"
+                                                isDropDisabled={false}
+                                                isCombineEnabled={false}
+                                                ignoreContainerClipping={false}
+                                                direction="vertical"
+                                            >
+                                                {(provided) => (
+                                                    <div
+                                                        className="space-y-2"
+                                                        {...provided.droppableProps}
+                                                        ref={provided.innerRef}
+                                                    >
+                                                        {block.lessons.map((lesson) => (
+                                                            <Draggable
+                                                                key={lesson.lesson_id}
+                                                                draggableId={lesson.lesson_id.toString()}
+                                                                index={lesson.lesson_order}
+                                                            >
+                                                                {(provided) => (
+                                                                    <div
+                                                                        {...provided.draggableProps}
+                                                                        ref={provided.innerRef}
+                                                                        id={`lesson-${lesson.lesson_id}`}
+                                                                        className="bg-base-100 p-3 rounded flex items-center justify-between"
+                                                                    >
+                                                                        <div className="flex items-center gap-2">
+                                                                            <div
+                                                                                className="btn btn-sm btn-ghost cursor-grab active:cursor-grabbing"
+                                                                                {...provided.dragHandleProps}
+                                                                            >
+                                                                                <DraggableIcon />
+                                                                            </div>
+                                                                            <span>
+                                                                                {
+                                                                                    lesson.lesson_title
+                                                                                }
+                                                                            </span>
+                                                                        </div>
+                                                                        <div className="flex gap-2">
+                                                                            <button
+                                                                                type="button"
+                                                                                className="btn btn-xs btn-ghost"
+                                                                                onClick={() =>
+                                                                                    document
+                                                                                        .getElementById(
+                                                                                            `modal-lesson-${lesson.lesson_id}`
+                                                                                        )
+                                                                                        .showModal()
+                                                                                }
+                                                                            >
+                                                                                <PencilIcon />
+                                                                            </button>
+                                                                            <button
+                                                                                type="button"
+                                                                                className="btn btn-xs btn-ghost"
+                                                                                onClick={() =>
+                                                                                    handleDeleteLesson(
+                                                                                        lesson.lesson_id
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <TrashIcon />
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        ))}
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-sm btn-ghost w-full"
+                                                            onClick={() =>
+                                                                handleAddLesson(block.block_id)
+                                                            }
+                                                        >
+                                                            <PlusIcon />
+                                                            <span>Agregar lección</span>
+                                                        </button>
+                                                        {provided.placeholder}
+                                                    </div>
+                                                )}
+                                            </Droppable>
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            <button
+                                type="button"
+                                className="btn btn-sm btn-ghost w-full"
+                                onClick={handleAddBlock}
+                            >
+                                <PlusIcon />
+                                <span>Agregar bloque</span>
+                            </button>
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+
+            {blocks.map((block) => (
+                <dialog key={block.block_id} id={`modal-block-${block.block_id}`} className="modal">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg mb-4">Editar bloque</h3>
+                        <fieldset
+                            role="form"
+                            onSubmit={handleEditBlock}
+                            method="dialog"
+                            className="space-y-4"
                         >
-                            <PlusIcon />
-                            <span>Agregar bloque</span>
-                        </button>
-                        {provided.placeholder}
+                            <fieldset className="fieldset">
+                                <label className="fieldset-label text-sm">
+                                    <span className="label-text">Título del bloque:</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                    name="block_title"
+                                    defaultValue={block.block_title}
+                                />
+                            </fieldset>
+                            <fieldset className="fieldset">
+                                <label className="fieldset-label text-sm">
+                                    <span className="label-text">Descripción del bloque:</span>
+                                </label>
+                                <textarea
+                                    className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
+                                    name="block_description"
+                                    defaultValue={block.block_description}
+                                />
+                            </fieldset>
+                            <div className="modal-action">
+                                <button className="btn btn-ghost">Cancelar</button>
+                                <button type="submit" className="btn btn-primary">
+                                    Guardar
+                                </button>
+                            </div>
+                        </fieldset>
                     </div>
-                )}
-            </Droppable>
-        </DragDropContext>
+                </dialog>
+            ))}
+
+            {blocks.map((block) =>
+                block.lessons.map((lesson) => (
+                    <dialog
+                        key={lesson.lesson_id}
+                        id={`modal-lesson-${lesson.lesson_id}`}
+                        className="modal"
+                    >
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg mb-4">Editar lección</h3>
+                            <fieldset
+                                role="form"
+                                onSubmit={handleEditLesson}
+                                method="dialog"
+                                className="space-y-4"
+                            >
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">Título de la lección:</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                        name="lesson_title"
+                                        defaultValue={lesson.lesson_title}
+                                    />
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">
+                                            Descripción de la lección:
+                                        </span>
+                                    </label>
+                                    <textarea
+                                        className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
+                                        name="lesson_description"
+                                        defaultValue={lesson.lesson_description}
+                                    />
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="fieldset-label text-sm">
+                                        <span className="label-text">Contenido de la lección:</span>
+                                    </label>
+                                    <textarea
+                                        className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
+                                        name="lesson_content"
+                                        defaultValue={lesson.lesson_content}
+                                    />
+                                </fieldset>
+                                <div className="modal-action">
+                                    <button className="btn btn-ghost">Cancelar</button>
+                                    <button type="submit" className="btn btn-primary">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </dialog>
+                ))
+            )}
+        </>
     );
 }
