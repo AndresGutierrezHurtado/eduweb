@@ -1,0 +1,599 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "EduWeb API",
+        "description": "API documentation for EduWeb educational platform",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "API base URL"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "summary": "Get all users",
+                "description": "Retrieve a paginated list of users",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "schema": {
+                            "type": "integer",
+                            "default": 5
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/User"
+                                            }
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new user",
+                "description": "Register a new user in the system",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/UserInput"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input or duplicate email/phone"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Get user by ID",
+                "description": "Retrieve a specific user by their ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update user",
+                "description": "Update an existing user's information",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/UserInput"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete user",
+                "description": "Delete a user from the system",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully"
+                    }
+                }
+            }
+        },
+        "/users/{id}/courses": {
+            "get": {
+                "summary": "Get user's courses",
+                "description": "Retrieve all courses associated with a user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/users/{id}/courses/{courseId}": {
+            "get": {
+                "summary": "Get user's specific course",
+                "description": "Retrieve details of a specific course for a user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/users/{id}/courses/{courseId}/lessons/{lessonId}": {
+            "get": {
+                "summary": "Mark lesson as completed",
+                "description": "Mark a lesson as completed for a user's course",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "lessonId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lesson marked as completed"
+                    }
+                }
+            }
+        },
+        "/users/{id}/courses/{courseId}/exams/start": {
+            "get": {
+                "summary": "Start course exam",
+                "description": "Start or resume an exam for a user's course",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Exam started successfully"
+                    }
+                }
+            }
+        },
+        "/users/{id}/courses/{courseId}/exams/{examId}": {
+            "get": {
+                "summary": "Get exam details",
+                "description": "Retrieve details of a specific exam",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "examId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Submit exam answers",
+                "description": "Submit answers for an exam",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "examId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "answers": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Answers submitted successfully"
+                    }
+                }
+            }
+        },
+        "/users/{id}/courses/{courseId}/certificate": {
+            "get": {
+                "summary": "Get course certificate",
+                "description": "Generate and retrieve a course completion certificate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "PDF certificate",
+                        "content": {
+                            "application/pdf": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/courses": {
+            "get": {
+                "summary": "Get all courses",
+                "description": "Retrieve a paginated list of courses with filtering options",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter by category ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Sort order (e.g., 'createdAt:DESC')",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/courses/{id}": {
+            "get": {
+                "summary": "Get course by ID",
+                "description": "Retrieve details of a specific course",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/courses/{id}/exam": {
+            "get": {
+                "summary": "Get course exam",
+                "description": "Retrieve the exam for a specific course",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/certificates/{id}": {
+            "get": {
+                "summary": "Get certificate by ID",
+                "description": "Retrieve a specific certificate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "user_name": {
+                        "type": "string"
+                    },
+                    "user_lastname": {
+                        "type": "string"
+                    },
+                    "user_email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "user_phone": {
+                        "type": "string"
+                    },
+                    "user_image": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/Role"
+                    }
+                }
+            },
+            "UserInput": {
+                "type": "object",
+                "properties": {
+                    "user_name": {
+                        "type": "string"
+                    },
+                    "user_lastname": {
+                        "type": "string"
+                    },
+                    "user_email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "user_password": {
+                        "type": "string"
+                    },
+                    "user_phone": {
+                        "type": "string"
+                    },
+                    "role_id": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "Role": {
+                "type": "object",
+                "properties": {
+                    "role_id": {
+                        "type": "integer"
+                    },
+                    "role_name": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

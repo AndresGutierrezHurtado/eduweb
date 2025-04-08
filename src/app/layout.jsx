@@ -16,7 +16,7 @@ const alegreya = Alegreya_Sans({ subsets: ["latin"], weight: "700" });
 
 export default function RootLayout({ children }) {
     const pathname = usePathname();
-    const excludedRoutes = ["/login", "/register", "/api/auth/error"];
+    const excludedRoutes = ["/login", "/register", "/api/auth/error", "/api-docs"];
 
     return (
         <html lang="es">

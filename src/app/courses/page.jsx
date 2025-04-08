@@ -119,7 +119,7 @@ export default function Page() {
                                         </Link>
                                     </div>
                                 ))}
-                                {userCourses.length == 0 && (
+                                {!userCourses.some((c) => c.course_state == "progress") && (
                                     <p className="text-base-content/70">
                                         No tienes cursos pendientes
                                     </p>

@@ -98,9 +98,7 @@ export default function Page() {
                                             <h2 className="text-2xl font-bold">
                                                 Cursos pendientes
                                             </h2>
-                                            {courses.filter(
-                                                (course) => course.course_state == "progress"
-                                            ).length == 0 && (
+                                            {!courses.some((c) => c.course_state == "progress") && (
                                                 <div>
                                                     <p className="text-base-content/80 text-lg leading-tight">
                                                         No tienes cursos pendientes...
@@ -195,9 +193,7 @@ export default function Page() {
                                             <h2 className="text-2xl font-bold">
                                                 Cursos completados
                                             </h2>
-                                            {courses.filter(
-                                                (course) => course.course_state == "completed"
-                                            ).length == 0 && (
+                                            {!courses.some((c) => c.course_state == "completed") && (
                                                 <div>
                                                     <p className="text-base-content/80 text-lg leading-tight">
                                                         Aún no has completado ningun curso
@@ -284,7 +280,7 @@ export default function Page() {
                                             </p>
                                         </div>
                                         <hr />
-                                        {courses.length == 0 && (
+                                        {!courses.some((c) => c.course_state == "completed") && (
                                             <div>
                                                 <p className="text-base-content/80 text-lg leading-tight">
                                                     Aún no has completado ningun curso...
