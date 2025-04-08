@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
 import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -10,8 +10,9 @@ import { useGetData } from "@/hooks/useFetch";
 import { useSession } from "next-auth/react";
 
 // Components
+import LoadingComponent from "@/components/loading";
 const CourseEditForm = dynamic(() => import("@/components/CourseEditForm"), {
-    loading: () => <p>Loading...</p>,
+    loading: () => <LoadingComponent />,
 });
 
 export default function Page() {
@@ -20,12 +21,16 @@ export default function Page() {
     const userSession = session?.user;
     const { data: course, loading: courseLoading } = useGetData(`/courses/${id}`);
 
+    useEffect(() => {
+        document.title = "Editar Curso | Eduweb";
+    }, []);
+
     if (status === "unauthenticated") {
         redirect("/login");
     }
 
     if (courseLoading || status === "loading") {
-        return <p>Loading...</p>;
+        return <LoadingComponent />;
     }
 
     if (course.teacher_id !== userSession.user_id) {

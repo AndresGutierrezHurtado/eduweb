@@ -12,8 +12,15 @@ export default function CourseEditForm({ course = { blocks: [] } }) {
     const [blocks, setBlocks] = useState([]);
 
     useEffect(() => {
+        const lessonsList = courseBlocks.flatMap((block) => block.lessons);
+        const sortedLessons = lessonsList.sort((a, b) => a.lesson_order - b.lesson_order);
         const sortedBlocks = [...courseBlocks].sort((a, b) => a.block_order - b.block_order);
-        setBlocks(sortedBlocks);
+        const updatedBlocks = sortedBlocks.map((block) => ({
+            ...block,
+            lessons: sortedLessons.filter((lesson) => lesson.block_id === block.block_id),
+        }));
+
+        setBlocks(updatedBlocks);
     }, [courseBlocks]);
 
     const handleSubmit = async (e) => {
@@ -167,7 +174,18 @@ function ContentForm({ blocks, setBlocks }) {
                 block_order: index + 1,
             }));
 
-            setBlocks(updatedBlocks);
+            const lessonsList = updatedBlocks.flatMap((block) => block.lessons);
+            const sortedLessonsList = lessonsList.map((lesson, index) => ({
+                ...lesson,
+                lesson_order: index + 1,
+            }));
+
+            const sortedBlocks = updatedBlocks.map((block) => ({
+                ...block,
+                lessons: sortedLessonsList.filter((lesson) => lesson.block_id === block.block_id),
+            }));
+
+            setBlocks(sortedBlocks);
         }
 
         if (type === "LESSONS") {
@@ -203,6 +221,11 @@ function ContentForm({ blocks, setBlocks }) {
         }
     };
 
+    console.log(
+        blocks
+            .flatMap((block) => block.lessons)
+            .map((lesson) => ({ order: lesson.lesson_order, title: lesson.lesson_title }))
+    );
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable
