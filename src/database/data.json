@@ -284,29 +284,44 @@
             "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
             "question_text": "¿Cuál es el propósito principal de JavaScript en el desarrollo web?"
         },
-
         {
             "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
+            "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "question_text": "¿Qué es Git y cuál es su principal función en el desarrollo web?"
+        },
+        {
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "question_text": "¿Cuál es la diferencia entre un servidor web y un hosting?"
+        },
+        {
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "question_text": "¿Qué es Visual Studio Code y cuáles son sus principales características?"
+        },
+
+        {
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
             "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
             "question_text": "¿Qué tipo de bases de datos utiliza SQL?"
         },
         {
-            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
             "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
             "question_text": "¿Cuál es la diferencia clave entre una base de datos relacional y una no relacional?"
         },
         {
-            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "question_id": "fgh1234-5678-4stu-a1b2-901vwxyzabcd",
             "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
             "question_text": "¿Cuál de las siguientes opciones es un gestor de bases de datos NoSQL?"
         },
         {
-            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "question_id": "ijk2345-6789-4vwx-a1b2-012yzabcdef",
             "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
             "question_text": "¿Qué comando se usa para insertar datos en una tabla en MySQL?"
         },
         {
-            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "question_id": "lmn3456-7890-4yza-a1b2-123bcdefghi",
             "exam_id": "mnop3456-7890-4bcd-a1e2-3456789fghij",
             "question_text": "¿MongoDB almacena los datos en formato?"
         }
@@ -339,86 +354,218 @@
         {
             "answer_id": "acb57080-738d-427e-9f1e-fe6c467df88a",
             "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
-            "answer_text": "El propósito principal de JavaScript en el desarrollo web es agregar funcionalidad dinámica a las p ginas web",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es agregar funcionalidad dinámica a las páginas web",
             "is_correct": true
         },
         {
             "answer_id": "d494d7e4-f5ac-4dab-9d16-bced59f13c18",
             "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
-            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear estilos para las p ginas web",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear estilos para las páginas web",
             "is_correct": false
         },
         {
             "answer_id": "c1f2b3fb-9e4f-4c7b-8f1e-2d4f1f7d21a1",
             "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
-            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear bases de datos para las p ginas web",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear bases de datos para las páginas web",
             "is_correct": false
         },
         {
             "answer_id": "0f8a1f7c-0c8f-4f19-8c8c-7e2c9a8a1dab",
             "question_id": "cedf10fb-e690-4182-a686-62bf831bf486",
-            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear p ginas web est ticas",
+            "answer_text": "El propósito principal de JavaScript en el desarrollo web es crear páginas web estáticas",
             "is_correct": false
         },
-
         {
             "answer_id": "1a2b3c4d-5678-9e01-2345-6789abcdef01",
             "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
-            "answer_text": "Bases de datos relacionales",
+            "answer_text": "Git es un sistema de control de versiones que permite gestionar y rastrear cambios en el código fuente",
             "is_correct": true
         },
         {
             "answer_id": "2b3c4d5e-6789-0f12-3456-789abcdef012",
             "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
-            "answer_text": "Bases de datos no relacionales",
+            "answer_text": "Git es un lenguaje de programación para desarrollo web",
             "is_correct": false
         },
         {
             "answer_id": "3c4d5e6f-7890-1a23-4567-89abcdef0123",
-            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
-            "answer_text": "Las bases de datos relacionales organizan los datos en tablas con relaciones, mientras que las no relacionales los almacenan en documentos, grafos o clave-valor.",
-            "is_correct": true
+            "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
+            "answer_text": "Git es un framework para desarrollo de aplicaciones web",
+            "is_correct": false
         },
         {
             "answer_id": "4d5e6f7g-8901-2b34-5678-9abcdef01234",
-            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
-            "answer_text": "Ambas almacenan los datos de la misma manera.",
+            "question_id": "qrs6789-0123-4def-a1b2-456789ghijkl",
+            "answer_text": "Git es un gestor de bases de datos",
             "is_correct": false
         },
         {
             "answer_id": "5e6f7g8h-9012-3c45-6789-abcdef012345",
-            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
-            "answer_text": "MongoDB",
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "answer_text": "Un servidor web es un software que procesa peticiones HTTP, mientras que un hosting es el servicio que proporciona espacio en un servidor",
             "is_correct": true
         },
         {
             "answer_id": "6f7g8h9i-0123-4d56-7890-bcdef0123456",
-            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
-            "answer_text": "MySQL",
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "answer_text": "Un servidor web y un hosting son exactamente lo mismo",
             "is_correct": false
         },
         {
             "answer_id": "7g8h9i0j-1234-5e67-8901-cdef01234567",
-            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
-            "answer_text": "INSERT INTO",
-            "is_correct": true
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "answer_text": "Un hosting es un software y un servidor web es un servicio",
+            "is_correct": false
         },
         {
             "answer_id": "8h9i0j1k-2345-6f78-9012-def012345678",
-            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
-            "answer_text": "UPDATE SET",
+            "question_id": "tuv9012-3456-4ghi-a1b2-56789jklmno",
+            "answer_text": "Un servidor web es un servicio y un hosting es un lenguaje de programación",
             "is_correct": false
         },
         {
             "answer_id": "9i0j1k2l-3456-7g89-0123-ef0123456789",
-            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
-            "answer_text": "Documentos JSON",
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "answer_text": "Visual Studio Code es un editor de código fuente con soporte para múltiples lenguajes, extensiones y herramientas de desarrollo",
             "is_correct": true
         },
         {
             "answer_id": "0j1k2l3m-4567-8h90-1234-f01234567890",
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "answer_text": "Visual Studio Code es un sistema operativo para desarrollo web",
+            "is_correct": false
+        },
+        {
+            "answer_id": "1k2l3m4n-5678-9i01-2345-012345678901",
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "answer_text": "Visual Studio Code es un gestor de bases de datos",
+            "is_correct": false
+        },
+        {
+            "answer_id": "2l3m4n5o-6789-0j12-3456-123456789012",
+            "question_id": "wxy3456-7890-4jkl-a1b2-6789mnopqrs",
+            "answer_text": "Visual Studio Code es un servidor web",
+            "is_correct": false
+        },
+
+        {
+            "answer_id": "3m4n5o6p-7890-1k23-4567-234567890123",
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "answer_text": "Bases de datos relacionales",
+            "is_correct": true
+        },
+        {
+            "answer_id": "4n5o6p7q-8901-2l34-5678-345678901234",
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "answer_text": "Bases de datos no relacionales",
+            "is_correct": false
+        },
+        {
+            "answer_id": "5o6p7q8r-9012-3m45-6789-456789012345",
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "answer_text": "Bases de datos documentales",
+            "is_correct": false
+        },
+        {
+            "answer_id": "6p7q8r9s-0123-4n56-7890-567890123456",
+            "question_id": "zab6789-0123-4mno-a1b2-789pqrstuvw",
+            "answer_text": "Bases de datos en grafo",
+            "is_correct": false
+        },
+        {
+            "answer_id": "7q8r9s0t-1234-5o67-8901-678901234567",
             "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "answer_text": "Las bases de datos relacionales organizan los datos en tablas con relaciones, mientras que las no relacionales los almacenan en documentos, grafos o clave-valor",
+            "is_correct": true
+        },
+        {
+            "answer_id": "8r9s0t1u-2345-6p78-9012-789012345678",
+            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "answer_text": "Ambas almacenan los datos de la misma manera",
+            "is_correct": false
+        },
+        {
+            "answer_id": "9s0t1u2v-3456-7q89-0123-890123456789",
+            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "answer_text": "Las bases de datos relacionales son más rápidas que las no relacionales",
+            "is_correct": false
+        },
+        {
+            "answer_id": "0t1u2v3w-4567-8r90-1234-901234567890",
+            "question_id": "cde9012-3456-4pqr-a1b2-890stuuvwxyz",
+            "answer_text": "Las bases de datos no relacionales son más antiguas que las relacionales",
+            "is_correct": false
+        },
+        {
+            "answer_id": "1u2v3w4x-5678-9s01-2345-012345678901",
+            "question_id": "fgh1234-5678-4stu-a1b2-901vwxyzabcd",
+            "answer_text": "MongoDB",
+            "is_correct": true
+        },
+        {
+            "answer_id": "2v3w4x5y-6789-0t12-3456-123456789012",
+            "question_id": "fgh1234-5678-4stu-a1b2-901vwxyzabcd",
+            "answer_text": "MySQL",
+            "is_correct": false
+        },
+        {
+            "answer_id": "3w4x5y6z-7890-1u23-4567-234567890123",
+            "question_id": "fgh1234-5678-4stu-a1b2-901vwxyzabcd",
+            "answer_text": "PostgreSQL",
+            "is_correct": false
+        },
+        {
+            "answer_id": "4x5y6z7a-8901-2v34-5678-345678901234",
+            "question_id": "fgh1234-5678-4stu-a1b2-901vwxyzabcd",
+            "answer_text": "Oracle",
+            "is_correct": false
+        },
+        {
+            "answer_id": "5y6z7a8b-9012-3w45-6789-456789012345",
+            "question_id": "ijk2345-6789-4vwx-a1b2-012yzabcdef",
+            "answer_text": "INSERT INTO",
+            "is_correct": true
+        },
+        {
+            "answer_id": "6z7a8b9c-0123-4x56-7890-567890123456",
+            "question_id": "ijk2345-6789-4vwx-a1b2-012yzabcdef",
+            "answer_text": "UPDATE SET",
+            "is_correct": false
+        },
+        {
+            "answer_id": "7a8b9c0d-1234-5y67-8901-678901234567",
+            "question_id": "ijk2345-6789-4vwx-a1b2-012yzabcdef",
+            "answer_text": "DELETE FROM",
+            "is_correct": false
+        },
+        {
+            "answer_id": "8b9c0d1e-2345-6z78-9012-789012345678",
+            "question_id": "ijk2345-6789-4vwx-a1b2-012yzabcdef",
+            "answer_text": "SELECT FROM",
+            "is_correct": false
+        },
+        {
+            "answer_id": "9c0d1e2f-3456-7a89-0123-890123456789",
+            "question_id": "lmn3456-7890-4yza-a1b2-123bcdefghi",
+            "answer_text": "Documentos JSON",
+            "is_correct": true
+        },
+        {
+            "answer_id": "0d1e2f3g-4567-8b90-1234-901234567890",
+            "question_id": "lmn3456-7890-4yza-a1b2-123bcdefghi",
             "answer_text": "Tablas estructuradas",
+            "is_correct": false
+        },
+        {
+            "answer_id": "1e2f3g4h-5678-9c01-2345-012345678901",
+            "question_id": "lmn3456-7890-4yza-a1b2-123bcdefghi",
+            "answer_text": "Filas y columnas",
+            "is_correct": false
+        },
+        {
+            "answer_id": "2f3g4h5i-6789-0d12-3456-123456789012",
+            "question_id": "lmn3456-7890-4yza-a1b2-123bcdefghi",
+            "answer_text": "Archivos XML",
             "is_correct": false
         }
     ],
@@ -461,32 +608,44 @@
     "usersAnswers": [
         {
             "user_exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
-            "answer_id": "848f270c-3774-415f-b68a-5e7ebcee9461"
+            "answer_id": "105f0c7f-3414-477d-b6dc-860c6778c7ac"
         },
         {
             "user_exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
             "answer_id": "d494d7e4-f5ac-4dab-9d16-bced59f13c18"
         },
+        {
+            "user_exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "answer_id": "2b3c4d5e-6789-0f12-3456-789abcdef012"
+        },
+        {
+            "user_exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "answer_id": "6f7g8h9i-0123-4d56-7890-bcdef0123456"
+        },
+        {
+            "user_exam_id": "c52fd89c-d3b0-437f-9674-278dfc99de22",
+            "answer_id": "9i0j1k2l-3456-7g89-0123-ef0123456789"
+        },
 
         {
             "user_exam_id": "2c771421-86c2-48b6-9637-1df87aa6d510",
-            "answer_id": "1a2b3c4d-5678-9e01-2345-6789abcdef01"
+            "answer_id": "3m4n5o6p-7890-1k23-4567-234567890123"
         },
         {
             "user_exam_id": "2c771421-86c2-48b6-9637-1df87aa6d510",
-            "answer_id": "3c4d5e6f-7890-1a23-4567-89abcdef0123"
+            "answer_id": "7q8r9s0t-1234-5o67-8901-678901234567"
         },
         {
             "user_exam_id": "2c771421-86c2-48b6-9637-1df87aa6d510",
-            "answer_id": "5e6f7g8h-9012-3c45-6789-abcdef012345"
+            "answer_id": "1u2v3w4x-5678-9s01-2345-012345678901"
         },
         {
             "user_exam_id": "2c771421-86c2-48b6-9637-1df87aa6d510",
-            "answer_id": "7g8h9i0j-1234-5e67-8901-cdef01234567"
+            "answer_id": "5y6z7a8b-9012-3w45-6789-456789012345"
         },
         {
             "user_exam_id": "2c771421-86c2-48b6-9637-1df87aa6d510",
-            "answer_id": "9i0j1k2l-3456-7g89-0123-ef0123456789"
+            "answer_id": "9c0d1e2f-3456-7a89-0123-890123456789"
         }
     ],
     "usersLessons": [
