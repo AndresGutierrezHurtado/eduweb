@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { Course } from "@/database/models";
+import { Answer, Block, Course, Exam, Lesson, Question } from "@/database/models";
 import { Op } from "sequelize";
 
 export async function GET(request) {
@@ -57,20 +57,35 @@ export async function POST(request) {
     try {
         const { course, blocks, lessons, exam, questions, answers } = await request.json();
 
-        // logic to create a course and its blocks, lessons, exam, questions and answers
+        const newCourse = await Course.create(course, { transaction });
+        const newBlocks = await Block.bulkCreate(blocks, { transaction });
+        const newLessons = await Lesson.bulkCreate(lessons, { transaction });
+        const newExam = await Exam.create(exam, { transaction });
+        const newQuestions = await Question.bulkCreate(questions, { transaction });
+        const newAnswers = await Answer.bulkCreate(answers, { transaction });
+
+        await transaction.commit();
 
         return NextResponse.json({
             success: true,
-            // data: newCourse,
+            data: {
+                course: newCourse,
+                blocks: newBlocks,
+                lessons: newLessons,
+                exam: newExam,
+                questions: newQuestions,
+                answers: newAnswers,
+            },
             message: "Curso creado correctamente",
         });
     } catch (error) {
-        await transaction.rollback();
         console.log(error);
+
+        await transaction.rollback();
         return NextResponse.json({
             success: false,
             data: error,
-            message: "Error al crear el curso",
+            message: "Error al crear el curso" + error.message,
         });
     }
 }

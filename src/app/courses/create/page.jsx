@@ -18,10 +18,10 @@ export default function CreateCoursePage() {
             router.push("/login");
         }
 
-        if (userSession.role_id !== 2) {
+        if (status === "authenticated" && userSession.role_id !== 2) {
             router.push("/");
         }
-    }, []);
+    }, [status, userSession, router]);
 
     return (
         <div className="container mx-auto px-4 py-8">

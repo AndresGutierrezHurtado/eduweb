@@ -17,8 +17,12 @@ import {
     CloseIcon,
 } from "@/components/icons";
 import { usePostData } from "@/hooks/useFetch";
+import { useSession } from "next-auth/react";
 
 export default function CourseCreateForm() {
+    const { data, status } = useSession();
+    const userSession = data?.user;
+
     const [blocks, setBlocks] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [lessonDescriptions, setLessonDescriptions] = useState({});
@@ -33,6 +37,8 @@ export default function CourseCreateForm() {
         delete formData["create-course"];
 
         const course = {
+            course_id: crypto.randomUUID(),
+            teacher_id: userSession.user_id,
             course_name: formData.course_name,
             course_description: formData.course_description,
             course_difficulty: formData.course_difficulty,
@@ -41,6 +47,8 @@ export default function CourseCreateForm() {
         };
 
         const exam = {
+            exam_id: crypto.randomUUID(),
+            course_id: course.course_id,
             exam_title: formData.exam_title,
             exam_description: formData.exam_description,
         };
@@ -48,13 +56,13 @@ export default function CourseCreateForm() {
         const lessonsList = [...blocks].flatMap((block) => block.lessons);
         const blockList = blocks.map((b) => {
             const { lessons, ...blockData } = b;
-            return blockData;
+            return { ...blockData, course_id: course.course_id };
         });
 
         const answersList = [...questions].flatMap((question) => question.answers);
         const questionsList = questions.map((q) => {
             const { answers, ...questionData } = q;
-            return questionData;
+            return { ...questionData, exam_id: exam.exam_id };
         });
 
         const data = {
@@ -66,22 +74,22 @@ export default function CourseCreateForm() {
             answers: answersList,
         };
 
-        // const response = await usePostData('/courses', data);
+        const response = await usePostData("/courses", data);
 
-        // if (response.success) {
-        //     Swal.fire({
-        //         title: "Éxito",
-        //         text: "Curso creado correctamente",
-        //         icon: "success",
-        //         showCancelButton: true,
-        //         confirmButtonText: "Ver resultado",
-        //         cancelButtonText: "Cerrar",
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             router.push(`/courses/${response.data.course_id}`);
-        //         }
-        //     });
-        // }
+        if (response.success) {
+            Swal.fire({
+                title: "Éxito",
+                text: "Curso creado correctamente",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Ver resultado",
+                cancelButtonText: "Cerrar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push(`/courses/${data.course.course_id}`);
+                }
+            });
+        }
     };
 
     // Edit functions (Blocks, Lessons, MD Descriptions)
@@ -964,4 +972,4 @@ function ExamForm({ questions, setQuestions }) {
             ))}
         </>
     );
-} 
+}
