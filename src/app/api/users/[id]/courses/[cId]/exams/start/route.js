@@ -13,6 +13,17 @@ export async function GET(req, { params }) {
             },
         });
 
+        if (!userCourse) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    data: null,
+                    message: "Curso no encontrado",
+                },
+                { status: 404 }
+            );
+        }
+
         const userExams = await UserExam.findAll({
             where: {
                 user_course_id: userCourse.user_course_id,

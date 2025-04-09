@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 // Hooks
 import { useGetData, usePostData } from "@/hooks/useFetch";
@@ -13,13 +14,15 @@ import LoadingComponent from "@/components/loading";
 
 export default function Page() {
     const { id } = useParams();
-    const { data } = useSession();
+    const { data, status } = useSession();
     const router = useRouter();
     const user = data?.user;
 
     const { data: course, loading: loadingCourse } = useGetData(`/courses/${id}`);
     const { data: exam, loading: loadingExam } = useGetData(`/courses/${id}/exam`);
-    const { data: examInfo } = useGetData(`/users/${user?.user_id}/courses/${id}/exams/start`);
+    const { data: examInfo, loading: loadingExamInfo } = useGetData(
+        `/users/${user?.user_id}/courses/${id}/exams/start`
+    );
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [timeLeft, setTimeLeft] = useState(600);
@@ -88,11 +91,23 @@ export default function Page() {
     }, []);
 
     useEffect(() => {
+        if (status === "unauthenticated") {
+            alert("No estás autenticado");
+            return router.push(`/login`);
+        }
+
+        if (!loadingExamInfo && !examInfo) {
+            alert("No te has inscrito en este curso");
+            return router.push(`/courses/${id}`);
+        }
+
+        if (loadingExamInfo) return;
+
         const secondsLeft = new Date(examInfo.createdAt).getTime() + 10 * 60 * 1000 - Date.now();
         setTimeLeft(Math.ceil(secondsLeft / 1000));
     }, [examInfo]);
 
-    if (loadingExam || loadingCourse) return <LoadingComponent />;
+    if (loadingExam || loadingCourse || loadingExamInfo) return <LoadingComponent />;
     const question = exam.questions[currentQuestion];
 
     const formatTime = (seconds) => {
@@ -100,6 +115,13 @@ export default function Page() {
         const s = seconds % 60;
         return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
     };
+
+    if (!examInfo)
+        return (
+            <div className="w-full h-screen flex items-center justify-center">
+                <h2 className="text-2xl font-bold">No hay examen</h2>
+            </div>
+        );
 
     return (
         <>

@@ -1,8 +1,13 @@
-import { getData } from "@/hooks/serverFetch";
-import { authOptions } from "@/lib/authOptions";
-import { getServerSession } from "next-auth";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+
+// Auth
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+
+// Utilities
+import { getData } from "@/hooks/serverFetch";
 
 export const metadata = {
     title: "Examen | EduWeb",
