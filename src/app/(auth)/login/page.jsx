@@ -1,14 +1,21 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+
+// Icons
 import { FaGoogle, FaGithub } from "react-icons/fa";
+
+// Hooks
+import { useValidateForm } from "@/hooks/useValidateForm";
 
 export default function Page() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
+        const validation = useValidateForm("login-form", data);
 
+        if (!validation.success) return;
         signIn("credentials", data);
     };
 
@@ -29,21 +36,19 @@ export default function Page() {
                     </div>
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
-                        <div className="form-control">
-                            <label className="label">
+                        <fieldset className="fieldset">
+                            <label className="fieldset-label">
                                 <span className="label-text">Correo electrónico</span>
                             </label>
                             <input
-                                type="email"
                                 placeholder="Ingresa tu correo electrónico"
                                 className="input input-bordered focus:outline-none focus:border-primary"
                                 name="user_email"
-                                required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="form-control">
-                            <label className="label">
+                        <fieldset className="fieldset">
+                            <label className="fieldset-label">
                                 <span className="label-text">Contraseña</span>
                             </label>
                             <input
@@ -51,15 +56,15 @@ export default function Page() {
                                 placeholder="Ingresa tu contraseña"
                                 className="input input-bordered focus:outline-none focus:border-primary"
                                 name="user_password"
-                                required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="form-control mt-6">
+                        <fieldset className="fieldset mt-6">
                             <button className="btn btn-primary shadow-none w-full">
                                 Iniciar sesión
                             </button>
-                        </div>
+                        </fieldset>
+
                         <p className="text-sm text-base-content/70">
                             No tienes una cuenta?{" "}
                             <Link href="/register" className="text-primary font-bold">
