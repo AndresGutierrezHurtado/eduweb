@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 // Hooks
 import { usePostData } from "@/hooks/useFetch.js";
+import { useValidateForm } from "@/hooks/useValidateForm.js";
 
 // Components
 import { FaGoogle, FaGithub } from "react-icons/fa";
@@ -15,6 +16,9 @@ export default function Page() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
+        const validation = useValidateForm("register-form", data);
+
+        if (!validation.success) return;
 
         const response = await usePostData("/users", { user: data });
 
@@ -41,7 +45,7 @@ export default function Page() {
                     </div>
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
-                        <div className="fieldset">
+                        <fieldset className="fieldset">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">Nombre:</span>
                             </label>
@@ -50,11 +54,10 @@ export default function Page() {
                                 placeholder="Ingresa tu nombre"
                                 className="input input-bordered focus:outline-none focus:border-primary w-full"
                                 name="user_name"
-                                required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="fieldset">
+                        <fieldset className="fieldset">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">Apellido:</span>
                             </label>
@@ -63,24 +66,21 @@ export default function Page() {
                                 placeholder="Ingresa tu apellido"
                                 className="input input-bordered focus:outline-none focus:border-primary w-full"
                                 name="user_lastname"
-                                required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="fieldset">
+                        <fieldset className="fieldset">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">Correo electrónico:</span>
                             </label>
                             <input
-                                type="email"
                                 placeholder="Ingresa tu correo electrónico"
                                 className="input input-bordered focus:outline-none focus:border-primary w-full"
                                 name="user_email"
-                                required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="fieldset">
+                        <fieldset className="fieldset">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">Teléfono:</span>
                             </label>
@@ -89,11 +89,10 @@ export default function Page() {
                                 placeholder="Ingresa tu número de teléfono"
                                 className="input input-bordered focus:outline-none focus:border-primary w-full"
                                 name="user_phone"
-                                required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="form-control">
+                        <fieldset className="fieldset">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">Contraseña:</span>
                             </label>
@@ -102,11 +101,10 @@ export default function Page() {
                                 placeholder="Ingresa tu contraseña"
                                 className="input input-bordered focus:outline-none focus:border-primary w-full"
                                 name="user_password"
-                                required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="fieldset">
+                        <fieldset className="fieldset">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">URL de imagen de perfil:</span>
                             </label>
@@ -116,21 +114,20 @@ export default function Page() {
                                 className="input input-bordered focus:outline-none focus:border-primary w-full"
                                 name="user_image"
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="form-control">
+                        <fieldset className="fieldset">
                             <label className="fieldset-label font-semibold after:content-['*'] after:text-red-500">
                                 <span className="label-text">Rol:</span>
                             </label>
                             <select
                                 className="select select-bordered focus:outline-none focus:border-primary w-full"
                                 name="role_id"
-                                required
                             >
                                 <option value="1">Estudiante</option>
                                 <option value="2">Profesor</option>
                             </select>
-                        </div>
+                        </fieldset>
 
                         <div className="form-control mt-6">
                             <button className="btn btn-primary shadow-none w-full">

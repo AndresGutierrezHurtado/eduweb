@@ -1,17 +1,22 @@
-import { usePutData } from "@/hooks/useFetch";
 import React from "react";
+
+// Hooks
+import { usePutData } from "@/hooks/useFetch";
+import { useValidateForm } from "@/hooks/useValidateForm";
 
 export default function UserUpdate({ user, update }) {
     const updateUser = async (e) => {
         e.preventDefault();
 
         const data = Object.fromEntries(new FormData(e.target));
+        const validation = useValidateForm("update-user-form", data);
+        if (!validation.success) return;
 
         const response = await usePutData("/users/" + user.user_id, { user: data });
 
         if (response.success) {
             update();
-            document.querySelector("#edit-modal-" + user.user_id ).close();
+            document.querySelector("#edit-modal-" + user.user_id).close();
         }
     };
 

@@ -55,7 +55,7 @@ export default function Page() {
                                 <p>{userSession.user_phone}</p>
                             </div>
                             {userSession.user_website && (
-                                <p className="flex items-center gap-2 text-primary">
+                                <p className="flex items-center gap-2 text-primary truncate text-ellipsis">
                                     <span>
                                         <GlobeIcon size={20} />
                                     </span>
