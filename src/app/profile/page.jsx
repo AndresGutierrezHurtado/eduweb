@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 // Components
-import { GlobeIcon } from "@/components/icons";
+import { GlobeIcon, PlusIcon } from "@/components/icons";
 import LoadingComponent from "@/components/loading";
 import UserUpdate from "@/components/userUpdate";
 import PdfViewer from "@/components/pdfViewer";
@@ -468,6 +468,12 @@ export default function Page() {
                                                         );
                                                     })}
                                                 </div>
+                                                <Link href="/courses/create">
+                                                    <button className="btn btn-primary shadow-none h-auto py-1 px-5 w-fit  mt-3">
+                                                        <PlusIcon />
+                                                        <span>Crear curso</span>
+                                                    </button>
+                                                </Link>
                                             </div>
                                         </div>
                                     </>

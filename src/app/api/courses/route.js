@@ -51,3 +51,26 @@ export async function GET(request) {
         );
     }
 }
+
+export async function POST(request) {
+    const transaction = await Course.sequelize.transaction();
+    try {
+        const { course, blocks, lessons, exam, questions, answers } = await request.json();
+
+        // logic to create a course and its blocks, lessons, exam, questions and answers
+
+        return NextResponse.json({
+            success: true,
+            // data: newCourse,
+            message: "Curso creado correctamente",
+        });
+    } catch (error) {
+        await transaction.rollback();
+        console.log(error);
+        return NextResponse.json({
+            success: false,
+            data: error,
+            message: "Error al crear el curso",
+        });
+    }
+}
