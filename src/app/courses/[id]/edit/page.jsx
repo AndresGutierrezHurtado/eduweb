@@ -19,7 +19,16 @@ export default function Page() {
     const { id } = useParams();
     const { data: session, status } = useSession();
     const userSession = session?.user;
-    const { data: course, loading: courseLoading, reload } = useGetData(`/courses/${id}`);
+    const {
+        data: course,
+        loading: courseLoading,
+        reload: reloadCourse,
+    } = useGetData(`/courses/${id}`);
+    const {
+        data: exam,
+        loading: examLoading,
+        reload: reloadExam,
+    } = useGetData(`/courses/${id}/exam`);
 
     useEffect(() => {
         document.title = "Editar Curso | Eduweb";
@@ -29,7 +38,7 @@ export default function Page() {
         redirect("/login");
     }
 
-    if (courseLoading || status === "loading") {
+    if (courseLoading || examLoading || status === "loading") {
         return <LoadingComponent />;
     }
 
@@ -46,7 +55,14 @@ export default function Page() {
                         <p className="text-base-content/70">Actualiza la información de tu curso</p>
                     </div>
 
-                    <CourseEditForm course={course} reload={reload} />
+                    <CourseEditForm
+                        course={course}
+                        exam={exam}
+                        reload={() => {
+                            reloadCourse();
+                            reloadExam();
+                        }}
+                    />
                 </div>
             </div>
         </section>

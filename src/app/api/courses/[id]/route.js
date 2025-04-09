@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { Block, Course, Lesson } from "@/database/models";
+import { Answer, Block, Course, Exam, Lesson, Question } from "@/database/models";
+import { Op } from "sequelize";
 
 export async function GET(req, { params }) {
     try {
@@ -43,14 +44,46 @@ export async function PUT(req, { params }) {
     const transaction = await Block.sequelize.transaction();
     try {
         const { id } = await params;
-        const { course, blocks, lessons } = await req.json();
+        const { course, blocks, lessons, exam, questions, answers } = await req.json();
 
         const updatedCourse = await Course.update(course, {
             where: { course_id: id },
             transaction,
         });
+        const updatedExam = await Exam.update(exam, {
+            where: { course_id: id },
+            transaction,
+        });
+
+        const deletedBlocks = await Block.destroy({
+            where: {
+                course_id: id,
+                block_id: { [Op.notIn]: blocks.map((block) => block.block_id) },
+            },
+            transaction,
+        });
         const updatedBlocks = await Block.bulkCreate(blocks, {
             updateOnDuplicate: ["block_title", "block_description", "block_order"],
+            transaction,
+        });
+        const deletedQuestions = await Question.destroy({
+            where: {
+                exam_id: { [Op.notIn]: questions.map((question) => question.exam_id) },
+            },
+            transaction,
+        });
+        const updatedQuestions = await Question.bulkCreate(questions, {
+            updateOnDuplicate: ["question_text"],
+            transaction,
+        });
+        const deletedAnswers = await Answer.destroy({
+            where: {
+                question_id: { [Op.notIn]: answers.map((answer) => answer.question_id) },
+            },
+            transaction,
+        });
+        const updatedAnswers = await Answer.bulkCreate(answers, {
+            updateOnDuplicate: ["answer_text", "is_correct"],
             transaction,
         });
 
@@ -73,7 +106,10 @@ export async function PUT(req, { params }) {
                 data: {
                     updatedCourse,
                     updatedBlocks,
+                    updatedExam,
                     updatedLessons,
+                    updatedQuestions,
+                    updatedAnswers,
                 },
                 message: "Curso actualizado correctamente",
             },
@@ -86,7 +122,7 @@ export async function PUT(req, { params }) {
             {
                 success: false,
                 data: error,
-                message: "Error al actualizar el curso",
+                message: "Error al actualizar el curso" + error.message,
             },
             { status: 500 }
         );

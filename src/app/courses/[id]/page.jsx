@@ -21,6 +21,14 @@ export default async function Page({ params }) {
     const course = await getData(`/courses/${id}`);
     const ucourse = await getData(`/users/${userSession?.user_id}/courses/${id}`);
 
+    if (!course) {
+        return (
+            <div className="w-full max-w-[1200px] mx-auto text-4xl font-extrabold mt-15">
+                Curso no encontrado
+            </div>
+        );
+    }
+
     if (ucourse) {
         const { lessonsTaken } = ucourse;
         const courseLessons = course.blocks.flatMap((block) =>
@@ -190,11 +198,17 @@ export default async function Page({ params }) {
                                         </div>
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-semibold">{course.teacher.user_name} {course.teacher.user_lastname}</h3>
+                                        <h3 className="text-xl font-semibold">
+                                            {course.teacher.user_name}{" "}
+                                            {course.teacher.user_lastname}
+                                        </h3>
                                         <p className="text-sm text-gray-400">
                                             {course.teacher.user_profession}
                                         </p>
-                                        <Link href={`/teachers/${course.teacher_id}`} className="link link-primary mt-3 block">
+                                        <Link
+                                            href={`/teachers/${course.teacher_id}`}
+                                            className="link link-primary mt-3 block"
+                                        >
                                             Ver cursos de {course.teacher.user_name} →
                                         </Link>
                                     </div>

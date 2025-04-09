@@ -8,16 +8,31 @@ import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import MDEditor from "@uiw/react-md-editor";
 
 // Components
-import { PencilIcon, PlusIcon, TrashIcon, DraggableIcon } from "@/components/icons";
+import {
+    PencilIcon,
+    PlusIcon,
+    TrashIcon,
+    DraggableIcon,
+    CheckIcon,
+    CloseIcon,
+} from "@/components/icons";
 import { usePutData } from "@/hooks/useFetch";
 
-export default function CourseEditForm({ course = { blocks: [] }, reload }) {
-    const { blocks: courseBlocks, ...data } = course;
+export default function CourseEditForm({
+    course = { blocks: [] },
+    exam = { questions: [] },
+    reload,
+}) {
+    const { blocks: courseBlocks, ...courseData } = course;
+    const { questions: examQuestions, ...examData } = exam;
     const [blocks, setBlocks] = useState([]);
+    const [questions, setQuestions] = useState([]);
     const [lessonDescriptions, setLessonDescriptions] = useState({});
+
     const router = useRouter();
 
     useEffect(() => {
+        // Sort blocks and save them
         const lessonsList = courseBlocks.flatMap((block) => block.lessons);
         const sortedLessons = lessonsList.sort((a, b) => a.lesson_order - b.lesson_order);
         const sortedBlocks = [...courseBlocks].sort((a, b) => a.block_order - b.block_order);
@@ -28,6 +43,7 @@ export default function CourseEditForm({ course = { blocks: [] }, reload }) {
 
         setBlocks(updatedBlocks);
 
+        // Save lesson descriptions
         const initialDescriptions = {};
         updatedBlocks.forEach((block) => {
             block.lessons.forEach((lesson) => {
@@ -35,13 +51,31 @@ export default function CourseEditForm({ course = { blocks: [] }, reload }) {
             });
         });
         setLessonDescriptions(initialDescriptions);
+
+        // Save questions
+        setQuestions(examQuestions);
     }, [courseBlocks]);
 
+    // Submit Function
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = Object.fromEntries(new FormData(e.target));
         delete formData["edit-course"];
+
+        const course = {
+            course_id: courseData.course_id,
+            course_name: formData.course_name,
+            course_description: formData.course_description,
+            course_difficulty: formData.course_difficulty,
+            course_image: formData.course_image,
+            category_id: formData.category_id,
+        };
+
+        const exam = {
+            exam_title: formData.exam_title,
+            exam_description: formData.exam_description,
+        };
 
         const lessonsList = [...blocks].flatMap((block) => block.lessons);
         const blockList = blocks.map((b) => {
@@ -49,10 +83,19 @@ export default function CourseEditForm({ course = { blocks: [] }, reload }) {
             return blockData;
         });
 
+        const answersList = [...questions].flatMap((question) => question.answers);
+        const questionsList = questions.map((q) => {
+            const { answers, ...questionData } = q;
+            return questionData;
+        });
+
         const data = {
-            course: formData,
+            course: course,
             blocks: blockList,
             lessons: lessonsList,
+            exam: exam,
+            questions: questionsList,
+            answers: answersList,
         };
 
         const response = await usePutData(`/courses/${course.course_id}`, data);
@@ -74,6 +117,7 @@ export default function CourseEditForm({ course = { blocks: [] }, reload }) {
         }
     };
 
+    // Edit functions (Blocks, Lessons, MD Descriptions)
     const handleEditBlock = (e) => {
         e.preventDefault();
         const newBlocks = [...blocks];
@@ -118,14 +162,14 @@ export default function CourseEditForm({ course = { blocks: [] }, reload }) {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-2">
                 <div className="collapse collapse-arrow bg-base-100 border border-base-300">
                     <input type="radio" name="edit-course" defaultChecked />
                     <div className="collapse-title font-semibold">
                         <h2 className="text-xl font-bold">Editar Curso</h2>
                     </div>
                     <div className="collapse-content text-sm">
-                        <CourseForm course={data} />
+                        <CourseForm course={courseData} />
                     </div>
                 </div>
                 <div className="collapse collapse-arrow bg-base-100 border border-base-300">
@@ -135,6 +179,15 @@ export default function CourseEditForm({ course = { blocks: [] }, reload }) {
                     </div>
                     <div className="collapse-content text-sm">
                         <ContentForm blocks={blocks} setBlocks={setBlocks} />
+                    </div>
+                </div>
+                <div className="collapse collapse-arrow bg-base-100 border border-base-300">
+                    <input type="radio" name="edit-course" />
+                    <div className="collapse-title font-semibold">
+                        <h2 className="text-xl font-bold">Editar examen</h2>
+                    </div>
+                    <div className="collapse-content text-sm">
+                        <ExamForm exam={exam} questions={questions} setQuestions={setQuestions} />
                     </div>
                 </div>
                 <div className="flex justify-center gap-8 mt-5 mb-10">
@@ -555,10 +608,6 @@ function ContentForm({ blocks, setBlocks }) {
         });
     };
 
-    console.log(
-        blocks,
-        blocks.flatMap((block) => block.lessons)
-    );
     return (
         <>
             <DragDropContext onDragEnd={handleDragEnd}>
@@ -726,6 +775,115 @@ function ContentForm({ blocks, setBlocks }) {
                     )}
                 </Droppable>
             </DragDropContext>
+        </>
+    );
+}
+
+function ExamForm({ exam, questions, setQuestions }) {
+    const handleSetCorrectAnswer = (answerId, questionId) => {
+        const question = questions.find((question) => question.question_id === questionId);
+        const updatedAnswers = question.answers.map((answer) => ({
+            ...answer,
+            is_correct: answer.answer_id === answerId,
+        }));
+        const updatedQuestions = questions.map((question) =>
+            question.question_id === questionId
+                ? { ...question, answers: updatedAnswers }
+                : question
+        );
+        setQuestions(updatedQuestions);
+    };
+
+    const handleChangeQuestionText = (questionId, text) => {
+        const updatedQuestions = questions.map((question) =>
+            question.question_id === questionId ? { ...question, question_text: text } : question
+        );
+        setQuestions(updatedQuestions);
+    };
+
+    return (
+        <>
+            <div className="space-y-10">
+                <div className="space-y-2">
+                    <div className="fieldset">
+                        <label className="fieldset-label text-sm after:content-['*'] after:text-red-500 after:ml-0.5">
+                            <span className="label-text">Título del examen:</span>
+                        </label>
+                        <input
+                            type="text"
+                            className="input input-bordered w-full focus:outline-none focus:border-primary"
+                            name="exam_title"
+                            defaultValue={exam.exam_title}
+                        />
+                    </div>
+                    <div className="fieldset">
+                        <label className="fieldset-label text-sm after:content-['*'] after:text-red-500 after:ml-0.5">
+                            <span className="label-text">Descripción del examen:</span>
+                        </label>
+                        <textarea
+                            className="textarea textarea-bordered w-full focus:outline-none focus:border-primary"
+                            name="exam_description"
+                            defaultValue={exam.exam_description}
+                        />
+                    </div>
+                </div>
+                <div className="space-y-4">
+                    {questions.map((question, index) => (
+                        <div key={question.question_id} className="space-y-3">
+                            <h3 className="text-lg font-semibold">Pregunta {index + 1}:</h3>
+                            <div className="fieldset">
+                                <input
+                                    type="text"
+                                    className="input input-bordered w-full focus:outline-none focus:border-primary"
+                                    name="question_text"
+                                    defaultValue={question.question_text}
+                                    onChange={(e) =>
+                                        handleChangeQuestionText(
+                                            question.question_id,
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                {question.answers.map((answer) => (
+                                    <div
+                                        key={answer.answer_id}
+                                        className="border border-base-300 bg-base-200 flex"
+                                    >
+                                        <span className="flex-1 p-5">{answer.answer_text}</span>
+                                        <div className="flex">
+                                            <button
+                                                type="button"
+                                                className={`h-full p-5 ${
+                                                    answer.is_correct ? "bg-primary" : ""
+                                                } hover:bg-base-300 cursor-pointer`}
+                                                onClick={() =>
+                                                    handleSetCorrectAnswer(
+                                                        answer.answer_id,
+                                                        answer.question_id
+                                                    )
+                                                }
+                                            >
+                                                <CheckIcon />
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="h-full p-5 hover:bg-base-300 cursor-pointer"
+                                            >
+                                                <CloseIcon />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <p className="w-full text-right ">
+                                <span className="btn btn-sm btn-ghost">Editar respuestas</span>
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </>
     );
 }
