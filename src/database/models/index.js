@@ -93,6 +93,7 @@ module.exports = {
     Answer,
     Block,
     Course,
+    Category,
     Exam,
     Lesson,
     Question,
