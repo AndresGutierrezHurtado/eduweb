@@ -801,6 +801,51 @@ function ExamForm({ exam, questions, setQuestions }) {
         setQuestions(updatedQuestions);
     };
 
+    const handleAddQuestion = () => {
+        const newQuestion = {
+            question_id: crypto.randomUUID(),
+            exam_id: exam.exam_id,
+            question_text: "Nueva pregunta",
+            answers: [],
+        };
+
+        setQuestions([...questions, newQuestion]);
+    };
+
+    const handleChangeAnswerText = (answerId, text) => {
+        const updatedQuestions = questions.map((question) => ({
+            ...question,
+            answers: question.answers.map((answer) =>
+                answer.answer_id === answerId ? { ...answer, answer_text: text } : answer
+            ),
+        }));
+        setQuestions(updatedQuestions);
+    };
+
+    const handleDeleteAnswer = (answerId) => {
+        const updatedQuestions = questions.map((question) => ({
+            ...question,
+            answers: question.answers.filter((answer) => answer.answer_id !== answerId),
+        }));
+        setQuestions(updatedQuestions);
+    };
+
+    const handleAddAnswer = (questionId) => {
+        const newAnswer = {
+            answer_id: crypto.randomUUID(),
+            answer_text: "Nueva respuesta",
+            is_correct: false,
+            question_id: questionId,
+        };
+
+        const updatedQuestions = questions.map((question) =>
+            question.question_id === questionId
+                ? { ...question, answers: [...question.answers, newAnswer] }
+                : question
+        );
+        setQuestions(updatedQuestions);
+    };
+
     return (
         <>
             <div className="space-y-10">
@@ -878,12 +923,83 @@ function ExamForm({ exam, questions, setQuestions }) {
                                 ))}
                             </div>
                             <p className="w-full text-right ">
-                                <span className="btn btn-sm btn-ghost">Editar respuestas</span>
+                                <span
+                                    onClick={() =>
+                                        document
+                                            .getElementById(
+                                                `modal-question-${question.question_id}`
+                                            )
+                                            .showModal()
+                                    }
+                                    className="btn btn-sm btn-ghost"
+                                >
+                                    Editar respuestas
+                                </span>
                             </p>
                         </div>
                     ))}
                 </div>
+                <button
+                    type="button"
+                    onClick={handleAddQuestion}
+                    className="btn btn-ghost w-full shadow-none"
+                >
+                    <PlusIcon />
+                    <span>Agregar pregunta</span>
+                </button>
             </div>
+            {questions.map((question) => (
+                <dialog
+                    key={question.question_id}
+                    id={`modal-question-${question.question_id}`}
+                    className="modal"
+                >
+                    <div className="modal-box w-full max-w-2xl">
+                        <h3 className="font-bold text-lg mb-4">Editar respuestas</h3>
+                        <div className="space-y-4">
+                            {question.answers.map((answer) => (
+                                <div key={answer.answer_id} className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        className="input input-bordered flex-1"
+                                        value={answer.answer_text}
+                                        onChange={(e) =>
+                                            handleChangeAnswerText(answer.answer_id, e.target.value)
+                                        }
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn btn-ghost btn-square"
+                                        onClick={() => handleDeleteAnswer(answer.answer_id)}
+                                    >
+                                        <TrashIcon />
+                                    </button>
+                                </div>
+                            ))}
+                            <button
+                                type="button"
+                                className="btn btn-ghost w-full shadow-none"
+                                onClick={() => handleAddAnswer(question.question_id)}
+                            >
+                                <PlusIcon />
+                                <span>Agregar respuesta</span>
+                            </button>
+                        </div>
+                    </div>
+                    <fieldset role="form" method="dialog" className="modal-backdrop">
+                        <button
+                            type="button"
+                            onClick={() =>
+                                document
+                                    .getElementById(`modal-question-${question.question_id}`)
+                                    .close()
+                            }
+                        >
+                            close
+                        </button>
+                    </fieldset>
+                </dialog>
+            ))}
         </>
     );
 }

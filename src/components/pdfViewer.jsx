@@ -15,7 +15,6 @@ export default function PdfViewer({ id }) {
 
             const loadingTask = pdfjsLib.getDocument(url);
             const pdf = await loadingTask.promise;
-            console.log(pdf);
             const pages = [];
 
             for (let i = 1; i <= pdf.numPages; i++) {

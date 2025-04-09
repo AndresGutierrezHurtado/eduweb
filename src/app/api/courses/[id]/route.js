@@ -68,7 +68,7 @@ export async function PUT(req, { params }) {
         });
         const deletedQuestions = await Question.destroy({
             where: {
-                exam_id: { [Op.notIn]: questions.map((question) => question.exam_id) },
+                question_id: { [Op.notIn]: questions.map((question) => question.question_id) },
             },
             transaction,
         });
@@ -78,7 +78,7 @@ export async function PUT(req, { params }) {
         });
         const deletedAnswers = await Answer.destroy({
             where: {
-                question_id: { [Op.notIn]: answers.map((answer) => answer.question_id) },
+                answer_id: { [Op.notIn]: answers.map((answer) => answer.answer_id) },
             },
             transaction,
         });

@@ -9,7 +9,6 @@ export default function Page() {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
 
-        console.log(data);
         signIn("credentials", data);
     };
 
