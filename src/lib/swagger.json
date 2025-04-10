@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "EduWeb API",
-        "description": "Documentación de la API para la plataforma educativa EduWeb",
+        "description": "Documentación de la API para la plataforma educativa EduWeb, diseñada para ofrecer una experiencia de aprendizaje en línea integral.",
         "version": "1.0.0"
     },
     "tags": [

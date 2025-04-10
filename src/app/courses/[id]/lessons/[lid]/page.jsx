@@ -56,7 +56,7 @@ export default async function Page({ params }) {
                             <div className="flex items-center gap-6">
                                 <Link
                                     href={`/courses/${id}`}
-                                    className="btn btn-ghost btn-circle hidden md:inline"
+                                    className="btn btn-ghost btn-circle hidden md:inline-flex"
                                 >
                                     <div className="avatar">
                                         <div className="w-16 aspect-square rounded-full bg-black/25 border border-base-300">
