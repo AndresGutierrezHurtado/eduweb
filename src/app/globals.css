@@ -20,6 +20,10 @@
     --font-alegreya: "Alegreya Sans", "Alegreya Sans Fallback";
 }
 
+:root {
+    --swiper-pagination-bullet-inactive-color: #f0f9ff;
+}
+
 .timeline-vertical > li > hr {
     width: 0.15rem;
 }

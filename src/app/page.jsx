@@ -24,7 +24,7 @@ export default async function Home() {
                         <div className="w-full flex flex-col gap-5">
                             <div>
                                 <h3 className="uppercase text-xl font-bold text-primary">EduWeb</h3>
-                                <h1 className="text-5xl font-bold">
+                                <h1 className="text-5xl font-bold text-pretty">
                                     Impulsa tu conocimiento, transforma tu futuro
                                 </h1>
                             </div>
@@ -40,7 +40,7 @@ export default async function Home() {
                                 </button>
                             </Link>
                         </div>
-                        <div className="w-full flex items-center justify-center">
+                        <div className="w-full items-center justify-end hidden lg:flex">
                             <Image
                                 src={"/logo.png"}
                                 width={350}
@@ -105,7 +105,7 @@ export default async function Home() {
             </section>
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
-                    <div className="flex items-center gap-10">
+                    <div className="flex flex-col lg:flex-row items-center gap-10">
                         <div className="w-full flex flex-col gap-5">
                             <h2 className="text-5xl font-extrabold">
                                 Obten un <br />
@@ -168,9 +168,9 @@ export default async function Home() {
                                 >
                                     <QuotesIcon size={40} />
                                     <p className="text-sm italic grow">{tes.testimonial}</p>
-                                    <div className="flex gap-3 ">
+                                    <div className="flex items-center gap-3 ">
                                         <div className="avatar">
-                                            <div className="w-15 aspect-square rounded-full">
+                                            <div className="w-15 h-fit aspect-square rounded-full">
                                                 <img src={tes.img} alt="Imagen testimonio" />
                                             </div>
                                         </div>
