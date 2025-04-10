@@ -84,11 +84,13 @@
     "categories": [
         {
             "category_id": 1,
-            "category_name": "Programación Web"
+            "category_name": "Programación Web",
+            "category_icon": "FaCode"
         },
         {
             "category_id": 2,
-            "category_name": "Diseño Gráfico"
+            "category_name": "Diseño Gráfico",
+            "category_icon": "FaPaintBrush"
         }
     ],
     "blocks": [

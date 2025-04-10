@@ -12,6 +12,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            category_icon: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
         });
     },
     async down(queryInterface, Sequelize) {
