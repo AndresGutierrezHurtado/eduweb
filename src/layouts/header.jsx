@@ -6,7 +6,7 @@ import { signOut, useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 
 // Components
-import { GearIcon, LogOutIcon, SearchIcon, UserIcon } from "@/components/icons";
+import { GearIcon, LogOutIcon, MenuIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 // Hooks
 import { getData } from "@/hooks/useFetch";
@@ -67,7 +67,7 @@ export default function Header() {
                                 Edu<span className="text-primary">Web</span>
                             </h1>
                         </Link>
-                        <label className="input rounded-lg bg-base-100/50 focus-within:outline-0 border-white/80 focus-within:border-primary w-full max-w-[400px]">
+                        <label className="input rounded-lg bg-base-100/50 focus-within:outline-0 border-white/80 focus-within:border-primary w-full max-w-[325px] xl:max-w-[400px] hidden lg:flex">
                             <input
                                 type="text"
                                 name="search"
@@ -78,8 +78,70 @@ export default function Header() {
                                 <SearchIcon size={15} />
                             </button>
                         </label>
-                        <div className="flex items-center justify-end gap-8 navbar-end">
-                            <ul className="flex items-center gap-4">
+                        <div className="flex items-center justify-end gap-2 md:gap-4 lg:gap-8 navbar-end">
+                            <div className="lg:hidden">
+                                <div className="dropdown dropdown-end">
+                                    <div
+                                        tabIndex={0}
+                                        role="button"
+                                        className="btn btn-ghost lg:hidden"
+                                    >
+                                        <MenuIcon size={20} />
+                                    </div>
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                                    >
+                                        <li>
+                                            <Link href="/courses" className="hover:text-primary">
+                                                Cursos
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                href="/certifications"
+                                                className="hover:text-primary"
+                                            >
+                                                Certificaciones
+                                            </Link>
+                                        </li>
+                                        {userSession && (
+                                            <>
+                                                <li>
+                                                    <Link
+                                                        href="/profile"
+                                                        className="hover:text-primary"
+                                                    >
+                                                        <UserIcon size={15} />
+                                                        Perfil
+                                                    </Link>
+                                                </li>
+                                                {userSession?.role_id === 3 && (
+                                                    <li>
+                                                        <Link
+                                                            href="/admin/users"
+                                                            className="hover:text-primary"
+                                                        >
+                                                            <GearIcon size={15} />
+                                                            Usuarios
+                                                        </Link>
+                                                    </li>
+                                                )}
+                                                <li className="text-error font-medium">
+                                                    <a
+                                                        onClick={logout}
+                                                        className="hover:text-error"
+                                                    >
+                                                        <LogOutIcon size={15} />
+                                                        Cerrar sesión
+                                                    </a>
+                                                </li>
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+                            </div>
+                            <ul className="hidden lg:flex items-center gap-4">
                                 <li className="hover:text-primary hover:scale-105 duration-300">
                                     <Link href="/courses">Cursos</Link>
                                 </li>
