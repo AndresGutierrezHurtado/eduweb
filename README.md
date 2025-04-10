@@ -6,15 +6,14 @@ EduWeb es una plataforma educativa moderna y robusta desarrollada con tecnologí
 
 ## 📑 Tabla de contenido
 
--   [Stack Tecnológico](#stack-tecnológico)
--   [Características](#características)
--   [Arquitectura](#arquitectura)
--   [Instalación y Uso](#instalación-y-uso)
--   [Estructura del Proyecto](#estructura-del-proyecto)
--   [Flujos de Usuario](#flujos-de-usuario)
--   [API REST](#api-rest)
--   [Capturas y Mockups](#capturas-y-mockups)
--   [Contribución](#contribución)
+-   [Stack Tecnológico](#-stack-tecnológico)
+-   [Características](#-características-principales)
+-   [Arquitectura](#%EF%B8%8F-arquitectura)
+-   [Instalación y Uso](#%EF%B8%8F-instalación-y-desarrollo)
+-   [Estructura del Proyecto](#-estructura-del-proyecto)
+-   [Contribución](#-contribución)
+-   [Flujos de Usuario](#-flujos-funcionales)
+-   [API REST](#-api-documentada)
 
 ## 🚀 Stack Tecnológico
 
@@ -135,6 +134,14 @@ eduweb/
 ├── public/                  # Static Files
 ```
 
+## 🤝 Contribución
+
+1. Fork
+2. Crea tu rama: `git checkout -b feature/nueva-funcionalidad`
+3. Haz commit: `git commit -m "Agrega X"`
+4. Push: `git push origin feature/nueva-funcionalidad`
+5. Abre un Pull Request
+
 ## 🔄 Flujos funcionales
 
 ### 🧑‍🍳 Usuario
@@ -205,14 +212,6 @@ La aplicación utiliza Sequelize ORM con los siguientes modelos principales:
 -   `Block` - Bloques de lecciones
 -   `Category` - Categorías de cursos
 -   `Certificate` - Certificados y validaciones
-
-## 🤝 Contribución
-
-1. Fork
-2. Crea tu rama: `git checkout -b feature/nueva-funcionalidad`
-3. Haz commit: `git commit -m "Agrega X"`
-4. Push: `git push origin feature/nueva-funcionalidad`
-5. Abre un Pull Request
 
 ## 📞 Contacto
 
