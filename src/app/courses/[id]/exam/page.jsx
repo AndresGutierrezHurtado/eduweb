@@ -29,8 +29,8 @@ export default async function Page({ params }) {
     return (
         <>
             <section className="w-full px-3 flex-1 flex items-center">
-                <div className="w-full max-w-[1200px] mx-auto flex gap-10 items-center">
-                    <div className="w-1/2 flex flex-col gap-5">
+                <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-10 items-center">
+                    <div className="w-full lg:w-1/2 flex flex-col gap-5">
                         <div className="avatar">
                             <div className="w-40 bg-black/10 rounded-lg drop-shadow-[0_0_20px_var(--color-primary)]">
                                 <img
@@ -95,7 +95,7 @@ export default async function Page({ params }) {
                             </button>
                         </Link>
                     </div>
-                    <div className="bg-black/25 p-8 rounded-lg border border-base-300 w-1/2">
+                    <div className="bg-black/25 p-8 rounded-lg border border-base-300 w-full lg:w-1/2">
                         <p className="font-semibold text-lg mb-5">Presentando el examen:</p>
                         <ul className="flex flex-col gap-2">
                             <li className="flex items-center gap-2">

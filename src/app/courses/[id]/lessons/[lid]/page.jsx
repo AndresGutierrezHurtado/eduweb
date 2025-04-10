@@ -52,7 +52,7 @@ export default async function Page({ params }) {
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
                     <div className="flex flex-col gap-10">
-                        <header className="w-full bg-black/25 p-5 rounded-lg flex flex-col md:flex-row items-center justify-between">
+                        <header className="w-full bg-black/25 p-5 rounded-lg flex flex-col md:flex-row items-center justify-between gap-5">
                             <div className="flex items-center gap-6">
                                 <Link
                                     href={`/courses/${id}`}
@@ -105,8 +105,8 @@ export default async function Page({ params }) {
                             </nav>
                         </header>
 
-                        <div className="flex gap-10">
-                            <main className="flex flex-col gap-5 w-3/5">
+                        <div className="flex flex-col lg:flex-row gap-10">
+                            <main className="flex flex-col gap-5 w-full lg:w-3/5">
                                 <VideoPlayer videoId={videoId} />
                                 <div className="bg-black/25 p-5 rounded-lg">
                                     <h2 className="text-2xl font-bold">Descripción</h2>
@@ -115,7 +115,7 @@ export default async function Page({ params }) {
                                     </Markdown>
                                 </div>
                             </main>
-                            <aside className="flex flex-col gap-5 w-2/5">
+                            <aside className="flex flex-col gap-5 w-full lg:w-2/5">
                                 <div className="bg-black/25 p-5 rounded-lg">
                                     <h2 className="text-2xl font-bold">Contenido</h2>
                                     <ul className="timeline timeline-vertical">

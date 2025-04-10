@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
+
+import React from "react";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 import "@/app/globals.css";
@@ -36,7 +37,7 @@ export default function VideoPlayer({ videoId }) {
                     ],
                     speed: {
                         selected: 1,
-                        options: [0.5, 1, 1.25, 1.5],
+                        options: [0.5, 0.75, 1, 1.25, 1.5, 1.75],
                     },
                 }}
             />

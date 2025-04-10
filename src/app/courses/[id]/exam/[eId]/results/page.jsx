@@ -54,7 +54,10 @@ export default async function Page({ params }) {
                     <div className="flex flex-col gap-10">
                         <header className="w-full flex items-center justify-between">
                             <div className="flex items-center gap-6">
-                                <Link href={`/courses/${id}`} className="btn btn-ghost btn-circle">
+                                <Link
+                                    href={`/courses/${id}`}
+                                    className="btn btn-ghost btn-circle hidden lg:inline-flex"
+                                >
                                     <div className="avatar">
                                         <div className="w-16 aspect-square rounded-full bg-black/25 border border-base-300">
                                             <img
@@ -78,8 +81,8 @@ export default async function Page({ params }) {
                             <nav className="flex items-center gap-4"></nav>
                         </header>
                         <hr className="border-base-300" />
-                        <div className="flex gap-10 py-10">
-                            <div className="w-1/2">
+                        <div className="flex flex-col lg:flex-row gap-10 py-10">
+                            <div className="w-full lg:w-1/2">
                                 {score >= 80 ? (
                                     <>
                                         <h1 className="text-3xl font-bold mb-2">¡Excelente!</h1>
@@ -113,7 +116,7 @@ export default async function Page({ params }) {
                                     </>
                                 )}
                             </div>
-                            <article className="w-1/2 p-8 rounded-lg bg-black/25 border border-base-300 h-fit">
+                            <article className="w-full lg:w-1/2 p-8 rounded-lg bg-black/25 border border-base-300 h-fit">
                                 <div className="flex gap-10 divide-x divide-base-300">
                                     <div className="w-1/2 text-center">
                                         <h3 className="text-3xl font-bold">{score.toFixed(2)}%</h3>
