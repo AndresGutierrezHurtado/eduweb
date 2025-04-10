@@ -70,7 +70,6 @@ EduWeb es una plataforma educativa moderna y robusta desarrollada con tecnologí
 ### Interfaz de Usuario
 
 -   Diseño responsivo y moderno
--   Temas personalizables
 -   Funcionalidades de arrastrar y soltar
 -   Navegación intuitiva
 
