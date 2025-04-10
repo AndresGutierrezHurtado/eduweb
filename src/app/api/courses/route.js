@@ -27,7 +27,11 @@ export async function GET(request) {
             limit,
             offset,
             order: [order],
-            include: ["category", "teacher"],
+            include: [
+                "category",
+                "teacher",
+                { model: Block, as: "blocks", include: [{ model: Lesson, as: "lessons" }] },
+            ],
         });
 
         return NextResponse.json(
