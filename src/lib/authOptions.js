@@ -3,8 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-import { connection, User } from "@/database/models";
-import SequelizeAdapter from "@auth/sequelize-adapter";
+import { User } from "@/database/models";
 
 export const authOptions = {
     providers: [
@@ -25,13 +24,19 @@ export const authOptions = {
             async authorize(credentials) {
                 const { user_email, user_password } = credentials;
 
-                const user = await User.findOne({ where: { user_email } });
+                const user = await User.findOne({
+                    where: { user_email },
+                });
                 if (!user) throw new Error("El usuario no existe");
 
                 const isPasswordValid = await bcrypt.compare(user_password, user.user_password);
                 if (!isPasswordValid) throw new Error("La contraseña es incorrecta");
 
-                return user.toJSON();
+                return {
+                    id: user.user_id,
+                    email: user.user_email,
+                    name: user.user_name + " " + user.user_lastname,
+                };
             },
         }),
         GoogleProvider({
@@ -44,17 +49,6 @@ export const authOptions = {
         }),
     ],
     callbacks: {
-        async signIn({ user }) {
-            return true;
-        },
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.user_id;
-                token.email = user.user_email;
-                token.name = user.user_name + " " + user.user_lastname;
-            }
-            return token;
-        },
         async session({ session, token }) {
             const user = await User.findOne({
                 where: { user_email: token.email },
@@ -73,7 +67,5 @@ export const authOptions = {
             return baseUrl;
         },
     },
-    adapter: SequelizeAdapter(connection),
-    session: { strategy: "jwt" },
     secret: process.env.NEXTAUTH_SECRET,
 };
