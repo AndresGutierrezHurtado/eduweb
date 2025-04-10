@@ -17,6 +17,7 @@ import {
     FaTrash as TrashIcon,
     FaPlus as PlusIcon,
     FaBars as MenuIcon,
+    FaDownload as DownloadIcon,
 } from "react-icons/fa";
 import { BsGlobe2 as GlobeIcon } from "react-icons/bs";
 import { IoClose as CloseIcon } from "react-icons/io5";
@@ -50,4 +51,5 @@ export {
     PlusIcon,
     DraggableIcon,
     MenuIcon,
+    DownloadIcon,
 };

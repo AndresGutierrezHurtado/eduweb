@@ -58,8 +58,8 @@ export default async function Page({ params }) {
         <>
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
-                    <div className="flex flex-row gap-5">
-                        <div className="w-2/3 flex flex-col gap-10">
+                    <div className="flex flex-col-reverse md:flex-row gap-5">
+                        <div className="w-full md:w-2/3 flex flex-col gap-10">
                             <article>
                                 <h2 className="text-4xl font-semibold leading-tight">
                                     {course.course_name}
@@ -155,7 +155,7 @@ export default async function Page({ params }) {
                                     </div>
                                 </li>
                             </ul>
-                            <section className="flex gap-5 py-5">
+                            <section className="flex flex-col md:flex-row gap-5 py-5">
                                 <div className="space-y-4">
                                     <div>
                                         <div className="badge badge-primary badge-soft border-[var(--color-primary)_!important] rounded text-sm">
@@ -174,7 +174,7 @@ export default async function Page({ params }) {
                                 <img
                                     src="/certificate.png"
                                     alt="Certificado de Platzi"
-                                    className="rounded shadow-md w-2/5"
+                                    className="rounded shadow-md w-full md:w-2/5"
                                 />
                             </section>
                             <section className="space-y-4">
@@ -216,13 +216,13 @@ export default async function Page({ params }) {
                             </section>
                         </div>
 
-                        <div className="w-1/3">
+                        <div className="w-full md:w-1/3">
                             <div className="bg-base-100 rounded-lg border border-white/20 overflow-hidden sticky top-10">
-                                <figure className="w-full h-48 flex items-center justify-center overflow-hidden bg-white relative">
+                                <figure className="w-full aspect-[16/9] flex items-center justify-center overflow-hidden bg-white relative">
                                     <img
                                         src={course.course_image}
                                         alt={course.course_name}
-                                        className="w-full h-full object-contain"
+                                        className="w-full h-full object-cover"
                                     />
                                 </figure>
                                 <div className="p-4 flex flex-col gap-5">

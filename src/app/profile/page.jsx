@@ -35,8 +35,8 @@ export default function Page() {
         <>
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
-                    <div className="flex flex-row gap-5">
-                        <div className="article bg-black/25 border border-base-300 p-8 rounded-lg flex flex-col gap-3 w-2/7 h-fit">
+                    <div className="flex flex-col md:flex-row gap-5">
+                        <div className="article bg-black/25 border border-base-300 p-8 rounded-lg flex flex-col gap-3 w-full md:w-2/7 h-fit">
                             <div className="avatar">
                                 <div className="w-24 rounded-full">
                                     <img src={userSession.user_image} alt="Imagen de perfil" />
@@ -79,7 +79,7 @@ export default function Page() {
                                 Editar perfil
                             </button>
                         </div>
-                        <div className="w-5/7">
+                        <div className="w-full md:w-5/7">
                             <div className="tabs tabs-lift">
                                 <label className="tab">
                                     <input type="radio" name="my_tabs_4" defaultChecked />
@@ -133,12 +133,13 @@ export default function Page() {
                                                     return (
                                                         <article
                                                             key={course.course_id}
-                                                            className="flex gap-8"
+                                                            className="flex flex-col md:flex-row gap-8"
                                                         >
                                                             <Link
                                                                 href={
                                                                     "/courses/" + course.course_id
                                                                 }
+                                                                className="hidden md:block"
                                                             >
                                                                 <div className="avatar bg-black/25 rounded-lg">
                                                                     <div className="w-24 rounded-lg">
@@ -213,12 +214,13 @@ export default function Page() {
                                                     return (
                                                         <article
                                                             key={course.course_id}
-                                                            className="flex gap-8"
+                                                            className="flex flex-col md:flex-row gap-8"
                                                         >
                                                             <Link
                                                                 href={
                                                                     "/courses/" + course.course_id
                                                                 }
+                                                                className="hidden md:block"
                                                             >
                                                                 <div className="avatar bg-black/25 rounded-lg">
                                                                     <div className="w-24 rounded-lg">

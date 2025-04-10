@@ -1,9 +1,9 @@
 "use client";
-import { CheckIcon, CircleCheckIcon } from "@/components/icons";
+import { CheckIcon, CircleCheckIcon, DownloadIcon } from "@/components/icons";
 import { getData } from "@/hooks/useFetch";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Page() {
     const searchParams = useSearchParams();
@@ -15,25 +15,28 @@ export default function Page() {
         setData(data);
     };
 
+    useEffect(() => {
+        document.title = "Validación de certificados | EduWeb";
+    }, []);
     return (
         <>
             {data ? (
                 <section className="w-full px-3">
                     <div className="w-full max-w-[1200px] mx-auto py-10 space-y-8">
-                        <div className="alert bg-gradient-to-r from-primary/80 via-sky-700/40 to-primary/80 from-0% via-50% to-100%  text-white shadow-lg">
+                        <div className="alert bg-gradient-to-r from-primary/80 via-sky-700/40 to-primary/80 from-0% via-50% to-100% text-white shadow-lg">
                             <CircleCheckIcon size={50} />
                             <div>
                                 <h3 className="text-2xl font-bold">El código ha sido verificado</h3>
-                                <div className="text-sm">
+                                <div className="text-xs sm:text-sm">
                                     El certificado digital fue emitido y verificado a través de
                                     EduWeb y toda su información es válida.
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex justify-between items-center pb-4 mb-4">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-5 pb-4 mb-4">
                             <div className="flex items-center gap-5">
-                                <div className="avatar">
+                                <div className="avatar hidden md:block">
                                     <div className="w-12 rounded-full">
                                         <img src={data.course.course_image} alt="Avatar" />
                                     </div>
@@ -55,6 +58,7 @@ export default function Page() {
                                 target="_blank"
                             >
                                 <button className="btn btn-outline btn-primary">
+                                    <DownloadIcon size={16} />
                                     Descargar Certificado
                                 </button>
                             </Link>
@@ -91,7 +95,7 @@ export default function Page() {
             ) : (
                 <section className="w-full px-3">
                     <div className="w-full max-w-[1200px] mx-auto py-10">
-                        <div className="card w-full max-w-md bg-black/25 border border-base-300 shadow-xl p-6 mx-auto">
+                        <div className="card w-full max-w-md bg-black/25 border border-base-300 shadow-xl p-2 md:p-6 mx-auto">
                             <div className="card-body">
                                 <h2 className="text-5xl font-bold text-primary font-alegreya text-center">
                                     EduWeb

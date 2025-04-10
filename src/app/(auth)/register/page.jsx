@@ -1,6 +1,7 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -13,6 +14,8 @@ import { FaGoogle, FaGithub } from "react-icons/fa";
 
 export default function Page() {
     const router = useRouter();
+    const { status } = useSession();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
@@ -28,8 +31,16 @@ export default function Page() {
         }
     };
 
+    useEffect(() => {
+        document.title = "Registrarse | EduWeb";
+
+        if (status === "authenticated") {
+            router.push("/");
+        }
+    }, [status, router]);
+
     return (
-        <div className="min-h-screen flex items-center justify-center py-10">
+        <div className="min-h-screen flex items-center justify-center py-10 px-3">
             <div className="card w-full max-w-md bg-black/20 shadow-xl z-1">
                 <div className="card-body space-y-4">
                     <div className="space-y-2">

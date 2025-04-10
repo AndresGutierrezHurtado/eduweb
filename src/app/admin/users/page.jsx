@@ -89,24 +89,26 @@ export default function AdminUsersPage() {
                                         <td>{user.user_email}</td>
                                         <td className="capitalize">{user.role.role_name}</td>
                                         <td>
-                                            <button
-                                                onClick={() =>
-                                                    document
-                                                        .querySelector(
-                                                            `#edit-modal-${user.user_id}`
-                                                        )
-                                                        .showModal()
-                                                }
-                                                className="btn btn-sm btn-primary shadow-none mr-2"
-                                            >
-                                                Editar
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(user.user_id)}
-                                                className="btn btn-sm btn-error shadow-none"
-                                            >
-                                                Eliminar
-                                            </button>
+                                            <div className="flex flex-wrap gap-2">
+                                                <button
+                                                    onClick={() =>
+                                                        document
+                                                            .querySelector(
+                                                                `#edit-modal-${user.user_id}`
+                                                            )
+                                                            .showModal()
+                                                    }
+                                                    className="btn btn-sm btn-primary shadow-none"
+                                                >
+                                                    Editar
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(user.user_id)}
+                                                    className="btn btn-sm btn-error shadow-none"
+                                                >
+                                                    Eliminar
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
@@ -120,7 +122,7 @@ export default function AdminUsersPage() {
                         </p>
                         <div className="join">
                             <button
-                                className="join-item btn"
+                                className="join-item btn shadow-none"
                                 onClick={() => setPage(page - 1)}
                                 disabled={page === 1}
                             >
@@ -129,17 +131,19 @@ export default function AdminUsersPage() {
                             {Array.from(
                                 { length: Math.ceil(totalUsers / limit) },
                                 (_, i) => i + 1
-                            ).map((page) => (
+                            ).map((bpage) => (
                                 <button
-                                    key={page}
-                                    className={`join-item btn ${page === page ? "btn-active" : ""}`}
-                                    onClick={() => setPage(page)}
+                                    key={bpage}
+                                    className={`join-item btn shadow-none ${
+                                        bpage === page ? "btn-neutral" : ""
+                                    }`}
+                                    onClick={() => setPage(bpage)}
                                 >
-                                    {page}
+                                    {bpage}
                                 </button>
                             ))}
                             <button
-                                className="join-item btn"
+                                className="join-item btn shadow-none"
                                 onClick={() => setPage(page + 1)}
                                 disabled={page === Math.ceil(totalUsers / limit)}
                             >

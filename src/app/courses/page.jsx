@@ -198,7 +198,7 @@ function CourseCard({ course, progress = false, userCourse }) {
     const duration = `${hours} horas ${minutes} minutos`;
 
     return (
-        <div className="bg-base-100 rounded-lg border border-white/20 overflow-hidden w-full min-w-[300px] max-w-[350px] h-full mx-auto">
+        <div className="bg-base-100 rounded-lg border border-white/20 overflow-hidden w-full min-w-[300px] max-w-[350px] h-full mx-auto md:mx-0">
             <Link className="w-full flex flex-col h-full" href={`/courses/${course.course_id}`}>
                 <figure className="w-full aspect-[16/9] group flex items-center justify-center overflow-hidden relative">
                     <img

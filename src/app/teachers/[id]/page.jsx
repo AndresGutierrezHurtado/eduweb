@@ -19,7 +19,7 @@ export default async function Page({ params }) {
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
                     <div className="space-y-8">
-                        <div className="flex flex-col md:flex-row gap-6 items-center">
+                        <div className="flex flex-col md:flex-row text-center md:text-left gap-6 items-center">
                             <div className="avatar">
                                 <div className="w-32 rounded">
                                     <img
@@ -39,7 +39,7 @@ export default async function Page({ params }) {
                                     </div>
                                     <p className="mt-2">{teacher.user_email}</p>
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex justify-center md:justify-start gap-2">
                                     <div className="badge badge-primary badge-soft border-[var(--primary)_!important] text-sm">
                                         {courses.length} cursos
                                     </div>
@@ -58,17 +58,17 @@ export default async function Page({ params }) {
                                 {courses.map((course) => (
                                     <div
                                         key={course.course_id}
-                                        className="bg-base-100 rounded-lg border border-white/20 overflow-hidden w-full min-w-[300px] max-w-[340px]"
+                                        className="bg-base-100 rounded-lg border border-white/20 overflow-hidden w-full min-w-[300px] max-w-[340px] flex flex-col"
                                     >
                                         <Link
-                                            className="w-full"
+                                            className="w-full flex-1 flex flex-col"
                                             href={`/courses/${course.course_id}`}
                                         >
-                                            <figure className="w-full h-48 group flex items-center justify-center overflow-hidden bg-white relative">
+                                            <figure className="w-full aspect-[16/9] group flex items-center justify-center overflow-hidden bg-white relative">
                                                 <img
                                                     src={course.course_image}
                                                     alt={course.course_name}
-                                                    className="w-full h-full object-contain scale-100 group-hover:scale-110 duration-300"
+                                                    className="w-full h-full object-cover scale-100 group-hover:scale-110 duration-300"
                                                 />
                                                 <div className="absolute w-full h-full bg-gradient-to-t from-black/80 to-transparent flex items-end justify-start opacity-0 group-hover:opacity-100 duration-300">
                                                     <button className="btn btn-primary btn-sm text-sm ml-2 mb-2 shadow-none">
@@ -76,8 +76,8 @@ export default async function Page({ params }) {
                                                     </button>
                                                 </div>
                                             </figure>
-                                            <div className="p-4 flex flex-col gap-2">
-                                                <h3 className="text-lg font-semibold grow">
+                                            <div className="p-4 flex flex-col gap-2 flex-1">
+                                                <h3 className="text-lg font-semibold grow leading-tight">
                                                     {course.course_name}
                                                 </h3>
                                                 <div className="flex flex-wrap gap-2">
