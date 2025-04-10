@@ -1,9 +1,13 @@
-import { ArrowRight, CheckIcon, CloseIcon } from "@/components/icons";
-import { getData } from "@/hooks/serverFetch";
-import { authOptions } from "@/lib/authOptions";
-import { getServerSession } from "next-auth";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { getServerSession } from "next-auth";
+
+// Components
+import { ArrowRight, CheckIcon, CloseIcon } from "@/components/icons";
+
+// Utils
+import { getServerData } from "@/hooks/serverFetch.js";
+import { authOptions } from "@/lib/authOptions";
 
 export const metadata = {
     title: "Resultados | EduWeb",
@@ -18,10 +22,9 @@ export default async function Page({ params }) {
         redirect("/login");
     }
 
-    const course = await getData(`/courses/${id}`);
-    const exam = await getData(`/courses/${id}/exam`);
-    const ucourse = await getData(`/users/${user.user_id}/courses/${id}`);
-    const userExam = await getData(`/users/${user.user_id}/courses/${id}/exams/${eId}`);
+    const course = await getServerData(`/courses/${id}`);
+    const exam = await getServerData(`/courses/${id}/exam`);
+    const userExam = await getServerData(`/users/${user.user_id}/courses/${id}/exams/${eId}`);
 
     const assertions = userExam.userAnswers.reduce((acc, answer) => {
         if (answer.answer.is_correct) acc += 1;

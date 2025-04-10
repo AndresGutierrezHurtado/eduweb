@@ -7,7 +7,7 @@ import { authOptions } from "@/lib/authOptions";
 import { ClockIcon, GraduationCapIcon, CubesIcon, TasksIcon } from "@/components/icons";
 
 // Hooks
-import { getData } from "@/hooks/serverFetch";
+import { getServerData } from "@/hooks/serverFetch.js";
 
 export const metadata = {
     title: "Curso | EduWeb",
@@ -18,8 +18,8 @@ export default async function Page({ params }) {
     const data = await getServerSession(authOptions);
     const userSession = data ? data.user : null;
 
-    const course = await getData(`/courses/${id}`);
-    const ucourse = await getData(`/users/${userSession?.user_id}/courses/${id}`);
+    const course = await getServerData(`/courses/${id}`);
+    const ucourse = await getServerData(`/users/${userSession?.user_id}/courses/${id}`);
 
     if (!course) {
         return (

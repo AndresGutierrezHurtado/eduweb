@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
 // Utilities
-import { getData } from "@/hooks/serverFetch";
+import { getServerData } from "@/hooks/serverFetch.js";
 
 export const metadata = {
     title: "Examen | EduWeb",
@@ -22,8 +22,8 @@ export default async function Page({ params }) {
         redirect("/login");
     }
 
-    const course = await getData(`/courses/${id}`);
-    const ucourse = await getData(`/users/${user?.user_id}/courses/${id}`);
+    const course = await getServerData(`/courses/${id}`);
+    const ucourse = await getServerData(`/users/${user?.user_id}/courses/${id}`);
     const examsTaken = ucourse?.examsTaken || [];
 
     return (

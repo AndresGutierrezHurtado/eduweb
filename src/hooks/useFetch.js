@@ -129,7 +129,7 @@ export const useDeleteData = async (endpoint) => {
 export const getData = async (endpoint, alert = true) => {
     const { success, data, message } = await fetchData(endpoint);
 
-    if (!success)
+    if (!success && alert)
         Swal.fire({
             title: "Error",
             text: message,
@@ -137,7 +137,7 @@ export const getData = async (endpoint, alert = true) => {
             background: "var(--color-base-100)",
             color: "var(--color-base-content)",
         });
-    else
+    else if (success && alert)
         Swal.fire({
             title: "Éxito",
             text: message,

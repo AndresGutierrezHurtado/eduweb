@@ -4,13 +4,13 @@ import Link from "next/link";
 import { ClockIcon, GraduationCapIcon, UserIcon } from "@/components/icons";
 
 // Hooks
-import { getData } from "@/hooks/serverFetch.js";
+import { getServerData } from "@/hooks/serverFetch.js";
 
 export default async function Page({ params }) {
     const { id } = await params;
 
-    const teacher = await getData(`/users/${id}`);
-    const courses = await getData(`/users/${id}/teacher`);
+    const teacher = await getServerData(`/users/${id}`);
+    const courses = await getServerData(`/users/${id}/teacher`);
 
     const teacherStudents = courses.flatMap((course) => course.students);
 

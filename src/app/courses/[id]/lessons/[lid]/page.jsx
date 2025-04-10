@@ -1,4 +1,3 @@
-// React and Next.js imports
 import React, { Fragment } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -10,7 +9,7 @@ import { CircleCheckIcon, TasksIcon } from "@/components/icons";
 import VideoPlayer from "@/components/videoPlayer";
 
 // Utils
-import { getData } from "@/hooks/serverFetch";
+import { getServerData } from "@/hooks/serverFetch.js";
 import { authOptions } from "@/lib/authOptions";
 
 export const metadata = {
@@ -26,12 +25,12 @@ export default async function Page({ params }) {
         redirect("/login");
     }
 
-    await getData(`/users/${userSession.user_id}/courses/${id}/lessons/${lid}`);
+    await getServerData(`/users/${userSession.user_id}/courses/${id}/lessons/${lid}`);
 
-    const course = await getData(`/courses/${id}`);
+    const course = await getServerData(`/courses/${id}`);
     const lesson = course.blocks.flatMap((b) => b.lessons).find((l) => l.lesson_id == lid);
     const courseLessons = course.blocks.flatMap((block) => block.lessons);
-    const ucourse = await getData(`/users/${userSession.user_id}/courses/${id}`);
+    const ucourse = await getServerData(`/users/${userSession.user_id}/courses/${id}`);
 
     if (ucourse) {
         const { lessonsTaken } = ucourse;
@@ -53,9 +52,12 @@ export default async function Page({ params }) {
             <section className="w-full px-3">
                 <div className="w-full max-w-[1200px] mx-auto py-10">
                     <div className="flex flex-col gap-10">
-                        <header className="w-full bg-black/25 p-5 rounded-lg flex items-center justify-between">
+                        <header className="w-full bg-black/25 p-5 rounded-lg flex flex-col md:flex-row items-center justify-between">
                             <div className="flex items-center gap-6">
-                                <Link href={`/courses/${id}`} className="btn btn-ghost btn-circle">
+                                <Link
+                                    href={`/courses/${id}`}
+                                    className="btn btn-ghost btn-circle hidden md:inline"
+                                >
                                     <div className="avatar">
                                         <div className="w-16 aspect-square rounded-full bg-black/25 border border-base-300">
                                             <img
@@ -107,8 +109,10 @@ export default async function Page({ params }) {
                             <main className="flex flex-col gap-5 w-3/5">
                                 <VideoPlayer videoId={videoId} />
                                 <div className="bg-black/25 p-5 rounded-lg">
-                                    <h2 className="text-2xl font-bold">Descripcion</h2>
-                                    <Markdown className="markdown">{lesson.lesson_description}</Markdown>
+                                    <h2 className="text-2xl font-bold">Descripción</h2>
+                                    <Markdown className="markdown">
+                                        {lesson.lesson_description}
+                                    </Markdown>
                                 </div>
                             </main>
                             <aside className="flex flex-col gap-5 w-2/5">
