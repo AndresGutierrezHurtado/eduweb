@@ -22,6 +22,7 @@
 
 :root {
     --swiper-pagination-bullet-inactive-color: #f0f9ff;
+    --swal2-border-radius: 0.8rem !important;
 }
 
 .timeline-vertical > li > hr {

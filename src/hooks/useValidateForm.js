@@ -1,16 +1,4 @@
-import {
-    email,
-    maxValue,
-    minLength,
-    minValue,
-    nonEmpty,
-    object,
-    parse,
-    pipe,
-    regex,
-    string,
-    ValiError,
-} from "valibot";
+import { email, minLength, nonEmpty, object, parse, pipe, regex, string, url } from "valibot";
 
 export const useValidateForm = (form, data) => {
     let schema;
@@ -61,10 +49,7 @@ export const useValidateForm = (form, data) => {
                 user_image: pipe(
                     string("La imagen es requerida"),
                     nonEmpty("La imagen es requerida"),
-                    regex(
-                        /^https?:\/\/.*\.(jpg|jpeg|png|gif|bmp|webp)$/i,
-                        "La imagen debe ser una URL válida"
-                    )
+                    url("La imagen debe ser una URL válida")
                 ),
             });
             break;
@@ -93,10 +78,7 @@ export const useValidateForm = (form, data) => {
                 user_image: pipe(
                     string("La imagen es requerida"),
                     nonEmpty("La imagen es requerida"),
-                    regex(
-                        /^https?:\/\/.*\.(jpg|jpeg|png|gif|bmp|webp)$/i,
-                        "La imagen debe ser una URL válida"
-                    )
+                    url("La imagen debe ser una URL válida")
                 ),
             });
             break;

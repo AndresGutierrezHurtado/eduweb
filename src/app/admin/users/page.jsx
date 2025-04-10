@@ -20,6 +20,8 @@ export default function AdminUsersPage() {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
+        document.title = "Administración de Usuarios | Eduweb";
+
         if (status === "unauthenticated") {
             router.push("/api/auth/signin");
         } else if (status === "authenticated" && userSession.role_id !== 3) {
@@ -36,7 +38,13 @@ export default function AdminUsersPage() {
 
     const handleDelete = async (userId) => {
         if (userId === userSession.user_id) {
-            Swal.fire("Error", "No puedes eliminar tu propio usuario", "error");
+            Swal.fire({
+                title: "Error",
+                text: "No puedes eliminar tu propio usuario",
+                icon: "error",
+                background: "var(--color-base-100)",
+                color: "var(--color-base-content)",
+            });
             return;
         }
 
@@ -49,6 +57,8 @@ export default function AdminUsersPage() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Sí, eliminar",
             cancelButtonText: "Cancelar",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
         });
 
         if (result.isConfirmed) {

@@ -109,6 +109,8 @@ export default function CourseEditForm({
                 showCancelButton: true,
                 confirmButtonText: "Ver resultado",
                 cancelButtonText: "Cerrar",
+                background: "var(--color-base-100)",
+                color: "var(--color-base-content)",
             }).then((result) => {
                 if (result.isConfirmed) {
                     router.push(`/courses/${course.course_id}`);
@@ -577,6 +579,8 @@ function ContentForm({ blocks, setBlocks }) {
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
         }).then((result) => {
             if (result.isConfirmed) {
                 const updatedBlocks = blocks.filter((block) => block.block_id !== blockId);
@@ -593,6 +597,8 @@ function ContentForm({ blocks, setBlocks }) {
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
         }).then((result) => {
             if (result.isConfirmed) {
                 const lessonsList = blocks

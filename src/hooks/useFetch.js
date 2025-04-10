@@ -55,8 +55,22 @@ export const usePutData = async (endpoint, body) => {
         body: JSON.stringify(body),
     });
 
-    if (!success) Swal.fire("Error", message, "error");
-    else Swal.fire("Éxito", message, "success");
+    if (!success)
+        Swal.fire({
+            title: "Error",
+            text: message,
+            icon: "error",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
+    else
+        Swal.fire({
+            title: "Éxito",
+            text: message,
+            icon: "success",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
 
     return { success, data, message };
 };
@@ -67,8 +81,22 @@ export const usePostData = async (endpoint, body) => {
         body: JSON.stringify(body),
     });
 
-    if (!success) Swal.fire("Error", message, "error");
-    else Swal.fire("Éxito", message, "success");
+    if (!success)
+        Swal.fire({
+            title: "Error",
+            text: message,
+            icon: "error",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
+    else
+        Swal.fire({
+            title: "Éxito",
+            text: message,
+            icon: "success",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
 
     return { success, data, message };
 };
@@ -78,8 +106,22 @@ export const useDeleteData = async (endpoint) => {
         method: "DELETE",
     });
 
-    if (!success) Swal.fire("Error", message, "error");
-    else Swal.fire("Éxito", message, "success");
+    if (!success)
+        Swal.fire({
+            title: "Error",
+            text: message,
+            icon: "error",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
+    else
+        Swal.fire({
+            title: "Éxito",
+            text: message,
+            icon: "success",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
 
     return { success, data, message };
 };
@@ -87,8 +129,22 @@ export const useDeleteData = async (endpoint) => {
 export const getData = async (endpoint, alert = true) => {
     const { success, data, message } = await fetchData(endpoint);
 
-    if (alert && !success) Swal.fire("Error", message, "error");
-    else if (alert && success) Swal.fire("Éxito", message, "success");
+    if (!success)
+        Swal.fire({
+            title: "Error",
+            text: message,
+            icon: "error",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
+    else
+        Swal.fire({
+            title: "Éxito",
+            text: message,
+            icon: "success",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
+        });
 
     return { success, data, message };
 };

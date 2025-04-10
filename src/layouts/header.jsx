@@ -41,6 +41,8 @@ export default function Header() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Sí, cerrar sesión",
             cancelButtonText: "Cancelar",
+            background: "var(--color-base-100)",
+            color: "var(--color-base-content)",
         }).then((result) => {
             if (result.isConfirmed) {
                 signOut();
