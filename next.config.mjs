@@ -7,6 +7,31 @@ const nextConfig = {
         });
         return config;
     },
+    async headers() {
+        return [
+            {
+                source: "/api/:path*",
+                headers: [
+                    {
+                        key: "Content-Security-Policy",
+                        value: "default-src 'self'",
+                    },
+                    {
+                        key: "Access-Control-Allow-Origin",
+                        value: "*",
+                    },
+                    {
+                        key: "Access-Control-Allow-Headers",
+                        value: "Content-Type, Accept, Accept-Language, Accept-Encoding",
+                    },
+                    {
+                        key: "Access-Control-Allow-Methods",
+                        value: "GET, POST, PUT, DELETE, OPTIONS",
+                    },
+                ],
+            },
+        ];
+    },
 };
 
 export default nextConfig;
