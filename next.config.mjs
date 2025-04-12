@@ -22,7 +22,7 @@ const nextConfig = {
                     },
                     {
                         key: "Access-Control-Allow-Headers",
-                        value: "Content-Type, Accept, Accept-Language, Accept-Encoding",
+                        value: "Content-Type, Accept, Accept-Language, Accept-Encoding, Authorization, X-Requested-With",
                     },
                     {
                         key: "Access-Control-Allow-Methods",
