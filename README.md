@@ -1,6 +1,6 @@
 # 🎓 EduWeb - Plataforma Educativa
 
-EduWeb es una plataforma educativa moderna y robusta desarrollada con tecnologías de vanguardia para ofrecer una experiencia de aprendizaje en línea excepcional. Cuenta con un sistema de certificaciones digitales, gráficas interactivas para visualizar estadísticas de progreso y una interfaz intuitiva para la creación sencilla de cursos.
+EduWeb es una plataforma educativa moderna y robusta desarrollada con Next.js 14 para ofrecer una experiencia de aprendizaje en línea integral. Cuenta con un sistema de certificaciones digitales, gráficas interactivas para visualizar estadísticas de progreso y una interfaz intuitiva para la creación sencilla de cursos.
 
 ![Course Screenshot](/docs/screenshots/courses.png)
 
@@ -25,6 +25,8 @@ EduWeb es una plataforma educativa moderna y robusta desarrollada con tecnologí
     -   DaisyUI
     -   Chart.js para visualizaciones
     -   React Beautiful DnD
+    -   Plyr para reproductores de video
+    -   Valibot para validación de formularios
 
 -   **Backend**:
     -   MySQL con Sequelize-cli ORM
@@ -151,6 +153,11 @@ eduweb/
 -   Descarga de certificado
 -   Validación de certificado
 -   Edición de perfil
+
+### 👨‍🏫 Profesor
+
+-   Acceso al panel de cursos
+-   Gestión de cursos
 
 ### 👨‍💼 Admin
 

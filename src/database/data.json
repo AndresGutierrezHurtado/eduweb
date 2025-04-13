@@ -672,14 +672,14 @@
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
             "lesson_id": "efgh5678-1234-4b9c-a1d2-3a456789bcde",
-            "createdAt": "2025-04-21T20:32:10.000Z",
-            "updatedAt": "2025-04-21T20:32:10.000Z"
+            "createdAt": "2025-04-20T20:33:10.000Z",
+            "updatedAt": "2025-04-20T20:33:10.000Z"
         },
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
             "lesson_id": "ijkl9012-3456-4c7d-a8b9-5d6e789fgh11",
-            "createdAt": "2025-04-22T20:32:10.000Z",
-            "updatedAt": "2025-04-22T20:32:10.000Z"
+            "createdAt": "2025-04-20T20:34:10.000Z",
+            "updatedAt": "2025-04-20T20:34:10.000Z"
         },
         {
             "user_course_id": "c6764d62-84a6-421b-952b-6396c30c5a73",
@@ -701,3 +701,4 @@
         }
     ]
 }
+
