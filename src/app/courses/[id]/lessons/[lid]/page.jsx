@@ -16,7 +16,7 @@ export const metadata = {
     title: "Lección | EduWeb",
 };
 
-export default async function Page({ params }) {
+    export default async function Page({ params }) {
     const { id, lid } = await params;
     const data = await getServerSession(authOptions);
     const userSession = data?.user;

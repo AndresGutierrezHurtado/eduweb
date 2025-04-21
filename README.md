@@ -1,227 +1,224 @@
-# 🎓 EduWeb - Plataforma Educativa
+# 🎓 EduWeb - Educational Platform
 
-EduWeb es una plataforma educativa moderna y robusta desarrollada con Next.js 14 para ofrecer una experiencia de aprendizaje en línea integral. Cuenta con un sistema de certificaciones digitales, gráficas interactivas para visualizar estadísticas de progreso y una interfaz intuitiva para la creación sencilla de cursos.
+[Versión en Español](README.es.md)
 
-![Course Screenshot](/docs/screenshots/courses.png)
+[Mobile Version](https://github.com/AndresGutierrezHurtado/eduweb-mobile)
 
-## 📑 Tabla de contenido
+EduWeb is an online educational platform designed to facilitate the creation, management, and consumption of academic content. Its focus is on providing an intuitive experience for students and teachers, with tools such as digital certifications, progress tracking, interactive exams, and graphical visualizations.
 
--   [Stack Tecnológico](#-stack-tecnológico)
--   [Características](#-características-principales)
--   [Arquitectura](#%EF%B8%8F-arquitectura)
--   [Instalación y Uso](#%EF%B8%8F-instalación-y-desarrollo)
--   [Estructura del Proyecto](#-estructura-del-proyecto)
--   [Contribución](#-contribución)
--   [Flujos de Usuario](#-flujos-funcionales)
--   [API REST](#-api-documentada)
+![Course Screenshot](./docs/screenshots/courses.png)
 
-## 🚀 Stack Tecnológico
+## 📑 Table of Contents
 
--   **Frontend**:
+-   [Main Features](#-main-features)
+-   [Technologies Used](#-technology-stack)
+-   [Architecture](#️-architecture)
+-   [User Flows](#-user-flows)
+-   [Project Structure](#-project-structure)
+-   [Installation and Usage](#️-installation-and-development)
+-   [Contribution](#-contribution)
+-   [Contact](#-contact)
 
-    -   Next.js 14 (App Router)
-    -   React 19
-    -   Tailwind CSS V4
-    -   DaisyUI
-    -   Chart.js para visualizaciones
-    -   React Beautiful DnD
-    -   Plyr para reproductores de video
-    -   Valibot para validación de formularios
+## 📚 Main Features
 
--   **Backend**:
-    -   MySQL con Sequelize-cli ORM
-    -   NextAuth para la auntenticacion
+### 🔐 Authentication and Users
 
-## 📚 Características Principales
+-   Registration and login system with multiple providers (Google, GitHub)
+-   Customizable user profiles
+-   User roles (Student, Teacher, Administrator)
+-   Management of permissions and access
 
-### Autenticación y Usuarios
+![Authentication Screenshot](./docs/screenshots/login.png)
 
--   Sistema de registro y login con múltiples proveedores (Google, GitHub)
--   Perfiles de usuario personalizables
--   Roles de usuario (Estudiante, Profesor, Administrador)
--   Gestión de permisos y accesos
+### 📖 Courses and Learning
 
-![Auth Screenshot](/docs/screenshots/login.png)
+-   Creation and management of courses
+-   Lesson and module system
+-   Multimedia content (videos, documents, images)
+-   Learning progress and tracking
+-   Grading and evaluation system
 
-### Cursos y Aprendizaje
+![Exams Screenshot](./docs/screenshots/exams.png)
 
--   Creación y gestión de cursos
--   Sistema de lecciones y módulos
--   Contenido multimedia (videos, documentos, imágenes)
--   Progreso de aprendizaje y seguimiento
--   Sistema de calificaciones y evaluaciones
+### 🎓 Certificates
 
-![Exams Screenshot](/docs/screenshots/exams.png)
+-   Automatic certificate generation
+-   Certificate validation
+-   Certificate history by user
 
-### Certificados
+![Certificates Screenshot](./docs/screenshots/certificates.png)
 
--   Generación automática de certificados
--   Validación de certificados
--   Historial de certificados por usuario
+### 📊 Analysis and Reports
 
-![Certificates Screenshot](/docs/screenshots/certificates.png)
+-   Dashboard with interactive graphs
+-   Progress statistics
+-   Data visualization with Chart.js
 
-### Análisis y Reportes
+![Progress Screenshot](./docs/screenshots/progress.png)
 
--   Dashboard con gráficos interactivos
--   Estadísticas de progreso
--   Visualización de datos con Chart.js
+### 🖥️ User Interface
 
-![ Screenshot](/docs/screenshots/progress.png)
+-   Responsive and modern design
+-   Drag-and-drop functionalities
+-   Intuitive navigation
 
-### Interfaz de Usuario
+## 🚀 Technology Stack
 
--   Diseño responsivo y moderno
--   Funcionalidades de arrastrar y soltar
--   Navegación intuitiva
+**Frontend**:
 
-## 🏗️ Arquitectura
+-   Next.js 14 (App Router)
+-   React 19
+-   Tailwind CSS V4
+-   DaisyUI
+-   Chart.js for visualizations
+-   React Beautiful DnD
+-   Plyr for video players
+-   Valibot for form validation
 
-![Arquitectura](/docs/arquitecture.png)
+**Backend**:
 
--   El cliente (Next.js) se comunica con la API REST
--   La API maneja la lógica y realiza consultas mediante el ORM Sequelize a la base de datos MySQL
+-   MySQL with Sequelize-cli ORM
+-   NextAuth for authentication
 
-## 🛠️ Instalación y Desarrollo
+## 🏗️ Architecture
 
-1. Desacargar el zip y descomprimirlo:
+![Architecture](./docs/architecture.png)
 
-2. Instalar dependencias:
+-   The client (Next.js) communicates with the REST API
+-   The API handles the logic and queries the MySQL database using the Sequelize ORM
 
-```bash
-npm install
-```
+## 🔄 User Flows
 
-3. Crear la base de datos en PHPMyAdmin:
+### 👤 User
 
-```SQL
-CREATE DATABASE `eduweb`;
-```
+**Registration and Authentication**
 
-4. Copiar el archivo .env.example a .env y configurar las variables de entorno:
+-   User registration with data validation.
+-   Authentication with password recovery options.
 
-```bash
-cp .env.example .env
-```
+**Viewing Available Courses**
 
-5. Ejecutar migraciones sequelize:
+-   Filtering and searching for courses by category.
+-   Viewing course details (description, duration, etc.).
 
-```bash
-npm run db:migrate && npm run db:seed
-```
+**Course Development**
 
-6. Iniciar el servidor de desarrollo:
+-   Creation of interactive content.
+-   Automatic progress saving.
+-   Viewing course progress.
 
-```bash
-npm run dev
-```
+**Certificate Download**
 
-## 📊 Estructura del Proyecto
+-   Automatic certificate generation upon course completion.
+-   Download option in different formats (PDF, image).
 
-```
-eduweb/
-├── src/
-│   ├── app/                 # APP Router
-│   │   ├── api/             # API Endpoints
-│   │   ├── api-docs/        # API Documentation
-│   ├── components/          # React Components
-│   ├── hooks/               # Custom Hooks
-│   ├── lib/                 # Utilities and Configurations
-│   ├── layouts/             # Application Layouts
-│   ├── database/
-│   │   ├── models/          # Sequelize Models
-│   │   ├── migrations/      # Sequelize Migrations
-│   │   ├── seeds/           # Sequelize Seeds
-├── public/                  # Static Files
-```
+**Certificate Validation**
 
-## 🤝 Contribución
+-   Online verification process for third parties.
 
-1. Fork
-2. Crea tu rama: `git checkout -b feature/nueva-funcionalidad`
-3. Haz commit: `git commit -m "Agrega X"`
-4. Push: `git push origin feature/nueva-funcionalidad`
-5. Abre un Pull Request
+**Profile Editing**
 
-## 🔄 Flujos funcionales
+-   Updating personal information and preferences.
+-   Option to change password and privacy settings.
 
-### 🧑‍🍳 Usuario
+### 👨‍🏫 Teacher
 
--   Registro y autenticación
--   Visualización de cursos disponibles
--   Desarrollo del curso
--   Descarga de certificado
--   Validación de certificado
--   Edición de perfil
+**Access to Course Panel**
 
-### 👨‍🏫 Profesor
+-   Viewing assigned courses and their status.
 
--   Acceso al panel de cursos
--   Gestión de cursos
+**Course Management**
+
+-   Creation and editing of courses.
+-   Analysis of student performance.
 
 ### 👨‍💼 Admin
 
--   Acceso al panel de administración
--   Gestión de información de usuarios
+**Access to Administration Panel**
 
-## 📝 API Documentada
+-   Viewing statistics of users and courses.
 
-La API de EduWeb está completamente documentada con Swagger y sigue las mejores prácticas REST. Incluye:
+**User Information Management**
 
-### Endpoints Principales
+-   Editing and deleting user accounts.
+-   Monitoring user activity.
 
-#### Usuarios (`/api`)
+## 🛠️ Installation and Development
 
--   `GET /users` - Listar usuarios (paginado)
--   `GET /users/:id` - Detalles del usuario
--   `PUT /users/:id` - Actualizar usuario
--   `DELETE /users/:id` - Eliminar usuario
--   `GET /users/:id/courses` - Cursos del usuario
--   `GET /users/:id/courses/:courseId` - Detalles de un curso específico del usuario
+1. Clone the repository:
 
-#### Cursos (`/api`)
+    ```bash
+    git clone https://github.com/AndresGutierrezHurtado/eduweb.git
+    cd eduweb
+    ```
 
--   `GET /courses` - Listar cursos (con filtros)
--   `GET /courses/:id` - Detalles del curso
--   `GET /courses/:id/exam` - Obtener examen del curso
+2. Install dependencies:
 
-#### Progreso de Cursos (`/api`)
+    ```bash
+    npm install
+    ```
 
--   `GET /users/:id/courses/:courseId/exams/start` - Iniciar examen del curso
--   `GET /users/:id/courses/:courseId/exams/:examId` - Obtener detalles del examen
--   `POST /users/:id/courses/:courseId/exams/:examId` - Enviar respuestas del examen
--   `GET /users/:id/courses/:courseId/certificate` - Obtener certificado del curso
+3. Create the database in PHPMyAdmin:
 
-#### Certificados (`/api`)
+    ```SQL
+    CREATE DATABASE `eduweb`;
+    ```
 
--   `GET /certificates/:id` - Verificar certificado
+4. Copy the `.env.example` file to `.env` and configure the environment variables:
 
-#### Información (`/api`)
+    ```bash
+    cp .env.example .env
+    ```
 
--   `GET /info` - Información general del sistema
+5. Run Sequelize migrations:
 
-## 🗄️ Modelos de Base de Datos
+    ```bash
+    npm run db:migrate && npm run db:seed
+    ```
 
-La aplicación utiliza Sequelize ORM con los siguientes modelos principales:
+6. Start the development server:
 
--   `User` - Gestión de usuarios y perfiles
--   `Role` - Roles y permisos
--   `Course` - Cursos y contenido educativo
--   `Lesson` - Lecciones y módulos
--   `Exam` - Evaluaciones y exámenes
--   `Question` - Preguntas de evaluación
--   `Answer` - Respuestas y calificaciones
--   `UserCourse` - Relación usuarios-cursos
--   `UserLesson` - Progreso de lecciones
--   `UserExam` - Resultados de exámenes
--   `UserAnswer` - Respuestas de usuarios
--   `Block` - Bloques de lecciones
--   `Category` - Categorías de cursos
--   `Certificate` - Certificados y validaciones
+    ```bash
+    npm run dev
+    ```
 
-## 📞 Contacto
+7. Access the application:
+    - Open your browser and go to `http://localhost:3000` to see the application in action.
 
-Para soporte o consultas, por favor contacta a:
+## 📊 Project Structure
+```
+eduweb/
+├── public/                         # Static files
+│   └── certificates/               # Stored certificates
+└── src/
+    ├── app/                        # Application routes (App Router)
+    │   ├── api/                    # API endpoints
+    │   └── api-docs/               # API documentation
+    │
+    ├── components/                 # Reusable React components
+    ├── hooks/                      # Custom Hooks
+    ├── lib/                        # Utilities and configurations
+    ├── layouts/                    # Application layouts
+    └── database/                   # Database configuration for Sequelize (ORM)
+        ├── models/                 # Sequelize models
+        ├── migrations/             # Sequelize migrations
+        └── seeds/                  # Sequelize seed data
+```
 
--   Email: andres52885241@gmail.com
--   Telefono: 3209202177
+## 🤝 Contribution
+
+1. Fork the repository
+2. Create your branch: `git checkout -b feature/new-feature`
+3. Commit: `git commit -m "Add X"`
+4. Push: `git push origin feature/new-feature`
+5. Open a Pull Request
+
+## 📞 Contact
+
+For support or inquiries, please contact:
+
+-   Andrés Gutiérrez Hurtado
+-   Email: [andres52885241@gmail.com](mailto:andres52885241@gmail.com)
+-   LinkedIn: [Andrés Gutiérrez Hurtado](https://www.linkedin.com/in/andr%C3%A9s-guti%C3%A9rrez-hurtado-25946728b/)
+-   GitHub: [@AndresGutierrezHurtado](https://github.com/AndresGutierrezHurtado)
+-   Portafolio: [Link portfolio](https://andres-portfolio-b4dv.onrender.com)
