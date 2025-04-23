@@ -31,8 +31,7 @@ module.exports = {
             },
             user_phone: {
                 type: Sequelize.DECIMAL,
-                allowNull: false,
-                unique: true,
+                allowNull: true,
             },
             user_password: {
                 type: Sequelize.STRING,
@@ -40,7 +39,7 @@ module.exports = {
             },
             user_image: {
                 type: Sequelize.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             role_id: {
                 type: Sequelize.INTEGER,

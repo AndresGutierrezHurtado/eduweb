@@ -49,6 +49,22 @@ export const authOptions = {
         }),
     ],
     callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+            if (account.provider === "google") {
+                await User.findOrCreate({
+                    where: { user_email: user.email },
+                    defaults: {
+                        user_name: profile.given_name,
+                        user_lastname: profile.family_name,
+                        user_email: user.email,
+                        user_password: user.id,
+                        user_image: profile.picture,
+                        role_id: 1,
+                    },
+                });
+            }
+            return true;
+        },
         async session({ session, token }) {
             const user = await User.findOne({
                 where: { user_email: token.email },

@@ -35,8 +35,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             user_phone: {
                 type: DataTypes.DECIMAL,
-                allowNull: false,
-                unique: true,
+                allowNull: true,
             },
             user_password: {
                 type: DataTypes.STRING,
@@ -44,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             user_image: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             role_id: {
                 type: DataTypes.INTEGER,
